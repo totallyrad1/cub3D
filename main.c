@@ -6,7 +6,7 @@
 /*   By: asnaji <asnaji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 11:01:47 by mozennou          #+#    #+#             */
-/*   Updated: 2024/03/18 13:29:01 by asnaji           ###   ########.fr       */
+/*   Updated: 2024/03/18 13:32:57 by asnaji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int main()
 {
 	t_strct	mlx;
 	t_data data;
-	
+
 	init_graphics(&mlx);
 	init_events(&mlx);
 	mlx_loop(mlx.mlx);
