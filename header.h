@@ -6,7 +6,7 @@
 /*   By: asnaji <asnaji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 11:37:02 by mozennou          #+#    #+#             */
-/*   Updated: 2024/03/18 13:21:48 by asnaji           ###   ########.fr       */
+/*   Updated: 2024/03/18 14:35:59 by asnaji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,5 +45,8 @@ typedef struct s_data
 void	init_graphics(t_strct *mlx);
 void	init_events(t_strct *mlx);
 int		keyclick(int key, void *ptr);
+void	wrerror(char *str);
+char **newmapfn();
+int	checkifmapvalid(char **map);
 
 #endif
