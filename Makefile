@@ -4,17 +4,17 @@ SRCS = main.c mlx.c ./get_next_line/get_next_line_utils.c ./get_next_line/get_ne
 
 OBJS = $(SRCS:.c=.o)
 
-CC = cc -Wall -Wextra -Werror #-fsanitize=address
+CC = cc #-Wall -Wextra -Werror -fsanitize=address
 
 RM = rm -f
 
 MLX = -lm -lmlx -framework OpenGL -framework AppKit
 
 %.o : %.c header.h defines.h 
-	$(CC) -c $< -o $@
+	$(CC) -c $< -o $@ -fsanitize=address -g
 
 $(NAME) : $(OBJS)
-	$(CC) $(MLX) $(OBJS) -o $(NAME)
+	$(CC) $(MLX) $(OBJS) -o $(NAME) -fsanitize=address -g
 
 all : $(NAME)
 
