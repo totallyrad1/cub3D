@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   header.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asnaji <asnaji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mozennou <mozennou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 11:37:02 by mozennou          #+#    #+#             */
-/*   Updated: 2024/03/18 13:21:48 by asnaji           ###   ########.fr       */
+/*   Updated: 2024/03/18 16:26:32 by mozennou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,5 +45,6 @@ typedef struct s_data
 void	init_graphics(t_strct *mlx);
 void	init_events(t_strct *mlx);
 int		keyclick(int key, void *ptr);
+void	pixel_put(t_img *data, int x, int y, int color);
 
 #endif

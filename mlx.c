@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asnaji <asnaji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mozennou <mozennou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 13:18:54 by asnaji            #+#    #+#             */
-/*   Updated: 2024/03/18 13:18:56 by asnaji           ###   ########.fr       */
+/*   Updated: 2024/03/18 16:26:21 by mozennou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,4 +47,12 @@ void	init_events(t_strct *mlx)
 {
 	mlx_hook(mlx->win, ON_DESTROY, 0, destroy, mlx);
 	mlx_hook(mlx->win, ON_KEYDOWN, 0, keyclick, mlx);
+}
+
+void	pixel_put(t_img *data, int x, int y, int color)
+{
+	char	*dst;
+
+	dst = data->bf + (y * data->ln_b + x * (data->pxl_b / 8));
+	*(unsigned int *) dst = color;
 }
