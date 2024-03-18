@@ -1,23 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   syntaxerror.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asnaji <asnaji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/18 11:01:47 by mozennou          #+#    #+#             */
-/*   Updated: 2024/03/18 13:32:57 by asnaji           ###   ########.fr       */
+/*   Created: 2024/03/18 13:34:00 by asnaji            #+#    #+#             */
+/*   Updated: 2024/03/18 13:39:26 by asnaji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "header.h"
+#include "../header.h"
 
-int main()
+int check(char **map, int i, int j)
 {
-	t_strct	mlx;
-	t_data data;
-
-	init_graphics(&mlx);
-	init_events(&mlx);
-	mlx_loop(mlx.mlx);
+	if(map && map[i + 1][j] && map[i + 1][j] != ' ' && map[i + 1][j] != '1')
+	{
+		
+	}
+	if(map && map[i - 1][j] && map[i - 1][j] != ' ' && map[i - 1][j] != '1')
+	{
+		
+	}
+	if(map && map[i][j + 1] && map[i][j + 1] != ' ' && map[i][j + 1] != '1')
+	{
+		
+	}
+	if(map && map[i][j - 1] && map[i][j - 1] != ' ' && map[i][j - 1] != '1')
+	{
+		
+	}
 }
