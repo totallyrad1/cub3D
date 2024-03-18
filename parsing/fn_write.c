@@ -1,28 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   fn_write.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mozennou <mozennou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: asnaji <asnaji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/18 11:01:47 by mozennou          #+#    #+#             */
-/*   Updated: 2024/03/18 21:35:14 by mozennou         ###   ########.fr       */
+/*   Created: 2024/03/18 13:45:45 by asnaji            #+#    #+#             */
+/*   Updated: 2024/03/18 13:52:15 by asnaji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "header.h"
+#include "../header.h"
 
-// render
-
-int main()
+void	wrerror(char *str)
 {
-	// t_strct	mlx;
-	// t_data data;
-
-	if(checkifmapvalid(newmapfn()))
-		return (1);
-	printf("valid map\n");
-// 	init_graphics(&mlx);
-// 	init_events(&mlx);
-// 	mlx_loop(mlx.mlx);
+	if (str)
+		write(2, str, ft_strlen(str));
 }
