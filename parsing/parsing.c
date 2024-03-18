@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asnaji <asnaji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mozennou <mozennou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 00:48:54 by asnaji            #+#    #+#             */
-/*   Updated: 2024/03/18 13:22:03 by asnaji           ###   ########.fr       */
+/*   Updated: 2024/03/18 21:26:49 by mozennou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char *linemodified(char *line, int longestline)
 	return (newline);
 }
 
-char **newmapfn()
+char **newmapfn(void)
 {
 	int arraysize = 0;
 	int longestline = 0;
