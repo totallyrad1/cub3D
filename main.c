@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asnaji <asnaji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mozennou <mozennou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 11:01:47 by mozennou          #+#    #+#             */
-/*   Updated: 2024/03/18 13:02:22 by asnaji           ###   ########.fr       */
+/*   Updated: 2024/03/18 13:31:04 by mozennou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ int main()
 {
 	t_strct	mlx;
 
+	int i = 0;
+	i = 9;
 	init_graphics(&mlx);
 	init_events(&mlx);
 	mlx_loop(mlx.mlx);
