@@ -14,6 +14,8 @@ int main(int ac, char **av)
 	data.WE = NULL;
 	if(parse_everything(&data, &mlx, av[1]) == -1)
 		return (1);
+	if(checkifmapvalid(data.map))
+		return (1);
 	init_events(&mlx);
 	mlx_loop(mlx.mlx);
 }

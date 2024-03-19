@@ -113,7 +113,6 @@ void setvalue(char **linesplit, t_data **data, t_strct **mlx)
 
 int checkvalues(int i1, int i2, int i3)
 {
-	printf("%d %d %d\n", i1, i2, i3);
 	if (i1 < 0 || i1 > 255)
 		return (0);
 	if (i2 < 0 || i2 > 255)
