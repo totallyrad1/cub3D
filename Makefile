@@ -1,10 +1,9 @@
 NAME = cub3D
 
-SRCS = main.c mlx.c ./get_next_line/get_next_line_utils.c ./get_next_line/get_next_line.c ./parsing/parsing.c
-
+SRCS = main.c mlx.c ./get_next_line/get_next_line_utils.c ./get_next_line/get_next_line.c ./parsing/parsing.c ./parsing/fn_write.c ./parsing/syntaxerror.c
 OBJS = $(SRCS:.c=.o)
 
-CC = cc #-Wall -Wextra -Werror -fsanitize=address
+CC = cc #-Wall -Wextra -Werror -g -fsanitize=address
 
 RM = rm -f
 
