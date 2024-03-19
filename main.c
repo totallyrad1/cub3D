@@ -1,26 +1,19 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: asnaji <asnaji@student.42.fr>              +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/18 11:01:47 by mozennou          #+#    #+#             */
-/*   Updated: 2024/03/18 14:45:25 by asnaji           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "header.h"
 
-int main()
+int main(int ac, char **av)
 {
-	// t_strct	mlx;
-	// t_data data;
+	t_strct	mlx;
+	t_data data;
 
-	if(checkifmapvalid(newmapfn()))
+	if(ac != 2)
+		return(wrerror("invalid arguments"), 1);
+	init_graphics(&mlx);
+	data.NO = NULL;
+	data.SO = NULL;
+	data.EA = NULL;
+	data.WE = NULL;
+	if(parse_everything(&data, &mlx, av[1]) == -1)
 		return (1);
-	printf("valid map\n");
-// 	init_graphics(&mlx);
-// 	init_events(&mlx);
-// 	mlx_loop(mlx.mlx);
+	init_events(&mlx);
+	mlx_loop(mlx.mlx);
 }
