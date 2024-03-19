@@ -1,14 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   header.h                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: mozennou <mozennou@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/18 11:37:02 by mozennou          #+#    #+#             */
-/*   Updated: 2024/03/18 16:26:32 by mozennou         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
 
 #ifndef HEADER_H
 # define HEADER_H
@@ -42,9 +31,22 @@ typedef struct s_data
 	char **map;
 }			t_data;
 
+typedef struct s_player
+{
+	float	x;
+	float	y;
+	float	angle;
+
+}	t_player;
+
 void	init_graphics(t_strct *mlx);
 void	init_events(t_strct *mlx);
 int		keyclick(int key, void *ptr);
 void	pixel_put(t_img *data, int x, int y, int color);
+
+
+void	wrerror(char *str);
+char	**newmapfn(void);
+int		checkifmapvalid(char **map);
 
 #endif
