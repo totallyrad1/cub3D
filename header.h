@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   header.h                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: asnaji <asnaji@student.42.fr>              +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/18 11:37:02 by mozennou          #+#    #+#             */
-/*   Updated: 2024/03/18 14:35:59 by asnaji           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #ifndef HEADER_H
 # define HEADER_H
 
@@ -39,7 +27,17 @@ typedef struct s_img
 
 typedef struct s_data
 {
-	char **map;
+	char	**map;
+	void	*SO;
+	void	*EA;
+	void	*WE;
+	void	*NO;
+	int		F1;
+	int		F2;
+	int		F3;
+	int		C1;
+	int		C2;
+	int		C3;
 }			t_data;
 
 void	init_graphics(t_strct *mlx);
@@ -48,5 +46,9 @@ int		keyclick(int key, void *ptr);
 void	wrerror(char *str);
 char **newmapfn();
 int	checkifmapvalid(char **map);
+char	**ft_split(char const *s, char c);
+int		ft_strcmp(const char *s1, const char *s2);
+int ft_atoi(char *str, int *j);
+int parse_everything(t_data *data, t_strct *mlx, char *filename);
 
 #endif
