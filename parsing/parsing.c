@@ -280,7 +280,7 @@ int setmap(t_data **data, int fd, char *filename)
 	if (fd == -1)
 	{
 		wrerror(filename);
-		wrerror("error opening file\n");
+		wrerror(" error opening file\n");
 		return (-1);
 	}
 	(*data)->map = malloc(sizeof(char *) * (arraysize + 1));
@@ -312,7 +312,7 @@ int parse_everything(t_data *data, t_strct *mlx, char *filename)
 	if (fd == -1)
 	{
 		wrerror(filename);
-		wrerror("file doesnt exist\n");
+		wrerror(" file doesnt exist\n");
 		return (-1);
 	}
 	if (setwallsandcolors(&data, &mlx, fd) == -1)

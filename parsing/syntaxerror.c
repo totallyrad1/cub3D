@@ -72,22 +72,22 @@ int	checkifmapvalid(char **map)
 
 	i = 0;
 	count = 0;
-	while(map[i])
+	while (map[i])
 	{
 		j = 0;
-		while(map[i][j])
+		while (map[i][j])
 		{
-			if(map[i][j] == ' ' && !check(map, i , j))
+			if (map[i][j] == ' ' && !check(map, i , j))
 				return (1);
-			if(map[i][j] == '0' && !check2(map, i, j))
+			if (map[i][j] == '0' && !check2(map, i, j))
 				return (1);
-			if(playerchar_found(map[i][j]))
+			if (playerchar_found(map[i][j]))
 				count++;
 			j++;
 		}
 		i++;
 	}
-	if(count != 1)
+	if (count != 1)
 		return (wrerror("less or more than 1 player char found\n"), 1);
 	return (0);
 }
