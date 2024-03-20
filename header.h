@@ -50,5 +50,6 @@ char	**ft_split(char const *s, char c);
 int		ft_strcmp(const char *s1, const char *s2);
 int ft_atoi(char *str, int *j);
 int parse_everything(t_data *data, t_strct *mlx, char *filename);
+int checkfilename(char *filename);
 
 #endif
