@@ -25,9 +25,19 @@ typedef struct s_img
 	int		endian;
 }	t_img;
 
+typedef struct s_player
+{
+    float    x;
+    float    y;
+    float    angle;
+    float    move_speed;
+    float    rotation_speed;
+}    t_player;
+
 typedef struct s_data
 {
 	char	**map;
+	t_player    player;
 	void	*SO;
 	void	*EA;
 	void	*WE;
@@ -40,12 +50,14 @@ typedef struct s_data
 	int		C3;
 }			t_data;
 
+
+
 void	init_graphics(t_strct *mlx);
 void	init_events(t_strct *mlx);
 int		keyclick(int key, void *ptr);
 void	wrerror(char *str);
 char **newmapfn();
-int	checkifmapvalid(char **map);
+int	checkifmapvalid(t_data *data);
 char	**ft_split(char const *s, char c);
 int		ft_strcmp(const char *s1, const char *s2);
 int ft_atoi(char *str, int *j);

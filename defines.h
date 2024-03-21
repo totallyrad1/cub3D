@@ -4,6 +4,11 @@
 # define WIDTH 1000
 # define HEIGHT 800
 
+# define S 0
+# define E (M_PI / 2)
+# define N (M_PI)
+# define W ((M_PI * 3) / 4)
+
 //keys
 # define KEY_ESC 53
 
