@@ -7,7 +7,7 @@
 # define S 0
 # define E (M_PI / 2)
 # define N (M_PI)
-# define W ((M_PI * 3) / 4)
+# define W ((M_PI * 3) / 2)
 
 # define FOV (60 * M_PI / 180)
 
