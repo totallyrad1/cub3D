@@ -78,16 +78,16 @@ int	checkifmapvalid(t_data *data)
 
 	i = 0;
 	count = 0;
-	while ((data)->map[i])
+	while ((data)->mp[i])
 	{
 		j = 0;
-		while ((data)->map[i][j])
+		while ((data)->mp[i][j])
 		{
-			if ((data)->map[i][j] == ' ' && !check((data)->map, i , j))
+			if ((data)->mp[i][j] == ' ' && !check((data)->mp, i , j))
 				return (1);
-			if ((data)->map[i][j] == '0' && !check2((data)->map, i, j))
+			if ((data)->mp[i][j] == '0' && !check2((data)->mp, i, j))
 				return (1);
-			if (playerchar_found((data)->map[i][j], &(data->player.angle)))
+			if (playerchar_found((data)->mp[i][j], &(data->player.angle)))
 			{
 				data->player.x = i;
 				data->player.y = j;
