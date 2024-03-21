@@ -283,10 +283,10 @@ int setmap(t_data **data, int fd, char *filename)
 		wrerror(" error opening file\n");
 		return (-1);
 	}
-	(*data)->map = malloc(sizeof(char *) * (arraysize + 1));
-	if (!(*data)->map)
+	(*data)->mp = malloc(sizeof(char *) * (arraysize + 1));
+	if (!(*data)->mp)
 		return (wrerror("allocation error"), -1);
-	(*data)->map[arraysize] = NULL;
+	(*data)->mp[arraysize] = NULL;
 	line = get_next_line(fd);
 	while(i < 8)
 	{
@@ -295,9 +295,9 @@ int setmap(t_data **data, int fd, char *filename)
 		i++;
 	}
 	i = 0;
-	while((*data)->map[i] && line)
+	while((*data)->mp[i] && line)
 	{
-		(*data)->map[i] = linemodified(line, longestline);
+		(*data)->mp[i] = linemodified(line, longestline);
 		line = get_next_line(fd);
 		i++;
 	}
