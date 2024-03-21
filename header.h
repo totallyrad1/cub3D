@@ -57,7 +57,6 @@ void	init_graphics(t_strct *mlx);
 void	init_events(t_strct *mlx);
 int		keyclick(int key, void *ptr);
 void	wrerror(char *str);
-char **newmapfn();
 void	render2(t_data *data, t_strct	*mlx);
 int	checkifmapvalid(t_data *data);
 char	**ft_split(char const *s, char c);

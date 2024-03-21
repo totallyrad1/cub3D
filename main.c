@@ -59,18 +59,6 @@ void	render(t_data *data, t_strct	*mlx)
 	data->player.y = data->player.y * wlen + wlen / 2;
 	data->player.move_speed = 4;
 	data->player.rotation_speed = 10 * (M_PI / 180);
-	// for (int i = 0; i < WIDTH / wlen; i++)
-	// {
-	// 	for (int j = 0; j < HEIGHT / hlen; j++)
-	// 	{
-	// 		if (data->mp[j][i] == 'P')
-	// 		{
-	// 			data->player.x = j * hlen + hlen / 2;
-	// 			data->player.y = i * wlen + wlen / 2;
-	// 			data->player.angle = 0;
-	// 		}
-	// 	}
-	// }
 	for (int i = 0; i < WIDTH; i++)
 	{
 		for (int j = 0; j < HEIGHT; j++)

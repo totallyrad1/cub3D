@@ -1,30 +1,30 @@
 #include "../header.h"
 
-int check1(char c)
+int check0(char c)
 {
 	if (c != ' ' && c != '1' && c != '\n' && c != '\0')
 		return (1);
 	return (0);
 }
 
-int check(char **map, int i, int j)
+int check1(char **map, int i, int j)
 {
-	if (map && map[i + 1] && check1(map[i + 1][j]))
+	if (map && map[i + 1] && check0(map[i + 1][j]))
 	{
 		wrerror("invalid map\n");
 		return (0);
 	}
-	if (map && i - 1 >= 0 && check1(map[i - 1][j]))
+	if (map && i - 1 >= 0 && check0(map[i - 1][j]))
 	{
 		wrerror("invalid map\n");
 		return (0);
 	}
-	if (map && map[i][j + 1] && check1(map[i][j + 1]))
+	if (map && map[i][j + 1] && check0(map[i][j + 1]))
 	{
 		wrerror("invalid map\n");
 		return (0);
 	}
-	if (map && j - 1 >= 0 && check1(map[i][j - 1]))
+	if (map && j - 1 >= 0 && check0(map[i][j - 1]))
 	{
 		wrerror("invalid map\n");
 		return (0);
@@ -70,11 +70,21 @@ int playerchar_found(char c, float *angle)
 	return (0);
 }
 
+int	check(char c)
+{
+	if (c == ' ' || c == '0' || c == '1'
+		|| c == 'N' || c == 'S' || c == 'E'
+		|| c == 'W')
+		return (0);
+	return (1);
+}
+
 int	checkifmapvalid(t_data *data)
 {
-	int	i;
-	int	j;
-	int count;
+	int		i;
+	int		j;
+	int 	count;
+	char	c;
 
 	i = 0;
 	count = 0;
@@ -83,11 +93,14 @@ int	checkifmapvalid(t_data *data)
 		j = 0;
 		while ((data)->mp[i][j])
 		{
-			if ((data)->mp[i][j] == ' ' && !check((data)->mp, i , j))
+			c = (data)->mp[i][j];
+			if (check(c))
+				return (wrerror("invalid map\n"), 1);
+			if (c == ' ' && !check1((data)->mp, i , j))
 				return (1);
-			if ((data)->mp[i][j] == '0' && !check2((data)->mp, i, j))
+			if (c == '0' && !check2((data)->mp, i, j))
 				return (1);
-			if (playerchar_found((data)->mp[i][j], &(data->player.angle)))
+			if (playerchar_found(c, &(data->player.angle)))
 			{
 				data->player.x = i;
 				data->player.y = j;

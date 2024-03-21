@@ -16,48 +16,6 @@ char *linemodified(char *line, int longestline)
 	return (newline);
 }
 
-char **newmapfn()
-{
-	int arraysize = 0;
-	int longestline = 0;
-	int i = 0;
-	int fd = open("map.cub", O_CREAT | O_RDWR, 0777);
-	char **newmap;
-	char *line;
-	line = NULL;
-	line = get_next_line(fd);
-	if(!line)
-		return NULL;
-	while(line)
-	{
-		arraysize++;
-		if((int)ft_strlen(line) > longestline)
-			longestline = ft_strlen(line);
-		free(line);
-		line = get_next_line(fd);
-	}
-	if	(line)
-		free(line);
-	close(fd);
-	newmap = malloc(sizeof(char *) * (arraysize + 1));
-	if (!newmap)
-		return (NULL);
-	newmap[arraysize] = NULL;
-	fd = open("map.cub", O_CREAT | O_RDWR, 0777);
-	line = NULL;
-	line = get_next_line(fd);
-	if(!line)
-		return NULL;
-	while(newmap[i] && line)
-	{
-		newmap[i] = linemodified(line, longestline);
-		line = get_next_line(fd);
-		i++;
-	}
-	newmap[i] = NULL;
-	return newmap;
-}
-
 void free_array(char **line)
 {
 	int	i;
@@ -276,7 +234,7 @@ int setmap(t_data **data, int fd, char *filename)
 		line = get_next_line(fd);
 	}
 	close(fd);
-	fd = open(filename, O_RDWR);
+	fd = open(filename, O_RDWR);			//not closed file descriptor detected by amine_oz LOL
 	if (fd == -1)
 	{
 		wrerror(filename);
