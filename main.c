@@ -9,6 +9,8 @@ int main(int ac, char **av)
 		return(wrerror("invalid arguments"), 1);
 	if (checkfilename(av[1]) == -1)
 		return (1);
+	if (checkvalidchars(av[1]) == -1)
+		return (1);
 	init_graphics(&mlx);
 	data.NO = NULL;
 	data.SO = NULL;
