@@ -259,6 +259,7 @@ int setmap(t_data **data, int fd, char *filename)
 		line = get_next_line(fd);
 		i++;
 	}
+	close(fd);
 	return (1);
 }
 
