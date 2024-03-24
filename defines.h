@@ -1,15 +1,17 @@
 #ifndef MACROS_H
 # define MACROS_H
 
-# define WIDTH 1000
-# define HEIGHT 800
+# define WIDTH 1024
+# define HEIGHT 960
 
-# define S 0
-# define E (M_PI / 2)
-# define N (M_PI)
-# define W ((M_PI * 3) / 2)
+# define E 0
+# define S (M_PI / 2)
+# define W (M_PI)
+# define N ((M_PI * 3) / 2)
 
 # define FOV (60 * M_PI / 180)
+
+# define TILE_SIZE 64
 
 //keys
 # define KEY_ESC 53

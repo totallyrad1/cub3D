@@ -20,8 +20,8 @@ typedef struct s_img
 
 typedef struct s_player
 {
-    float    x;
-    float    y;
+    int	    x;
+    int	    y;
     float    angle;
     float    move_speed;
     float    rotation_speed;
@@ -31,18 +31,26 @@ typedef struct s_data
 {
 	char	**mp;
 	t_player    player;
-	int		w;
-	int		h;
+	int		hxstep;
+	int		hystep;
+	int		vxstep;
+	int		vystep;
+	int		xinter;
+	int		yinter;
+	int		hhitx;
+	int		hhity;
+	int		vhitx;
+	int		vhity;
 	void	*SO;
 	void	*EA;
 	void	*WE;
 	void	*NO;
-	int		F1;
-	int		F2;
-	int		F3;
-	int		C1;
-	int		C2;
-	int		C3;
+	int		w;
+	int		h;
+	int		f_color;
+	int		c_color;
+	int		xlen;
+	int		ylen;
 }			t_data;
 
 typedef struct s_strct
@@ -66,5 +74,10 @@ int parse_everything(t_data *data, t_strct *mlx, char *filename);
 int checkfilename(char *filename);
 void	pixel_put(t_img *data, int x, int y, int color);
 int checkvalidchars(char *filename);
+
+//ray_casting.c
+double  normalizeangle(double angle);  //not used
+int		cast(t_data *data, float angle);	//too
+
 
 #endif
