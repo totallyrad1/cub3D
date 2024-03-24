@@ -28,7 +28,7 @@ int	destroy(t_strct *mlx)
 	mlx_destroy_image(mlx->mlx, mlx->img);
 	mlx_destroy_window(mlx->mlx, mlx->win);
 	free(mlx->mlx);
-	// free_map(mlx->data->mp);
+	free_map(mlx->data->mp);
 	exit(0);
 	return (0);
 }
@@ -42,7 +42,7 @@ int	is_ok(t_data *d, int m_x, int m_y)
 	y = d->player.y + m_y;
 	if (d->mp[x / d->h][y / d->w] == '1')
 		return (0);
-	if ((d->mp[(int)(x - d->player.move_speed) / d->h][y / d->w] == '1'
+	if ((d->mp[(int)(x - d->player.move_speed) / d->h][y / d->w] == '1'  //re
 		&& d->mp[x / d->h][(int)(y - d->player.move_speed) / d->w] == '1' ) ||
 		(d->mp[(int)(x + d->player.move_speed) / d->h][y / d->w] == '1'
 		&& d->mp[x / d->h][(int)(y + d->player.move_speed) / d->w] == '1' ) ||
@@ -63,8 +63,8 @@ int	keyclick(int key, void *ptr)
 
 	mlx = ptr;
 	data = mlx->data;
-	xx = cos(data->player.angle) * data->player.move_speed;
-	yy = sin(data->player.angle) * data->player.move_speed;
+	xx = sin(data->player.angle) * data->player.move_speed;
+	yy = cos(data->player.angle) * data->player.move_speed;
 	if (key == KEY_ESC)
 		destroy(mlx);
 	else if (key == UP_KEY && is_ok(data, xx, yy))
@@ -87,9 +87,9 @@ int	keyclick(int key, void *ptr)
 		data->player.x += yy;
 		data->player.y -= xx;
 	}
-	else if (key == RRIGHT_KEY)
-		data->player.angle += data->player.rotation_speed;
 	else if (key == RLEFT_KEY)
+		data->player.angle += data->player.rotation_speed;
+	else if (key == RRIGHT_KEY)
 		data->player.angle -= data->player.rotation_speed;
 	render2(data, mlx);
 	return (0);

@@ -80,28 +80,36 @@ int checkvalues(int i1, int i2, int i3)
 	return (1);
 }
 
+int	to_color(int r, int g, int b)
+{
+	return (((r) << 16) | ((g) << 8) | (b));
+}
+
 int setvalue1(char **linesplit, t_data **data)
 {
-	int i;
 	int j;
+	int	r;
+	int	g;
+	int	b;
 
-	i = 0;
 	j = 0;
 	if (!ft_strcmp(linesplit[0], "C"))
 	{
-		(*data)->C1 = ft_atoi(linesplit[1], &j);
-		(*data)->C2 = ft_atoi(linesplit[1], &j);
-		(*data)->C3 = ft_atoi(linesplit[1], &j);
-		if(!checkvalues((*data)->C1, (*data)->C2, (*data)->C3))
+		r = ft_atoi(linesplit[1], &j);
+		g = ft_atoi(linesplit[1], &j);
+		b = ft_atoi(linesplit[1], &j);
+		if(!checkvalues(r, g, b))
 			return (0);
+		(*data)->f_color = to_color(r, g, b);
 	}
 	if (!ft_strcmp(linesplit[0], "F"))
 	{
-		(*data)->F1 = ft_atoi(linesplit[1], &j);
-		(*data)->F2 = ft_atoi(linesplit[1], &j);
-		(*data)->F3 = ft_atoi(linesplit[1], &j);
-		if(!checkvalues((*data)->F1, (*data)->F2, (*data)->F3))
+		r = ft_atoi(linesplit[1], &j);
+		g = ft_atoi(linesplit[1], &j);
+		b = ft_atoi(linesplit[1], &j);
+		if(!checkvalues(r, g, b))
 			return (0);
+		(*data)->c_color = to_color(r, g, b);
 	}
 	return (1);
 }
