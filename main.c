@@ -113,10 +113,12 @@ void	render(t_data *data, t_strct	*mlx)
 				pixel_put(&img, i, j, 0x00AAFF);
 			if (i <= data->player.y + 3 && j <= data->player.x + 3 && i > data->player.y - 3 && j > data->player.x - 3)
 				pixel_put(&img, i, j, 0xFF0000);
-			if (in_line1(i, j, data) || in_line(i, j, data) || in_line00(i, j, data))
-			{
+			if (in_line1(i, j, data))
 				pixel_put(&img, i, j, 0xFFFFFF);
-			}
+			if (data->hhitx != -1 && in_line(i, j, data))
+				pixel_put(&img, i, j, 0xFFFFFF);
+			if (data->vhitx != -1 && in_line00(i, j, data))
+				pixel_put(&img, i, j, 0xFFFFFF);
 		}
 	}
 	mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->img, 0, 0);
@@ -142,7 +144,11 @@ void	render2(t_data *data, t_strct	*mlx)
 				pixel_put(&img, i, j, 0x000000);
 			if (i <= data->player.y + 3 && j <= data->player.x + 3 && i > data->player.y - 3 && j > data->player.x - 3)
 				pixel_put(&img, i, j, 0xFF0000);
-			if (in_line1(i, j, data) || in_line(i, j, data) || in_line00(i, j, data))
+			if (in_line1(i, j, data))
+				pixel_put(&img, i, j, 0xFFFFFF);
+			if (data->hhitx != -1 && in_line(i, j, data))
+				pixel_put(&img, i, j, 0xFFFFFF);
+			if (data->vhitx != -1 && in_line00(i, j, data))
 				pixel_put(&img, i, j, 0xFFFFFF);
 		}
 	}

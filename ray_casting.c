@@ -29,16 +29,17 @@ int	h_cast(t_data *data, float angle, int xstep, int ystep)
 	int	right;
 
 	direction_angle(&up, &right, angle);
+	data->hhitx = -1;
 	xinter = (data->player.x / TILE_SIZE) * TILE_SIZE;
 	xinter += TILE_SIZE * up;
 	yinter = data->player.y + (xinter - data->player.x) / tan(data->player.angle);
-	
 	xstep = TILE_SIZE * !up * -2 + TILE_SIZE;
 	ystep = TILE_SIZE / tan(data->player.angle);
-	ystep += -2 * ystep * (!right && ystep > 0);
-	ystep += -2 * ystep * (right && ystep < 0);
+	if (!right && ystep > 0)
+		ystep *= -1;
+	if (right && ystep < 0)
+		ystep *= -1;
 	xinter = xinter - 1 * !up;
-	
 	while (xinter >= 0 && xinter < WIDTH && yinter >= 0 && yinter < HEIGHT)
 	{
 		if (data->mp[xinter / TILE_SIZE][yinter / TILE_SIZE] == '1')
@@ -64,14 +65,17 @@ int	v_cast(t_data *data, float angle, int xstep, int ystep)
 	int	right;
 
 	direction_angle(&up, &right, angle);
+	data->vhitx = -1;
 	yinter = (data->player.y / TILE_SIZE) * TILE_SIZE;
 	yinter += TILE_SIZE * right;
 	xinter = data->player.x + (yinter - data->player.y) * tan(data->player.angle);
 	
 	ystep = TILE_SIZE * -2 * !right + TILE_SIZE;
 	xstep = TILE_SIZE * tan(data->player.angle);
-	xstep += -2 * xstep * (!up && xstep > 0);
-	xstep += -2 * xstep * (up && xstep < 0);
+	if (!up && xstep > 0)
+		xstep *= -1;
+	if (up && xstep < 0)
+		xstep *= -1;
 	yinter += -1 * !right;
 	// data->vhitx = xinter + xstep * 2;
 	// data->vhity = yinter + ystep * 2;
