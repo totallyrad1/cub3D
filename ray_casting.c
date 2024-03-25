@@ -70,15 +70,18 @@ int	v_cast(t_data *data, float angle, int xstep, int ystep)
 	
 	ystep = TILE_SIZE * -2 * !right + TILE_SIZE;
 	xstep = TILE_SIZE * tan(data->player.angle);
-	xstep += -2 * xstep * (up && xstep > 0);
-	xstep += -2 * xstep * (!up && xstep < 0);
+	xstep += -2 * xstep * (!up && xstep > 0);
+	xstep += -2 * xstep * (up && xstep < 0);
 	yinter += -1 * !right;
-	while (xinter >= 0 && xinter < WIDTH && yinter >= 0 && yinter < HEIGHT)
+	// data->vhitx = xinter + xstep * 2;
+	// data->vhity = yinter + ystep * 2;
+	// return (0);
+	while (xinter >= 0 && xinter < HEIGHT && yinter >= 0 && yinter < WIDTH)
 	{
 		if (data->mp[xinter / TILE_SIZE][yinter / TILE_SIZE] == '1')
 		{
-			data->hhitx = xinter;
-			data->hhity = yinter;
+			data->vhitx = xinter;
+			data->vhity = yinter;
 			break ;
 		}
 		else
@@ -94,7 +97,7 @@ int	cast(t_data *data, float angle)
 {
 	//horizontal intersection
 	h_cast(data, angle, 0, 0);
-	// v_cast(data, angle, 0, 0);
+	v_cast(data, angle, 0, 0);
 	return (0);
 }
 
