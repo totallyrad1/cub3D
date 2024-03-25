@@ -31,12 +31,6 @@ typedef struct s_data
 {
 	char	**mp;
 	t_player    player;
-	int		hxstep;
-	int		hystep;
-	int		vxstep;
-	int		vystep;
-	int		xinter;
-	int		yinter;
 	int		hhitx;
 	int		hhity;
 	int		vhitx;
