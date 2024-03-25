@@ -21,6 +21,11 @@ void	direction_angle(int	*up, int *right, float angle)
 		*right = 1;
 }
 
+int	dis(int x1, int y1, int x2, int y2)
+{
+	return (sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1)));
+}
+
 int	h_cast(t_data *data, float angle, int xstep, int ystep)
 {
 	int	xinter;
@@ -54,7 +59,9 @@ int	h_cast(t_data *data, float angle, int xstep, int ystep)
 			yinter += ystep;
 		}
 	}
-	return (0);
+	if (data->hhitx == -1)
+		return (-1);
+	return (dis(data->player.x, data->player.y, data->hhitx, data->hhity));
 }
 
 int	v_cast(t_data *data, float angle, int xstep, int ystep)
@@ -77,9 +84,6 @@ int	v_cast(t_data *data, float angle, int xstep, int ystep)
 	if (up && xstep < 0)
 		xstep *= -1;
 	yinter += -1 * !right;
-	// data->vhitx = xinter + xstep * 2;
-	// data->vhity = yinter + ystep * 2;
-	// return (0);
 	while (xinter >= 0 && xinter < HEIGHT && yinter >= 0 && yinter < WIDTH)
 	{
 		if (data->mp[xinter / TILE_SIZE][yinter / TILE_SIZE] == '1')
@@ -94,15 +98,33 @@ int	v_cast(t_data *data, float angle, int xstep, int ystep)
 			yinter += ystep;
 		}
 	}
-	return (0);
+	if (data->vhitx == -1)
+		return (-1);
+	return (dis(data->player.x, data->player.y, data->vhitx, data->vhity));
 }
 
 int	cast(t_data *data, float angle)
 {
-	//horizontal intersection
-	h_cast(data, angle, 0, 0);
-	v_cast(data, angle, 0, 0);
-	return (0);
+	int	hdis;
+	int	vdis;
+
+	hdis = h_cast(data, angle, 0, 0);
+	vdis = v_cast(data, angle, 0, 0);
+	if (hdis == -1)
+	{
+		data->hhitx = data->vhitx;
+		data->hhity = data->vhity;
+		return (vdis);
+	}
+	if (vdis == -1)
+		return (hdis);
+	if (hdis > vdis)
+	{
+		data->hhitx = data->vhitx;
+		data->hhity = data->vhity;
+		return (vdis);
+	}
+	return (hdis);
 }
 
 
