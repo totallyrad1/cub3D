@@ -104,7 +104,7 @@ void	render(t_data *data, t_strct	*mlx)
 	data->player.move_speed = 4;
 	data->player.rotation_speed = 10 * (M_PI / 180);
 	float	ray_angle = data->player.angle;
-	cast(data, normalizeangle(ray_angle));
+	printf("%d\n", cast(data, normalizeangle(ray_angle)));
 	for (int i = 0; i < WIDTH; i++)
 	{
 		for (int j = 0; j < HEIGHT; j++)
@@ -117,8 +117,8 @@ void	render(t_data *data, t_strct	*mlx)
 				pixel_put(&img, i, j, 0xFFFFFF);
 			if (data->hhitx != -1 && in_line(i, j, data))
 				pixel_put(&img, i, j, 0xFFFFFF);
-			if (data->vhitx != -1 && in_line00(i, j, data))
-				pixel_put(&img, i, j, 0xFFFFFF);
+			// if (data->vhitx != -1 && in_line00(i, j, data))
+			// 	pixel_put(&img, i, j, 0xFFFFFF);
 		}
 	}
 	mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->img, 0, 0);
@@ -133,7 +133,7 @@ void	render2(t_data *data, t_strct	*mlx)
 	img.bf = mlx_get_data_addr(mlx->img, &img.pxl_b, &img.ln_b, &img.endian);
 	int	wlen = WIDTH / strlen(data->mp[0]) + 1, hlen = HEIGHT / len(data->mp) + 1;
 	float	ray_angle = data->player.angle;
-	cast(data, normalizeangle(ray_angle));
+	printf("%d\n", cast(data, normalizeangle(ray_angle)));
 	for (int i = 0; i < WIDTH; i++)
 	{
 		for (int j = 0; j < HEIGHT; j++)
@@ -148,8 +148,8 @@ void	render2(t_data *data, t_strct	*mlx)
 				pixel_put(&img, i, j, 0xFFFFFF);
 			if (data->hhitx != -1 && in_line(i, j, data))
 				pixel_put(&img, i, j, 0xFFFFFF);
-			if (data->vhitx != -1 && in_line00(i, j, data))
-				pixel_put(&img, i, j, 0xFFFFFF);
+			// if (data->vhitx != -1 && in_line00(i, j, data))
+			// 	pixel_put(&img, i, j, 0xFFFFFF);
 		}
 	}
 	mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->img, 0, 0);
