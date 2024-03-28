@@ -47,9 +47,10 @@ int	circle(int i, int j, t_data *data)
 
 t_ray *test(t_data *data)
 {
-	int	m = 200;
+	int	m = 300;
 	t_ray	*rays = malloc(sizeof(t_ray) * m);
 	double angle = data->angle - (FOV / 2);
+	float res = FOV / m;
 	for (int i = 0; i < m; i++)
 	{
 		angle = normalize(angle);
@@ -57,7 +58,7 @@ t_ray *test(t_data *data)
 		rays[i].hitx = data->hhitx;
 		rays[i].hity = data->hhity;
 		rays[i].ver = data->ver;
-		angle += .3 * M_PI/180;
+		angle += res;
 	}
 	return (rays);
 }
@@ -75,6 +76,46 @@ int func(t_data *data, t_ray *rays, int i, int j)
 		}
 	}
 	return (0);
+}
+void wa333(int x1, int y1, int x2, int y2, t_strct *mlx, int l)
+{
+	int dx = abs(x2 - x1);
+    int dy = abs(y2 - y1);
+    int sx = (x1 < x2) ? 1 : -1;
+    int sy = (y1 < y2) ? 1 : -1;
+    int err = dx - dy;
+
+    while (1) {
+		if (l)
+			pixel_put(mlx, x1, y1, 0XFF0000);
+		else
+			pixel_put(mlx, x1, y1, 0X00FF00);
+        if (x1 == x2 && y1 == y2) {
+            break;
+        }
+
+        int e2 = 2 * err;
+        if (e2 > -dy) {
+            err -= dy;
+            x1 += sx;
+        }
+        if (e2 < dx) {
+            err += dx;
+            y1 += sy;
+        }
+	}
+}
+void func1(t_data *data, t_ray *rays,t_strct *mlx)
+{
+	int x1, y1, x2, y2;
+	for (int i = 0; i < 300; i++)
+	{
+		x1 = data->x;
+		y1 = data->y;
+		x2 = rays[i].hitx;
+		y2 = rays[i].hity;
+		wa333(x1, y1, x2, y2, mlx, rays[i].ver);
+	}
 }
 
 int	render(void *ptr)
@@ -102,21 +143,22 @@ int	render(void *ptr)
 		j = 0;
 		while (j < HEIGHT)
 		{
-			f = func(data, rays, i, j);
+			// f = func(data, rays, i, j);
 			if (circle(i, j, data))
 				pixel_put(mlx, i, j, 0xFF0000);
-			// else if (in_line(data->x, data->y, data->hhitx, data->hhity, j, i))
+			// else if (in_line(data->x, data->y, data->x + cos(data->angle) * 20, data->y + sin(data->angle) * 20, j, i))
 			// 	pixel_put(mlx, i, j, 0xFFFFFF);
-			else if (f == 1)
-					pixel_put(mlx, i, j, 0x00FF00); //green vertiacal
-			else if (f == 2)
-					pixel_put(mlx, i, j, 0xFF0000); //red horizontal
+			// else if (f == 1)
+			// 		pixel_put(mlx, i, j, 0x00FF00); //green vertiacal
+			// else if (f == 2)
+			// 		pixel_put(mlx, i, j, 0xFF0000); //red horizontal
 			else if (data->mp[j / TILE_SIZE][i / TILE_SIZE] == '1' || !(i % TILE_SIZE) || !(j % TILE_SIZE))
 				pixel_put(mlx, i, j, 0x00AAAA);
 			j++;
 		}
 		i++;
 	}
+	func1(data, rays, mlx);
 	free(rays);
 	mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->img, 0, 0);
 	// free(mlx->)
