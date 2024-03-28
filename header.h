@@ -20,6 +20,9 @@ typedef struct s_data
     float    angle;
     float    move_speed;
     float    rotation_speed;
+	int		walk;
+	int		left_right;
+	int		turn;
 	char	**mp;
 	int		hhitx;
 	int		hhity;

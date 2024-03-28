@@ -36,63 +36,48 @@ int	destroy(t_strct *mlx)
 	return (0);
 }
 
-int	is_ok(t_data *data, int x, int y)
-{
-	int a;
-
-	a = data->move_speed / 2;
-	if (data->mp[y / TILE_SIZE][x / TILE_SIZE] == '1')
-		return (0);
-	if (data->mp[(y + a)  / TILE_SIZE][x / TILE_SIZE] == '1'
-		|| data->mp[y  / TILE_SIZE][(x + a) / TILE_SIZE] == '1'
-		|| data->mp[(y - a)  / TILE_SIZE][x / TILE_SIZE] == '1'
-		|| data->mp[y  / TILE_SIZE][(x - a) / TILE_SIZE] == '1')
-		return (0);
-	return (1);
-}
-
 int	keyclick(int ky, void *ptr)
 {
 	t_strct	*mlx;
-	t_data	*dt;
+	t_data	*data;
 	int		xx;
 	int		yy;
 
 	mlx = ptr;
-	dt = mlx->data;
-	xx = cos(dt->angle) * dt->move_speed;
-	yy = sin(dt->angle) * dt->move_speed;
+	data = mlx->data;
+	xx = cos(data->angle) * data->move_speed;
+	yy = sin(data->angle) * data->move_speed;
 	if (ky == KEY_ESC)
 		destroy(mlx);
-	else if ((ky == UP_KEY || ky == 126) && is_ok(dt, dt->x + xx, dt->y + yy))
-	{
-		dt->x += xx;
-		dt->y += yy;
-	}
-	else if ((ky == DOWN_KEY || ky == 125) && is_ok(dt, dt->x - xx, dt->y - yy))
-	{
-		dt->x -= xx;
-		dt->y -= yy;
-	}
-	else if (ky == LEFT_KEY && is_ok(dt, dt->x + yy, dt->y - xx))
-	{
-		dt->x += yy;
-		dt->y -= xx;
-	}
-	else if (ky == RIGHT_KEY && is_ok(dt, dt->x - yy, dt->y + xx))
-	{
-		dt->x -= yy;
-		dt->y += xx;
-	}
+	else if ((ky == UP_KEY || ky == 126))
+		data->walk = 1;
+	else if ((ky == DOWN_KEY || ky == 125))
+		data->walk = -1;
+	else if (ky == LEFT_KEY)
+		data->left_right = 1;
+	else if (ky == RIGHT_KEY)
+		data->left_right = -1;
 	else if (ky == RRIGHT_KEY)
-		dt->angle -= dt->rotation_speed;
+		data->turn = -1;
 	else if (ky == RLEFT_KEY)
-		dt->angle += dt->rotation_speed;
+		data->turn = 1;
+	return (0);
+}
+
+int	keyrelease(int key, void *ptr)
+{
+	t_data *data;
+
+	data = ptr;
+	data->walk = 0;
+	data->turn = 0;
+	data->left_right = 0;
 	return (0);
 }
 
 void	init_events(t_strct *mlx)
 {
+	mlx_hook(mlx->win, ON_KEYRELEASE, 0, keyrelease, mlx->data);
 	mlx_hook(mlx->win, ON_DESTROY, 0, destroy, mlx);
 	mlx_hook(mlx->win, ON_KEYDOWN, 0, keyclick, mlx);
 }

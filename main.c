@@ -6,6 +6,9 @@ void	init_data1(t_strct *mlx, t_data *data)
 	data->SO = NULL;
 	data->EA = NULL;
 	data->WE = NULL;
+	data->walk = 0;
+	data->turn = 0;
+	data->left_right = 0;
 	mlx->data = data;
 	data->mlx = mlx;
 }
@@ -14,8 +17,8 @@ void	init_data2(t_strct *mlx, t_data *data)
 {
 	data->x = data->x * TILE_SIZE + TILE_SIZE / 2;
 	data->y = data->y * TILE_SIZE + TILE_SIZE / 2;
-	data->move_speed = 10;
-	data->rotation_speed = 10 * (M_PI / 180);
+	data->move_speed = 3;
+	data->rotation_speed = 2 * (M_PI / 180);
 }
 
 int in_line(int x1, int y1, int x2, int y2, int j, int i)
@@ -47,7 +50,7 @@ int	circle(int i, int j, t_data *data)
 
 t_ray *test(t_data *data)
 {
-	int	m = 300;
+	int	m = WIDTH;
 	t_ray	*rays = malloc(sizeof(t_ray) * m);
 	double angle = data->angle - (FOV / 2);
 	float res = FOV / m;
@@ -108,7 +111,7 @@ void wa333(int x1, int y1, int x2, int y2, t_strct *mlx, int l)
 void func1(t_data *data, t_ray *rays,t_strct *mlx)
 {
 	int x1, y1, x2, y2;
-	for (int i = 0; i < 300; i++)
+	for (int i = 0; i < WIDTH; i++)
 	{
 		x1 = data->x;
 		y1 = data->y;
@@ -116,6 +119,41 @@ void func1(t_data *data, t_ray *rays,t_strct *mlx)
 		y2 = rays[i].hity;
 		wa333(x1, y1, x2, y2, mlx, rays[i].ver);
 	}
+}
+
+int	is_ok(t_data *data, int x, int y)
+{
+	int a;
+
+	a = data->move_speed / 2;
+	if (data->mp[y / TILE_SIZE][x / TILE_SIZE] == '1')
+		return (0);
+	if (data->mp[(y + a)  / TILE_SIZE][x / TILE_SIZE] == '1'
+		|| data->mp[y  / TILE_SIZE][(x + a) / TILE_SIZE] == '1'
+		|| data->mp[(y - a)  / TILE_SIZE][x / TILE_SIZE] == '1'
+		|| data->mp[y  / TILE_SIZE][(x - a) / TILE_SIZE] == '1')
+		return (0);
+	return (1);
+}
+
+void	update(t_data *data)
+{
+	int	xx;
+	int	yy;
+
+	xx = cos(data->angle) * data->move_speed;
+	yy = sin(data->angle) * data->move_speed;
+	if (data->walk && is_ok(data, data->x + data->walk * xx, data->y + data->walk * yy))
+	{
+		data->x += data->walk * xx;
+		data->y += data->walk * yy;
+	}
+	if (data->left_right && is_ok(data, data->x + data->left_right * yy, data->y - data->left_right * xx))
+	{
+		data->x += data->left_right * yy;
+		data->y -= data->left_right * xx;
+	}
+	data->angle += data->turn * data->rotation_speed;
 }
 
 int	render(void *ptr)
@@ -137,6 +175,7 @@ int	render(void *ptr)
 	i = 0;
 	j = 0;
 	int f = 0;
+	update(data);
 	rays = test(data);
 	while (i < WIDTH)
 	{
