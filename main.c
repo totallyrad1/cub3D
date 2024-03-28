@@ -1,160 +1,5 @@
 #include "header.h"
 
-#include <string.h>
-
-int len(char **map)
-{
-	int i;
-	for (i = 0; map[i]; i++)
-	{
-	}
-	return (i);
-}
-
-void draw_player(t_data *data, t_strct	*mlx, t_img *img)
-{
-	for (int i = 0; i < WIDTH; i++)
-	{
-		for (int j = 0; j < HEIGHT; j++)
-		{
-			if (i <= data->player.y + 3 && j <= data->player.x + 3 && i > data->player.y - 3 && j > data->player.x - 3)
-				pixel_put(img, i, j, 0xFF0000);
-		}
-	}
-}
-
-int in_line(int i, int j, t_data *data)
-{
-	int x1 = data->player.x, y1 = data->player.y, x2, y2, cross;
-	float	ray_angle = data->player.angle - (FOV / 2);
-	// for (int k = 0; k < 3; k++)
-	// {
-		x2 = data->hhitx;
-		y2 = data->hhity;
-		cross = (x2 - x1) * (i - y1) - (y2 - y1) * (j - x1);
-		if (i <= (y2) && j <= (x2) && i >= y1 && j >= x1 && abs(cross) <= 100)
-			return (1);
-		else if (i >= (y2) && j >= (x2) && i <= y1 && j <= x1 && abs(cross) <= 100)
-			return (1);
-		else if (i >= (y2) && j <= (x2) && i <= y1 && j >= x1 && abs(cross) <= 100)
-			return (1);
-		else if (i <= (y2) && j >= (x2) && i >= y1 && j <= x1 && abs(cross) <= 100)
-			return (1);
-		// ray_angle += FOV / 2;
-	// }
-	return (0);
-}
-
-int in_line00(int i, int j, t_data *data)
-{
-	int x1 = data->player.x, y1 = data->player.y, x2, y2, cross;
-	float	ray_angle = data->player.angle - (FOV / 2);
-	// for (int k = 0; k < 3; k++)
-	// {
-		x2 = data->vhitx;
-		y2 = data->vhity;
-		cross = (x2 - x1) * (i - y1) - (y2 - y1) * (j - x1);
-		if (i <= (y2) && j <= (x2) && i >= y1 && j >= x1 && abs(cross) <= 100)
-			return (1);
-		else if (i >= (y2) && j >= (x2) && i <= y1 && j <= x1 && abs(cross) <= 100)
-			return (1);
-		else if (i >= (y2) && j <= (x2) && i <= y1 && j >= x1 && abs(cross) <= 100)
-			return (1);
-		else if (i <= (y2) && j >= (x2) && i >= y1 && j <= x1 && abs(cross) <= 100)
-			return (1);
-		// ray_angle += FOV / 2;
-	// }
-	return (0);
-}
-
-int in_line1(int i, int j, t_data *data)
-{
-	int x1 = data->player.x, y1 = data->player.y, x2, y2, cross;
-	float	ray_angle = data->player.angle - (FOV / 2);
-	for (int k = 0; k < 3; k++)
-	{
-		x2 = data->player.x + sin(ray_angle) * 20;
-		y2 = data->player.y + cos(ray_angle) * 20;
-		cross = (x2 - x1) * (i - y1) - (y2 - y1) * (j - x1);
-		if (i <= (y2) && j <= (x2) && i >= y1 && j >= x1 && abs(cross) <= 10)
-			return (1);
-		else if (i >= (y2) && j >= (x2) && i <= y1 && j <= x1 && abs(cross) <= 10)
-			return (1);
-		else if (i >= (y2) && j <= (x2) && i <= y1 && j >= x1 && abs(cross) <= 10)
-			return (1);
-		else if (i <= (y2) && j >= (x2) && i >= y1 && j <= x1 && abs(cross) <= 10)
-			return (1);
-		ray_angle += FOV / 2;
-	}
-	return (0);
-}
-
-void	render(t_data *data, t_strct	*mlx)
-{
-	int player_x = 0;
-	int player_y = 0;
-	t_img	img;
-
-	img.bf = mlx_get_data_addr(mlx->img, &img.pxl_b, &img.ln_b, &img.endian);
-	int	wlen = WIDTH / strlen(data->mp[0]) + 1, hlen = HEIGHT / len(data->mp) + 1;
-	data->h = hlen;
-	data->w = wlen;
-	data->player.x = data->player.x * hlen + hlen / 2;
-	data->player.y = data->player.y * wlen + wlen / 2;
-	data->player.move_speed = 4;
-	data->player.rotation_speed = 10 * (M_PI / 180);
-	float	ray_angle = data->player.angle;
-	printf("%d\n", cast(data, normalizeangle(ray_angle)));
-	for (int i = 0; i < WIDTH; i++)
-	{
-		for (int j = 0; j < HEIGHT; j++)
-		{
-			if (data->mp[j / hlen][i / wlen] == '1' || (j % hlen) == 0 ||(i % wlen) == 0)
-				pixel_put(&img, i, j, 0x00AAFF);
-			if (i <= data->player.y + 3 && j <= data->player.x + 3 && i > data->player.y - 3 && j > data->player.x - 3)
-				pixel_put(&img, i, j, 0xFF0000);
-			if (in_line1(i, j, data))
-				pixel_put(&img, i, j, 0xFFFFFF);
-			if (data->hhitx != -1 && in_line(i, j, data))
-				pixel_put(&img, i, j, 0xFFFFFF);
-			// if (data->vhitx != -1 && in_line00(i, j, data))
-			// 	pixel_put(&img, i, j, 0xFFFFFF);
-		}
-	}
-	mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->img, 0, 0);
-}
-
-void	render2(t_data *data, t_strct	*mlx)
-{
-	int player_x = 0;
-	int player_y = 0;
-	t_img	img;
-
-	img.bf = mlx_get_data_addr(mlx->img, &img.pxl_b, &img.ln_b, &img.endian);
-	int	wlen = WIDTH / strlen(data->mp[0]) + 1, hlen = HEIGHT / len(data->mp) + 1;
-	float	ray_angle = data->player.angle;
-	printf("%d\n", cast(data, normalizeangle(ray_angle)));
-	for (int i = 0; i < WIDTH; i++)
-	{
-		for (int j = 0; j < HEIGHT; j++)
-		{
-			if (data->mp[j / hlen][i / wlen] == '1' || (j % hlen) == 0 ||(i % wlen) == 0)
-				pixel_put(&img, i, j, 0x00AAFF);
-			else
-				pixel_put(&img, i, j, 0x000000);
-			if (i <= data->player.y + 3 && j <= data->player.x + 3 && i > data->player.y - 3 && j > data->player.x - 3)
-				pixel_put(&img, i, j, 0xFF0000);
-			if (in_line1(i, j, data))
-				pixel_put(&img, i, j, 0xFFFFFF);
-			if (data->hhitx != -1 && in_line(i, j, data))
-				pixel_put(&img, i, j, 0xFFFFFF);
-			// if (data->vhitx != -1 && in_line00(i, j, data))
-			// 	pixel_put(&img, i, j, 0xFFFFFF);
-		}
-	}
-	mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->img, 0, 0);
-}
-
 void	init_data1(t_strct *mlx, t_data *data)
 {
 	data->NO = NULL;
@@ -162,6 +7,120 @@ void	init_data1(t_strct *mlx, t_data *data)
 	data->EA = NULL;
 	data->WE = NULL;
 	mlx->data = data;
+	data->mlx = mlx;
+}
+
+void	init_data2(t_strct *mlx, t_data *data)
+{
+	data->x = data->x * TILE_SIZE + TILE_SIZE / 2;
+	data->y = data->y * TILE_SIZE + TILE_SIZE / 2;
+	data->move_speed = 10;
+	data->rotation_speed = 10 * (M_PI / 180);
+}
+
+int in_line(int x1, int y1, int x2, int y2, int j, int i)
+{
+    int cross = (x2 - x1) * (j - y1) - (y2 - y1) * (i - x1);
+    int distance = abs(cross) / sqrt(pow(x2 - x1, 2) + pow(y2 - y1, 2));
+    
+    if (distance <= 0) {
+        int minX = x1 < x2 ? x1 : x2;
+        int maxX = x1 > x2 ? x1 : x2;
+        int minY = y1 < y2 ? y1 : y2;
+        int maxY = y1 > y2 ? y1 : y2;
+
+        if (i >= minX && i <= maxX && j >= minY && j <= maxY) {
+            return 1; 
+        }
+    }
+    return 0; 
+}
+
+int	circle(int i, int j, t_data *data)
+{
+	i = data->x - i;
+	j = data->y - j;
+	if ((i * i + j * j) < 20)
+		return (1);
+	return (0);
+}
+
+t_ray *test(t_data *data)
+{
+	int	m = 200;
+	t_ray	*rays = malloc(sizeof(t_ray) * m);
+	double angle = data->angle - (FOV / 2);
+	for (int i = 0; i < m; i++)
+	{
+		angle = normalize(angle);
+		rays[i].dis = cast(data, angle);
+		rays[i].hitx = data->hhitx;
+		rays[i].hity = data->hhity;
+		rays[i].ver = data->ver;
+		angle += .3 * M_PI/180;
+	}
+	return (rays);
+}
+
+int func(t_data *data, t_ray *rays, int i, int j)
+{
+	for (int k = 0; k < 200; k++)
+	{
+		if (in_line(data->x, data->y, rays[k].hitx, rays[k].hity, j, i) && rays[k].hitx != -1 && rays[k].hity != -1)
+		{
+			if (rays[k].ver)
+				return (1);
+			else
+				return (2);
+		}
+	}
+	return (0);
+}
+
+int	render(void *ptr)
+{
+	int	i;
+	int	j;
+	t_data *data = ptr;
+	t_strct	*mlx = data->mlx;
+	t_ray	*rays;
+
+	mlx_clear_window(mlx->mlx, mlx->win);
+	mlx_destroy_image(mlx->mlx, mlx->img);
+	mlx->img = mlx_new_image(mlx->mlx, WIDTH, HEIGHT);
+	if (!mlx->img)
+		exit(1);
+	mlx->bf = mlx_get_data_addr(mlx->img, &mlx->pxl_b, &mlx->ln_b, &mlx->endian);
+	if (!mlx->bf)
+		exit(1);
+	i = 0;
+	j = 0;
+	int f = 0;
+	rays = test(data);
+	while (i < WIDTH)
+	{
+		j = 0;
+		while (j < HEIGHT)
+		{
+			f = func(data, rays, i, j);
+			if (circle(i, j, data))
+				pixel_put(mlx, i, j, 0xFF0000);
+			// else if (in_line(data->x, data->y, data->hhitx, data->hhity, j, i))
+			// 	pixel_put(mlx, i, j, 0xFFFFFF);
+			else if (f == 1)
+					pixel_put(mlx, i, j, 0x00FF00); //green vertiacal
+			else if (f == 2)
+					pixel_put(mlx, i, j, 0xFF0000); //red horizontal
+			else if (data->mp[j / TILE_SIZE][i / TILE_SIZE] == '1' || !(i % TILE_SIZE) || !(j % TILE_SIZE))
+				pixel_put(mlx, i, j, 0x00AAAA);
+			j++;
+		}
+		i++;
+	}
+	free(rays);
+	mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->img, 0, 0);
+	// free(mlx->)
+	return (0);
 }
 
 int main(int ac, char **av)
@@ -175,13 +134,14 @@ int main(int ac, char **av)
 		return (1);
 	if (checkvalidchars(av[1]) == -1)
 		return (1);
-	init_graphics(&mlx);
 	init_data1(&mlx, &data);
+	init_graphics(&mlx);
 	if(parse_everything(&data, &mlx, av[1]) == -1)
 		return (1);
 	if(checkifmapvalid(&data))
 		return (1);
+	init_data2(&mlx, &data);
 	init_events(&mlx);
-	render(&data, &mlx);
+	mlx_loop_hook(mlx.mlx, render, &data);
 	mlx_loop(mlx.mlx);
 }
