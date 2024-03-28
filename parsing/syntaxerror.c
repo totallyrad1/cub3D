@@ -59,13 +59,13 @@ int check2(char **map, int i, int j)
 
 int playerchar_found(char c, float *angle)
 {
-	if(c == 'N')
+	if (c == 'N')
 		return (*angle = N, 1);
-	if( c == 'S')
+	if (c == 'S')
 		return (*angle = S, 1);
-	if(c == 'E' )
+	if (c == 'E' )
 		return (*angle = E, 1);
-	if( c == 'W')
+	if (c == 'W')
 		return (*angle = W, 1);
 	return (0);
 }
@@ -100,11 +100,12 @@ int	checkifmapvalid(t_data *data)
 				return (1);
 			if (c == '0' && !check2((data)->mp, i, j))
 				return (1);
-			if (playerchar_found(c, &(data->player.angle)))
+			if (playerchar_found(c, &(data->angle)))
 			{
-				data->player.x = i;
-				data->player.y = j;
+				data->x = j;
+				data->y = i;
 				count++;
+				(data)->mp[i][j] = '0';
 			}
 			j++;
 		}

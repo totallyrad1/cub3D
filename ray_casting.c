@@ -1,24 +1,10 @@
-
 #include "header.h"
 
-double  normalizeangle(double angle)
+double	normalize(double angle)
 {
-	angle = fmod(angle, (M_PI * 2));
-	if (angle < 0)
-	  angle = angle + (M_PI * 2);
+	angle = fmod(angle, 2 * M_PI);
+	angle += (angle < 0) * 2 * M_PI;
 	return (angle);
-}
-
-void	direction_angle(int	*up, int *right, float angle)
-{
-	if (angle > 0 && angle <= M_PI)
-		*up = 1;
-	else
-		*up = 0;
-	if (angle > M_PI_2 && angle <= ((3 * M_PI) / 2))
-		*right = 0;
-	else 
-		*right = 1;
 }
 
 int	dis(int x1, int y1, int x2, int y2)
@@ -26,31 +12,47 @@ int	dis(int x1, int y1, int x2, int y2)
 	return (sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1)));
 }
 
-int	h_cast(t_data *data, float angle, int xstep, int ystep)
+void	direction(double angle, int *up, int *right)
 {
-	int	xinter;
-	int	yinter;
+	if (angle > 0 && angle < M_PI)
+		*up = 0;
+	else
+		*up = 1;
+	if (angle >= M_PI_2 && angle < (3 * M_PI_2))
+		*right = 0;
+	else
+		*right = 1;
+
+}
+
+int	hcast(t_data *data, double angle, int xstep, int ystep)
+{
 	int	up;
 	int	right;
+	int	xinter;
+	int	yinter;
 
-	direction_angle(&up, &right, angle);
-	data->hhitx = -1;
-	xinter = (data->player.x / TILE_SIZE) * TILE_SIZE;
-	xinter += TILE_SIZE * up;
-	yinter = data->player.y + (xinter - data->player.x) / tan(data->player.angle);
-	xstep = TILE_SIZE * !up * -2 + TILE_SIZE;
-	ystep = TILE_SIZE / tan(data->player.angle);
-	if (!right && ystep > 0)
+	data->hhitx = INT_MAX;
+	direction(angle, &up, &right);
+	yinter = (data->y / TILE_SIZE) * TILE_SIZE;
+	yinter += !up * TILE_SIZE;
+	xinter = data->x + (yinter - data->y) / tan(angle);
+	ystep = TILE_SIZE;
+	if (up)
 		ystep *= -1;
-	if (right && ystep < 0)
-		ystep *= -1;
-	xinter = xinter - 1 * !up;
+	xstep = TILE_SIZE / tan(angle);
+	if (!right && xstep > 0)
+		xstep *= -1;
+	if (right && xstep < 0)
+		xstep *= -1;
+	// int m = xinter, n = yinter;
+	yinter += -up;
 	while (xinter >= 0 && xinter < WIDTH && yinter >= 0 && yinter < HEIGHT)
 	{
-		if (data->mp[xinter / TILE_SIZE][yinter / TILE_SIZE] == '1')
+		if (data->mp[yinter / TILE_SIZE][xinter / TILE_SIZE] == '1')
 		{
 			data->hhitx = xinter;
-			data->hhity = yinter;
+			data->hhity = yinter + up;
 			break ;
 		}
 		else
@@ -59,36 +61,42 @@ int	h_cast(t_data *data, float angle, int xstep, int ystep)
 			yinter += ystep;
 		}
 	}
-	if (data->hhitx == -1)
-		return (-1);
-	return (dis(data->player.x, data->player.y, data->hhitx, data->hhity));
+	if (data->hhitx == INT_MAX)
+		return (INT_MAX);
+	return (dis(data->x, data->y, data->hhitx, data->hhity));
 }
 
-int	v_cast(t_data *data, float angle, int xstep, int ystep)
+int	vcast(t_data *data, double angle, int xstep, int ystep)
 {
-	int	xinter;
-	int	yinter;
 	int	up;
 	int	right;
+	int	xinter;
+	int	yinter;
 
-	direction_angle(&up, &right, angle);
-	data->vhitx = -1;
-	yinter = (data->player.y / TILE_SIZE) * TILE_SIZE;
-	yinter += TILE_SIZE * right;
-	xinter = data->player.x + (yinter - data->player.y) * tan(data->player.angle);
-	
-	ystep = TILE_SIZE * -2 * !right + TILE_SIZE;
-	xstep = TILE_SIZE * tan(data->player.angle);
-	if (!up && xstep > 0)
+	data->vhitx = INT_MAX;
+	direction(angle, &up, &right);
+	xinter = (data->x / TILE_SIZE) * TILE_SIZE;
+	xinter += right * TILE_SIZE;
+
+	yinter = data->y + (xinter - data->x) * tan(angle);
+
+	xstep = TILE_SIZE;
+	if (!right)
 		xstep *= -1;
-	if (up && xstep < 0)
-		xstep *= -1;
-	yinter += -1 * !right;
-	while (xinter >= 0 && xinter < HEIGHT && yinter >= 0 && yinter < WIDTH)
+
+	ystep = TILE_SIZE * tan(angle);
+	if (up && ystep > 0)
+		ystep *= -1;
+	if (!up && ystep < 0)
+		ystep *= -1;
+
+	// int m = xinter, n = yinter;
+	xinter += -1 * !right;
+	while (xinter >= 0 && xinter < WIDTH && yinter >= 0 && yinter < HEIGHT)
 	{
-		if (data->mp[xinter / TILE_SIZE][yinter / TILE_SIZE] == '1')
+		if (data->mp[yinter / TILE_SIZE][xinter / TILE_SIZE] == '1')
 		{
-			data->vhitx = xinter;
+			data->vhitx = xinter + 1 * !right;
 			data->vhity = yinter;
 			break ;
 		}
@@ -98,34 +106,25 @@ int	v_cast(t_data *data, float angle, int xstep, int ystep)
 			yinter += ystep;
 		}
 	}
-	if (data->vhitx == -1)
-		return (-1);
-	return (dis(data->player.x, data->player.y, data->vhitx, data->vhity));
+	if (data->vhitx == INT_MAX)
+		return (INT_MAX);
+	return (dis(data->x, data->y, data->vhitx, data->vhity));
 }
 
-int	cast(t_data *data, float angle)
+int cast(t_data *data, double angle)
 {
-	int	hdis;
-	int	vdis;
+	int h;
+	int v;
 
-	hdis = h_cast(data, angle, 0, 0);
-	vdis = v_cast(data, angle, 0, 0);
-	if (hdis == -1)
+	h = hcast(data, angle, 0, 0);
+	v = vcast(data, angle, 0, 0);
+	if (h > v)
 	{
+		data->ver = 1;
 		data->hhitx = data->vhitx;
 		data->hhity = data->vhity;
-		return (vdis);
+		return (v);
 	}
-	if (vdis == -1)
-		return (hdis);
-	if (hdis > vdis)
-	{
-		data->hhitx = data->vhitx;
-		data->hhity = data->vhity;
-		return (vdis);
-	}
-	return (hdis);
+	data->ver = 0;
+	return (h);
 }
-
-
-
