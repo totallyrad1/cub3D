@@ -26,6 +26,7 @@
 
 //events defines
 # define ON_KEYDOWN 2
+# define ON_KEYRELEASE 3
 # define ON_DESTROY 17
 
 #endif
