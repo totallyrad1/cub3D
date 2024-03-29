@@ -6,7 +6,7 @@
 /*   By: mozennou <mozennou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 12:33:28 by mozennou          #+#    #+#             */
-/*   Updated: 2024/03/29 17:29:46 by mozennou         ###   ########.fr       */
+/*   Updated: 2024/03/29 17:46:18 by mozennou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ double	hcast(t_data *data, double angle, double xstep, double ystep)
 	direction(angle, &data->up, &data->right);
 	hinter(data, &xinter, &yinter, angle);
 	hstep(data, &xstep, &ystep, angle);
-	while (xinter >= 0 && xinter < WIDTH && yinter >= 0 && yinter < HEIGHT)
+	while (xinter >= 0 && xinter <= WIDTH && yinter >= 0 && yinter <= HEIGHT)
 	{
 		if (is_wall(data, floor(yinter / TILE_SIZE), floor(xinter / TILE_SIZE)))
 		{
@@ -63,10 +63,6 @@ double	hcast(t_data *data, double angle, double xstep, double ystep)
 			yinter += ystep;
 		}
 	}
-	// if (angle > M_PI_2 - 0.01 && angle < M_PI_2 + 0.01)
-	// {
-	// 	printf("%f and %f\n", xstep, ystep);
-	// }
 	if (data->hhitx == INT_MAX)
 		return (INT_MAX);
 	return (dis(data->x, data->y, data->hhitx, data->hhity));
@@ -80,8 +76,7 @@ double	vcast(t_data *data, double angle, double xstep, double ystep)
 	direction(angle, &data->up, &data->right);
 	vinter(data, &xinter, &yinter, angle);
 	vstep(data, &xstep, &ystep, angle);
-	printf("%f\n", angle);
-	while (xinter >= 0 && xinter < WIDTH && yinter >= 0 && yinter < HEIGHT)
+	while (xinter >= 0 && xinter <= WIDTH && yinter >= 0 && yinter <= HEIGHT)
 	{	
 		if (is_wall(data, floor(yinter / TILE_SIZE), floor(xinter / TILE_SIZE)))
 		{
