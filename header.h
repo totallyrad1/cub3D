@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   header.h                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mozennou <mozennou@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/03/29 12:45:39 by mozennou          #+#    #+#             */
+/*   Updated: 2024/03/29 13:43:08 by mozennou         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef HEADER_H
 # define HEADER_H
 
@@ -7,19 +19,19 @@
 # include <unistd.h>
 # include <fcntl.h>
 # include <math.h>
-#include <limits.h>
+# include <limits.h>
 # include "defines.h"
 # include "./get_next_line/get_next_line.h"
 
-typedef struct s_strct t_strct;
+typedef struct s_strct	t_strct;
 
 typedef struct s_data
 {
-	int	    x;
-    int	    y;
-    float    angle;
-    float    move_speed;
-    float    rotation_speed;
+	int		x;
+	int		y;
+	float	angle;
+	float	move_speed;
+	float	rotation_speed;
 	int		walk;
 	int		left_right;
 	int		turn;
@@ -28,28 +40,24 @@ typedef struct s_data
 	int		hhity;
 	int		vhitx;
 	int		vhity;
-	void	*SO;
-	void	*EA;
-	void	*WE;
-	void	*NO;
-	int		w;
-	int		h;
+	void	*so;
+	void	*ea;
+	void	*we;
+	void	*no;
 	int		f_color;
 	int		c_color;
-	int		xlen;
-	int		ylen;
-	int		ver;
+	int		up;
+	int		right;
 	t_strct	*mlx;
 }			t_data;
 
 typedef struct s_ray
 {
-	int	hitx;
-	int	hity;
-	int	dis;
-	int	ver;
+	double	hitx;
+	double	hity;
+	double	dis;
+	double	wallprjct;
 }	t_ray;
-
 
 typedef struct s_strct
 {
@@ -67,21 +75,21 @@ void	init_graphics(t_strct *mlx);
 void	init_events(t_strct *mlx);
 int		keyclick(int key, void *ptr);
 void	wrerror(char *str);
-void	render2(t_data *data, t_strct	*mlx);
-int	checkifmapvalid(t_data *data);
+int		checkifmapvalid(t_data *data);
 char	**ft_split(char const *s, char c);
 int		ft_strcmp(const char *s1, const char *s2);
-int ft_atoi(char *str, int *j);
-int parse_everything(t_data *data, t_strct *mlx, char *filename);
-int checkfilename(char *filename);
+int		ft_atoi(char *str, int *j);
+int		parse_everything(t_data *data, t_strct *mlx, char *filename);
+int		checkfilename(char *filename);
 void	pixel_put(t_strct *mlx, int x, int y, int color);
-int checkvalidchars(char *filename);
-
+int		checkvalidchars(char *filename);
 void	free_map(char **map);
 int		destroy(t_strct *mlx);
-
-int	render(void *ptr);
-int		cast(t_data *data, double angle);
+double	cast(t_data *data, double angle);
 double	normalize(double angle);
+int		dis(int x1, int y1, int x2, int y2);
+void	direction(double angle, int *up, int *right);
+void	vinter(t_data *data, double *xinter, double *yinter, double angle);
+void	vstep(t_data *data, double *xstep, double *ystep, double angle);
 
 #endif

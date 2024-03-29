@@ -60,13 +60,13 @@ void setvalue(char **linesplit, t_data **data, t_strct **mlx)
 	int w;
 	int h;
 	if (!ft_strcmp(linesplit[0], "SO"))
-		(*data)->SO = mlx_xpm_file_to_image((*mlx)->mlx, linesplit[1], &w, &h);
+		(*data)->so = mlx_xpm_file_to_image((*mlx)->mlx, linesplit[1], &w, &h);
 	else if (!ft_strcmp(linesplit[0], "EA"))
-		(*data)->EA = mlx_xpm_file_to_image((*mlx)->mlx, linesplit[1], &w, &h);
+		(*data)->ea = mlx_xpm_file_to_image((*mlx)->mlx, linesplit[1], &w, &h);
 	else if (!ft_strcmp(linesplit[0], "NO"))
-		(*data)->NO = mlx_xpm_file_to_image((*mlx)->mlx, linesplit[1], &w, &h);
+		(*data)->no = mlx_xpm_file_to_image((*mlx)->mlx, linesplit[1], &w, &h);
 	else if (!ft_strcmp(linesplit[0], "WE"))
-		(*data)->WE = mlx_xpm_file_to_image((*mlx)->mlx, linesplit[1], &w, &h);
+		(*data)->we = mlx_xpm_file_to_image((*mlx)->mlx, linesplit[1], &w, &h);
 }
 
 int checkvalues(int i1, int i2, int i3)
@@ -138,7 +138,7 @@ int	fill_walls(t_data **data, t_strct **mlx, int fd)
 		linesplit = NULL;
 		i++;
 	}
-	if (!(*data)->NO || !(*data)->SO || !(*data)->WE || !(*data)->EA)
+	if (!(*data)->no || !(*data)->so || !(*data)->we || !(*data)->ea)
 		return (wrerror("invalid textures\n"), -1);
 	return (1);
 }
