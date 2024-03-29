@@ -25,12 +25,12 @@ void	direction(double angle, int *up, int *right)
 
 }
 
-int	hcast(t_data *data, double angle, int xstep, int ystep)
+double	hcast(t_data *data, double angle, double xstep, double ystep)
 {
 	int	up;
 	int	right;
-	int	xinter;
-	int	yinter;
+	double	xinter;
+	double	yinter;
 
 	data->hhitx = INT_MAX;
 	direction(angle, &up, &right);
@@ -45,11 +45,10 @@ int	hcast(t_data *data, double angle, int xstep, int ystep)
 		xstep *= -1;
 	if (right && xstep < 0)
 		xstep *= -1;
-	// int m = xinter, n = yinter;
 	yinter += -up;
 	while (xinter >= 0 && xinter < WIDTH && yinter >= 0 && yinter < HEIGHT)
 	{
-		if (data->mp[yinter / TILE_SIZE][xinter / TILE_SIZE] == '1')
+		if (data->mp[(int)floor(yinter / TILE_SIZE)][(int)floor(xinter / TILE_SIZE)] == '1')
 		{
 			data->hhitx = xinter;
 			data->hhity = yinter + up;
@@ -66,12 +65,12 @@ int	hcast(t_data *data, double angle, int xstep, int ystep)
 	return (dis(data->x, data->y, data->hhitx, data->hhity));
 }
 
-int	vcast(t_data *data, double angle, int xstep, int ystep)
+double	vcast(t_data *data, double angle, double xstep, double ystep)
 {
 	int	up;
 	int	right;
-	int	xinter;
-	int	yinter;
+	double	xinter;
+	double	yinter;
 
 	data->vhitx = INT_MAX;
 	direction(angle, &up, &right);
@@ -89,12 +88,10 @@ int	vcast(t_data *data, double angle, int xstep, int ystep)
 		ystep *= -1;
 	if (!up && ystep < 0)
 		ystep *= -1;
-
-	// int m = xinter, n = yinter;
 	xinter += -1 * !right;
 	while (xinter >= 0 && xinter < WIDTH && yinter >= 0 && yinter < HEIGHT)
 	{
-		if (data->mp[yinter / TILE_SIZE][xinter / TILE_SIZE] == '1')
+		if (data->mp[(int)floor(yinter / TILE_SIZE)][(int)floor(xinter / TILE_SIZE)] == '1')
 		{
 			data->vhitx = xinter + 1 * !right;
 			data->vhity = yinter;
@@ -113,8 +110,8 @@ int	vcast(t_data *data, double angle, int xstep, int ystep)
 
 int cast(t_data *data, double angle)
 {
-	int h;
-	int v;
+	double h;
+	double v;
 
 	h = hcast(data, angle, 0, 0);
 	v = vcast(data, angle, 0, 0);
