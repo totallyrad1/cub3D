@@ -6,7 +6,7 @@
 /*   By: mozennou <mozennou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 12:33:55 by mozennou          #+#    #+#             */
-/*   Updated: 2024/03/29 12:34:50 by mozennou         ###   ########.fr       */
+/*   Updated: 2024/03/29 16:18:07 by mozennou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ double	normalize(double angle)
 	return (angle);
 }
 
-int	dis(int x1, int y1, int x2, int y2)
+double	dis(double x1, double y1, double x2, double y2)
 {
 	return (sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1)));
 }

@@ -6,7 +6,7 @@
 /*   By: mozennou <mozennou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 12:45:39 by mozennou          #+#    #+#             */
-/*   Updated: 2024/03/29 13:43:08 by mozennou         ###   ########.fr       */
+/*   Updated: 2024/03/29 16:12:59 by mozennou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void	free_map(char **map);
 int		destroy(t_strct *mlx);
 double	cast(t_data *data, double angle);
 double	normalize(double angle);
-int		dis(int x1, int y1, int x2, int y2);
+double	dis(double x1, double y1, double x2, double y2);
 void	direction(double angle, int *up, int *right);
 void	vinter(t_data *data, double *xinter, double *yinter, double angle);
 void	vstep(t_data *data, double *xstep, double *ystep, double angle);
