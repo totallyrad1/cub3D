@@ -6,7 +6,7 @@
 /*   By: mozennou <mozennou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 12:47:17 by mozennou          #+#    #+#             */
-/*   Updated: 2024/03/29 14:38:35 by mozennou         ###   ########.fr       */
+/*   Updated: 2024/03/29 17:16:38 by mozennou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -199,10 +199,22 @@ int	render3d(void *ptr)
 		j = 0;
 		while (j < HEIGHT)
 		{
+			if (j < HEIGHT / 2)
+				pixel_put(mlx, i, j, data->f_color);
+			else	
+				pixel_put(mlx, i, j, data->c_color);
+			j++;
+		}
+		i++;
+	}
+	i = 0;
+	while (i < WIDTH)
+	{
+		j = 0;
+		while (j < HEIGHT)
+		{
 			if (j > (HEIGHT / 2 - rays[i].wallprjct / 2) && j < (HEIGHT / 2 + rays[i].wallprjct / 2))
 				pixel_put(mlx, i, j, 0xFFFFFF);
-			else
-				pixel_put(mlx, i, j, 0x000000);
 			j++;
 		}
 		i++;
