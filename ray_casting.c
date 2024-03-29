@@ -1,57 +1,60 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ray_casting.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mozennou <mozennou@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/03/29 12:33:28 by mozennou          #+#    #+#             */
+/*   Updated: 2024/03/29 14:48:57 by mozennou         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "header.h"
 
-double	normalize(double angle)
+void	hinter(t_data *data, double *xinter, double *yinter, double angle)
 {
-	angle = fmod(angle, 2 * M_PI);
-	angle += (angle < 0) * 2 * M_PI;
-	return (angle);
+	(*yinter) = (data->y / TILE_SIZE) * TILE_SIZE + !data->up * TILE_SIZE;
+	(*xinter) = data->x + ((*yinter) - data->y) / tan(angle);
+	(*yinter) += -data->up;
 }
 
-int	dis(int x1, int y1, int x2, int y2)
+void	hstep(t_data *data, double *xstep, double *ystep, double angle)
 {
-	return (sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1)));
+	data->hhitx = INT_MAX;
+	(*ystep) = TILE_SIZE;
+	if (data->up)
+		(*ystep) *= -1;
+	(*xstep) = TILE_SIZE / tan(angle);
+	if (!data->right && (*xstep) > 0)
+		(*xstep) *= -1;
+	if (data->right && (*xstep) < 0)
+		(*xstep) *= -1;
 }
 
-void	direction(double angle, int *up, int *right)
+int	is_wall(t_data *data, int x, int y)
 {
-	if (angle > 0 && angle < M_PI)
-		*up = 0;
-	else
-		*up = 1;
-	if (angle >= M_PI_2 && angle < (3 * M_PI_2))
-		*right = 0;
-	else
-		*right = 1;
-
+	if (x < 0 || x >= WIDTH || y < 0 || y >= HEIGHT)
+		return (1);
+	if (data->mp[x][y] == '1')
+		return (1);
+	return (0);
 }
 
 double	hcast(t_data *data, double angle, double xstep, double ystep)
 {
-	int	up;
-	int	right;
 	double	xinter;
 	double	yinter;
 
-	data->hhitx = INT_MAX;
-	direction(angle, &up, &right);
-	yinter = (data->y / TILE_SIZE) * TILE_SIZE;
-	yinter += !up * TILE_SIZE;
-	xinter = data->x + (yinter - data->y) / tan(angle);
-	ystep = TILE_SIZE;
-	if (up)
-		ystep *= -1;
-	xstep = TILE_SIZE / tan(angle);
-	if (!right && xstep > 0)
-		xstep *= -1;
-	if (right && xstep < 0)
-		xstep *= -1;
-	yinter += -up;
+	direction(angle, &data->up, &data->right);
+	hinter(data, &xinter, &yinter, angle);
+	hstep(data, &xstep, &ystep, angle);
 	while (xinter >= 0 && xinter < WIDTH && yinter >= 0 && yinter < HEIGHT)
 	{
-		if (data->mp[(int)floor(yinter / TILE_SIZE)][(int)floor(xinter / TILE_SIZE)] == '1')
+		if (is_wall(data, floor(yinter / TILE_SIZE), floor(xinter / TILE_SIZE)))
 		{
 			data->hhitx = xinter;
-			data->hhity = yinter + up;
+			data->hhity = yinter + data->up;
 			break ;
 		}
 		else
@@ -67,33 +70,17 @@ double	hcast(t_data *data, double angle, double xstep, double ystep)
 
 double	vcast(t_data *data, double angle, double xstep, double ystep)
 {
-	int	up;
-	int	right;
 	double	xinter;
 	double	yinter;
 
-	data->vhitx = INT_MAX;
-	direction(angle, &up, &right);
-	xinter = (data->x / TILE_SIZE) * TILE_SIZE;
-	xinter += right * TILE_SIZE;
-
-	yinter = data->y + (xinter - data->x) * tan(angle);
-
-	xstep = TILE_SIZE;
-	if (!right)
-		xstep *= -1;
-
-	ystep = TILE_SIZE * tan(angle);
-	if (up && ystep > 0)
-		ystep *= -1;
-	if (!up && ystep < 0)
-		ystep *= -1;
-	xinter += -1 * !right;
+	direction(angle, &data->up, &data->right);
+	vinter(data, &xinter, &yinter, angle);
+	vstep(data, &xstep, &ystep, angle);
 	while (xinter >= 0 && xinter < WIDTH && yinter >= 0 && yinter < HEIGHT)
 	{
-		if (data->mp[(int)floor(yinter / TILE_SIZE)][(int)floor(xinter / TILE_SIZE)] == '1')
+		if (is_wall(data, floor(yinter / TILE_SIZE), floor(xinter / TILE_SIZE)))
 		{
-			data->vhitx = xinter + 1 * !right;
+			data->vhitx = xinter + !data->right;
 			data->vhity = yinter;
 			break ;
 		}
@@ -108,20 +95,18 @@ double	vcast(t_data *data, double angle, double xstep, double ystep)
 	return (dis(data->x, data->y, data->vhitx, data->vhity));
 }
 
-int cast(t_data *data, double angle)
+double	cast(t_data *data, double angle)
 {
-	double h;
-	double v;
+	double	h;
+	double	v;
 
 	h = hcast(data, angle, 0, 0);
 	v = vcast(data, angle, 0, 0);
 	if (h > v)
 	{
-		data->ver = 1;
 		data->hhitx = data->vhitx;
 		data->hhity = data->vhity;
 		return (v);
 	}
-	data->ver = 0;
 	return (h);
 }

@@ -1,11 +1,23 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mozennou <mozennou@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/03/29 12:47:17 by mozennou          #+#    #+#             */
+/*   Updated: 2024/03/29 14:38:35 by mozennou         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "header.h"
 
 void	init_data1(t_strct *mlx, t_data *data)
 {
-	data->NO = NULL;
-	data->SO = NULL;
-	data->EA = NULL;
-	data->WE = NULL;
+	data->no = NULL;
+	data->so = NULL;
+	data->ea = NULL;
+	data->we = NULL;
 	data->walk = 0;
 	data->turn = 0;
 	data->left_right = 0;
@@ -21,66 +33,24 @@ void	init_data2(t_strct *mlx, t_data *data)
 	data->rotation_speed = 2 * (M_PI / 180);
 }
 
-int in_line(int x1, int y1, int x2, int y2, int j, int i)
+t_ray *ray_generator(t_data *data)
 {
-    int cross = (x2 - x1) * (j - y1) - (y2 - y1) * (i - x1);
-    int distance = abs(cross) / sqrt(pow(x2 - x1, 2) + pow(y2 - y1, 2));
-    
-    if (distance <= 0) {
-        int minX = x1 < x2 ? x1 : x2;
-        int maxX = x1 > x2 ? x1 : x2;
-        int minY = y1 < y2 ? y1 : y2;
-        int maxY = y1 > y2 ? y1 : y2;
-
-        if (i >= minX && i <= maxX && j >= minY && j <= maxY) {
-            return 1; 
-        }
-    }
-    return 0; 
-}
-
-int	circle(int i, int j, t_data *data)
-{
-	i = data->x - i;
-	j = data->y - j;
-	if ((i * i + j * j) < 20)
-		return (1);
-	return (0);
-}
-
-t_ray *test(t_data *data)
-{
-	int	m = WIDTH;
-	t_ray	*rays = malloc(sizeof(t_ray) * m);
+	t_ray	*rays = malloc(sizeof(t_ray) * WIDTH);
 	double angle = data->angle - (FOV / 2);
-	float res = FOV / m;
-	for (int i = 0; i < m; i++)
+	float res = FOV / WIDTH;
+	for (int i = 0; i < WIDTH; i++)
 	{
 		angle = normalize(angle);
 		rays[i].dis = cast(data, angle);
 		rays[i].hitx = data->hhitx;
 		rays[i].hity = data->hhity;
-		rays[i].ver = data->ver;
+		rays[i].wallprjct = (TILE_SIZE / rays[i].dis) * DISPROJ;
 		angle += res;
 	}
 	return (rays);
 }
 
-int func(t_data *data, t_ray *rays, int i, int j)
-{
-	for (int k = 0; k < 200; k++)
-	{
-		if (in_line(data->x, data->y, rays[k].hitx, rays[k].hity, j, i) && rays[k].hitx != -1 && rays[k].hity != -1)
-		{
-			if (rays[k].ver)
-				return (1);
-			else
-				return (2);
-		}
-	}
-	return (0);
-}
-void wa333(int x1, int y1, int x2, int y2, t_strct *mlx, int l)
+void wa333(int x1, int y1, int x2, int y2, t_strct *mlx)
 {
 	int dx = abs(x2 - x1);
     int dy = abs(y2 - y1);
@@ -89,10 +59,7 @@ void wa333(int x1, int y1, int x2, int y2, t_strct *mlx, int l)
     int err = dx - dy;
 
     while (1) {
-		if (l)
-			pixel_put(mlx, x1, y1, 0XFF0000);
-		else
-			pixel_put(mlx, x1, y1, 0X00FF00);
+		pixel_put(mlx, x1, y1, 0XFFFFFF);
         if (x1 == x2 && y1 == y2) {
             break;
         }
@@ -117,7 +84,20 @@ void func1(t_data *data, t_ray *rays,t_strct *mlx)
 		y1 = data->y;
 		x2 = rays[i].hitx;
 		y2 = rays[i].hity;
-		wa333(x1, y1, x2, y2, mlx, rays[i].ver);
+		wa333(x1, y1, x2, y2, mlx);
+	}
+}
+
+void	func2(t_data *data, t_strct *mlx)
+{
+	int x = data->x, y = data->y;
+	for (int i = -5; i < 5; i++)
+	{
+		for (int j = -5; j < 5; j++)
+		{
+			if ((i * i + j * j) < 20)
+				pixel_put(mlx, i + data->x, j + data->y, 0XFF0000);
+		}
 	}
 }
 
@@ -156,7 +136,7 @@ void	update(t_data *data)
 	data->angle += data->turn * data->rotation_speed;
 }
 
-int	render(void *ptr)
+int	render2d(void *ptr)
 {
 	int	i;
 	int	j;
@@ -176,31 +156,59 @@ int	render(void *ptr)
 	j = 0;
 	int f = 0;
 	update(data);
-	rays = test(data);
+	rays = ray_generator(data);
 	while (i < WIDTH)
 	{
 		j = 0;
 		while (j < HEIGHT)
 		{
-			// f = func(data, rays, i, j);
-			if (circle(i, j, data))
-				pixel_put(mlx, i, j, 0xFF0000);
-			// else if (in_line(data->x, data->y, data->x + cos(data->angle) * 20, data->y + sin(data->angle) * 20, j, i))
-			// 	pixel_put(mlx, i, j, 0xFFFFFF);
-			// else if (f == 1)
-			// 		pixel_put(mlx, i, j, 0x00FF00); //green vertiacal
-			// else if (f == 2)
-			// 		pixel_put(mlx, i, j, 0xFF0000); //red horizontal
-			else if (data->mp[j / TILE_SIZE][i / TILE_SIZE] == '1' || !(i % TILE_SIZE) || !(j % TILE_SIZE))
+			if (data->mp[j / TILE_SIZE][i / TILE_SIZE] == '1' || !(i % TILE_SIZE) || !(j % TILE_SIZE))
 				pixel_put(mlx, i, j, 0x00AAAA);
 			j++;
 		}
 		i++;
 	}
 	func1(data, rays, mlx);
+	func2(data, mlx);
 	free(rays);
 	mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->img, 0, 0);
-	// free(mlx->)
+	return (0);
+}
+
+int	render3d(void *ptr)
+{
+	int	i;
+	int	j;
+	t_data *data = ptr;
+	t_strct	*mlx = data->mlx;
+	t_ray	*rays;
+
+	mlx_clear_window(mlx->mlx, mlx->win);
+	mlx_destroy_image(mlx->mlx, mlx->img);
+	mlx->img = mlx_new_image(mlx->mlx, WIDTH, HEIGHT);
+	if (!mlx->img)
+		exit(1);								//free the map
+	mlx->bf = mlx_get_data_addr(mlx->img, &mlx->pxl_b, &mlx->ln_b, &mlx->endian);
+	if (!mlx->bf)
+		exit(1);
+	update(data);
+	rays = ray_generator(data);
+	i = 0;
+	while (i < WIDTH)
+	{
+		j = 0;
+		while (j < HEIGHT)
+		{
+			if (j > (HEIGHT / 2 - rays[i].wallprjct / 2) && j < (HEIGHT / 2 + rays[i].wallprjct / 2))
+				pixel_put(mlx, i, j, 0xFFFFFF);
+			else
+				pixel_put(mlx, i, j, 0x000000);
+			j++;
+		}
+		i++;
+	}
+	free(rays);
+	mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->img, 0, 0);
 	return (0);
 }
 
@@ -223,6 +231,6 @@ int main(int ac, char **av)
 		return (1);
 	init_data2(&mlx, &data);
 	init_events(&mlx);
-	mlx_loop_hook(mlx.mlx, render, &data);
+	mlx_loop_hook(mlx.mlx, render3d, &data);
 	mlx_loop(mlx.mlx);
 }

@@ -111,8 +111,6 @@ int	checkifmapvalid(t_data *data)
 		}
 		i++;
 	}
-	data->xlen = i;
-	data->ylen = j;
 	if (count != 1)
 		return (wrerror("less or more than 1 player char found\n"), 1);
 	return (0);

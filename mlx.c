@@ -64,14 +64,17 @@ int	keyclick(int ky, void *ptr)
 	return (0);
 }
 
-int	keyrelease(int key, void *ptr)
+int	keyrelease(int ky, void *ptr)
 {
 	t_data *data;
 
 	data = ptr;
-	data->walk = 0;
-	data->turn = 0;
-	data->left_right = 0;
+	if (ky == UP_KEY || ky == 126 || ky == DOWN_KEY || ky == 125)
+		data->walk = 0;
+	else if (ky == LEFT_KEY || ky == RIGHT_KEY)
+		data->left_right = 0;
+	else if (ky == RRIGHT_KEY || ky == RLEFT_KEY)
+		data->turn = 0;
 	return (0);
 }
 
