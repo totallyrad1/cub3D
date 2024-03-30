@@ -200,6 +200,8 @@ int fillcolors(t_data **data, int fd)
 		linesplit = NULL;
 		i++;
 	}
+	if((*data)->f_color  == -1 || (*data)->c_color == -1)
+		return (wrerror("missing color\n"), -1);
 	return (1);
 }
 
