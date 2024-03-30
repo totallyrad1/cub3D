@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mozennou <mozennou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: asnaji <asnaji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 12:47:17 by mozennou          #+#    #+#             */
-/*   Updated: 2024/03/30 01:56:04 by mozennou         ###   ########.fr       */
+/*   Updated: 2024/03/30 02:01:27 by asnaji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ void	init_data1(t_strct *mlx, t_data *data)
 	data->left_right = 0;
 	mlx->data = data;
 	data->mlx = mlx;
+	data->f_color = -1;
+	data->c_color = -1;
 }
 
 void	init_data2(t_strct *mlx, t_data *data)
