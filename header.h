@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   header.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mozennou <mozennou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: asnaji <asnaji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 12:45:39 by mozennou          #+#    #+#             */
-/*   Updated: 2024/03/30 01:48:55 by mozennou         ###   ########.fr       */
+/*   Updated: 2024/03/30 21:03:28 by asnaji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ typedef struct s_data
 	int		i;
 	int		j;
 	t_strct	*mlx;
+	int		lc_tillstartofmap;
 }			t_data;
 
 typedef struct s_ray
@@ -77,14 +78,10 @@ void	init_graphics(t_strct *mlx);
 void	init_events(t_strct *mlx);
 int		keyclick(int key, void *ptr);
 void	wrerror(char *str);
-int		checkifmapvalid(t_data *data);
-char	**ft_split(char const *s, char c);
 int		ft_strcmp(const char *s1, const char *s2);
 int		ft_atoi(char *str, int *j);
-int		parse_everything(t_data *data, t_strct *mlx, char *filename);
 int		checkfilename(char *filename);
 void	pixel_put(t_strct *mlx, int x, int y, int color);
-int		checkvalidchars(char *filename);
 void	free_map(char **map);
 int		destroy(t_strct *mlx);
 double	cast(t_data *data, double angle);
@@ -93,5 +90,15 @@ double	dis(double x1, double y1, double x2, double y2);
 void	direction(double angle, int *up, int *right);
 void	vinter(t_data *data, double *xinter, double *yinter, double angle);
 void	vstep(t_data *data, double *xstep, double *ystep, double angle);
+
+size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
+char	*ft_strdup(const char *s1);
+char	*ft_substr(char *s, unsigned int start, size_t len);
+int	ft_isspace(char c);
+
+int settextures_value(char *key, t_data **data, t_strct **mlx, char *value);
+int setcolors_value(char *key, char *value, t_data **data);
+
+int fill_forkey(t_data **data, char *key, char *value, t_strct **mlx);
 
 #endif
