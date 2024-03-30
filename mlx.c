@@ -40,13 +40,9 @@ int	keyclick(int ky, void *ptr)
 {
 	t_strct	*mlx;
 	t_data	*data;
-	int		xx;
-	int		yy;
 
 	mlx = ptr;
 	data = mlx->data;
-	xx = cos(data->angle) * data->move_speed;
-	yy = sin(data->angle) * data->move_speed;
 	if (ky == KEY_ESC)
 		destroy(mlx);
 	else if ((ky == UP_KEY || ky == 126))
