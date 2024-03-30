@@ -6,7 +6,7 @@
 /*   By: mozennou <mozennou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 12:45:39 by mozennou          #+#    #+#             */
-/*   Updated: 2024/03/29 16:12:59 by mozennou         ###   ########.fr       */
+/*   Updated: 2024/03/30 01:48:55 by mozennou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ typedef struct s_data
 	int		c_color;
 	int		up;
 	int		right;
+	int		i;
+	int		j;
 	t_strct	*mlx;
 }			t_data;
 

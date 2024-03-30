@@ -111,6 +111,8 @@ int	checkifmapvalid(t_data *data)
 		}
 		i++;
 	}
+	data->j = i * TILE_SIZE;
+	data->i = j * TILE_SIZE;
 	if (count != 1)
 		return (wrerror("less or more than 1 player char found\n"), 1);
 	return (0);
