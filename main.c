@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mozennou <mozennou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: asnaji <asnaji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 12:47:17 by mozennou          #+#    #+#             */
-/*   Updated: 2024/03/30 16:47:32 by mozennou         ###   ########.fr       */
+/*   Updated: 2024/03/30 19:49:33 by asnaji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	init_data1(t_strct *mlx, t_data *data)
 	data->mlx = mlx;
 	data->f_color = -1;
 	data->c_color = -1;
+	data->lc_tillstartofmap = 0;
 }
 
 void	init_data2(t_data *data)
@@ -161,14 +162,8 @@ int main(int ac, char **av)
 		return(wrerror("invalid arguments"), 1);
 	if (checkfilename(av[1]) == -1)
 		return (1);
-	if (checkvalidchars(av[1]) == -1)
-		return (1);
 	init_data1(&mlx, &data);
 	init_graphics(&mlx);
-	if(parse_everything(&data, &mlx, av[1]) == -1)
-		return (1);
-	if(checkifmapvalid(&data))
-		return (1);
 	init_data2(&data);
 	init_events(&mlx);
 	mlx_loop_hook(mlx.mlx, render3d, &data);
