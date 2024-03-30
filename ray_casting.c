@@ -6,7 +6,7 @@
 /*   By: mozennou <mozennou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 12:33:28 by mozennou          #+#    #+#             */
-/*   Updated: 2024/03/29 17:46:18 by mozennou         ###   ########.fr       */
+/*   Updated: 2024/03/30 01:56:20 by mozennou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	hstep(t_data *data, double *xstep, double *ystep, double angle)
 
 int	is_wall(t_data *data, int x, int y)
 {
-	if (x < 0 || x >= WIDTH || y < 0 || y >= HEIGHT)
+	if (x < 0 || x >= data->i || y < 0 || y >= data->j)
 		return (1);
 	if (data->mp[x][y] == '1')
 		return (1);
@@ -49,7 +49,7 @@ double	hcast(t_data *data, double angle, double xstep, double ystep)
 	direction(angle, &data->up, &data->right);
 	hinter(data, &xinter, &yinter, angle);
 	hstep(data, &xstep, &ystep, angle);
-	while (xinter >= 0 && xinter <= WIDTH && yinter >= 0 && yinter <= HEIGHT)
+	while (xinter >= 0 && xinter <= data->i && yinter >= 0 && yinter <= data->j)
 	{
 		if (is_wall(data, floor(yinter / TILE_SIZE), floor(xinter / TILE_SIZE)))
 		{
@@ -76,7 +76,7 @@ double	vcast(t_data *data, double angle, double xstep, double ystep)
 	direction(angle, &data->up, &data->right);
 	vinter(data, &xinter, &yinter, angle);
 	vstep(data, &xstep, &ystep, angle);
-	while (xinter >= 0 && xinter <= WIDTH && yinter >= 0 && yinter <= HEIGHT)
+	while (xinter >= 0 && xinter <= data->i && yinter >= 0 && yinter <= data->j)
 	{	
 		if (is_wall(data, floor(yinter / TILE_SIZE), floor(xinter / TILE_SIZE)))
 		{
