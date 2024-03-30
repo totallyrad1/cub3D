@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asnaji <asnaji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mozennou <mozennou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 12:47:17 by mozennou          #+#    #+#             */
-/*   Updated: 2024/03/30 02:01:27 by asnaji           ###   ########.fr       */
+/*   Updated: 2024/03/30 16:47:32 by mozennou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	init_data1(t_strct *mlx, t_data *data)
 	data->c_color = -1;
 }
 
-void	init_data2(t_strct *mlx, t_data *data)
+void	init_data2(t_data *data)
 {
 	data->x = data->x * TILE_SIZE + TILE_SIZE / 2;
 	data->y = data->y * TILE_SIZE + TILE_SIZE / 2;
@@ -50,57 +50,6 @@ t_ray *ray_generator(t_data *data)
 		angle += res;
 	}
 	return (rays);
-}
-
-void wa333(int x1, int y1, int x2, int y2, t_strct *mlx)
-{
-	int dx = abs(x2 - x1);
-    int dy = abs(y2 - y1);
-    int sx = (x1 < x2) ? 1 : -1;
-    int sy = (y1 < y2) ? 1 : -1;
-    int err = dx - dy;
-
-    while (1) {
-		pixel_put(mlx, x1, y1, 0XFFFFFF);
-        if (x1 == x2 && y1 == y2) {
-            break;
-        }
-
-        int e2 = 2 * err;
-        if (e2 > -dy) {
-            err -= dy;
-            x1 += sx;
-        }
-        if (e2 < dx) {
-            err += dx;
-            y1 += sy;
-        }
-	}
-}
-void func1(t_data *data, t_ray *rays,t_strct *mlx)
-{
-	int x1, y1, x2, y2;
-	for (int i = 0; i < WIDTH; i++)
-	{
-		x1 = data->x;
-		y1 = data->y;
-		x2 = rays[i].hitx;
-		y2 = rays[i].hity;
-		wa333(x1, y1, x2, y2, mlx);
-	}
-}
-
-void	func2(t_data *data, t_strct *mlx)
-{
-	int x = data->x, y = data->y;
-	for (int i = -5; i < 5; i++)
-	{
-		for (int j = -5; j < 5; j++)
-		{
-			if ((i * i + j * j) < 20)
-				pixel_put(mlx, i + data->x, j + data->y, 0XFF0000);
-		}
-	}
 }
 
 int	is_ok(t_data *data, int x, int y)
@@ -138,63 +87,11 @@ void	update(t_data *data)
 	data->angle += data->turn * data->rotation_speed;
 }
 
-int	render2d(void *ptr)
+void	floor_ceiling(t_strct *mlx, t_data *data)
 {
 	int	i;
 	int	j;
-	t_data *data = ptr;
-	t_strct	*mlx = data->mlx;
-	t_ray	*rays;
 
-	mlx_clear_window(mlx->mlx, mlx->win);
-	mlx_destroy_image(mlx->mlx, mlx->img);
-	mlx->img = mlx_new_image(mlx->mlx, WIDTH, HEIGHT);
-	if (!mlx->img)
-		exit(1);
-	mlx->bf = mlx_get_data_addr(mlx->img, &mlx->pxl_b, &mlx->ln_b, &mlx->endian);
-	if (!mlx->bf)
-		exit(1);
-	i = 0;
-	j = 0;
-	int f = 0;
-	update(data);
-	rays = ray_generator(data);
-	while (i < WIDTH)
-	{
-		j = 0;
-		while (j < HEIGHT)
-		{
-			if (data->mp[j / TILE_SIZE][i / TILE_SIZE] == '1' || !(i % TILE_SIZE) || !(j % TILE_SIZE))
-				pixel_put(mlx, i, j, 0x00AAAA);
-			j++;
-		}
-		i++;
-	}
-	func1(data, rays, mlx);
-	func2(data, mlx);
-	free(rays);
-	mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->img, 0, 0);
-	return (0);
-}
-
-int	render3d(void *ptr)
-{
-	int	i;
-	int	j;
-	t_data *data = ptr;
-	t_strct	*mlx = data->mlx;
-	t_ray	*rays;
-
-	mlx_clear_window(mlx->mlx, mlx->win);
-	mlx_destroy_image(mlx->mlx, mlx->img);
-	mlx->img = mlx_new_image(mlx->mlx, WIDTH, HEIGHT);
-	if (!mlx->img)
-		exit(1);								//free the map
-	mlx->bf = mlx_get_data_addr(mlx->img, &mlx->pxl_b, &mlx->ln_b, &mlx->endian);
-	if (!mlx->bf)
-		exit(1);
-	update(data);
-	rays = ray_generator(data);
 	i = 0;
 	while (i < WIDTH)
 	{
@@ -209,6 +106,13 @@ int	render3d(void *ptr)
 		}
 		i++;
 	}
+}
+
+void	walls(t_ray *rays, t_strct *mlx)
+{
+	int	i;
+	int	j;
+
 	i = 0;
 	while (i < WIDTH)
 	{
@@ -221,6 +125,28 @@ int	render3d(void *ptr)
 		}
 		i++;
 	}
+}
+
+int	render3d(void *ptr)
+{
+	t_data *data;
+	t_strct	*mlx;
+	t_ray	*rays;
+
+	data = ptr;
+	mlx = data->mlx;
+	mlx_clear_window(mlx->mlx, mlx->win);
+	mlx_destroy_image(mlx->mlx, mlx->img);
+	mlx->img = mlx_new_image(mlx->mlx, WIDTH, HEIGHT);
+	if (!mlx->img)
+		exit(1);								//free the map
+	mlx->bf = mlx_get_data_addr(mlx->img, &mlx->pxl_b, &mlx->ln_b, &mlx->endian);
+	if (!mlx->bf)
+		exit(1);
+	update(data);
+	rays = ray_generator(data);
+	floor_ceiling(mlx, data);
+	walls(rays, mlx);
 	free(rays);
 	mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->img, 0, 0);
 	return (0);
@@ -243,7 +169,7 @@ int main(int ac, char **av)
 		return (1);
 	if(checkifmapvalid(&data))
 		return (1);
-	init_data2(&mlx, &data);
+	init_data2(&data);
 	init_events(&mlx);
 	mlx_loop_hook(mlx.mlx, render3d, &data);
 	mlx_loop(mlx.mlx);
