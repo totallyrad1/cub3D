@@ -13,6 +13,7 @@ void fillkey_value(char *line, char **key, char **value)
 	int tmp;
 
 	i = 0;
+	tmp = 0;
 	*key = NULL;
 	*value = NULL;
 	while (line[i] && ft_isspace(line[i]))
@@ -20,7 +21,7 @@ void fillkey_value(char *line, char **key, char **value)
 	tmp = i;
 	while (line[i] && !ft_isspace(line[i]))
 		i++;
-	*key = ft_substr(line, tmp, i);
+	*key = ft_substr(line, tmp, i - tmp);
 	while (line[i] && ft_isspace(line[i]))
 		i++;
 	if (line[i])
@@ -59,7 +60,6 @@ int parse_clrs_txtrs(t_data **data, t_strct **mlx, int fd)
 			return (1);
 		line = get_next_line(fd);
 	}
-	printf("%d\n", (*data)->lc_tillstartofmap);
 	return (1);
 }
 

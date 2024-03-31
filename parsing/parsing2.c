@@ -2,7 +2,6 @@
 
 int fill_forkey(t_data **data, char *key, char *value, t_strct **mlx)
 {
-	printf("[%s] [%s]\n", key, value);
 	if (!ft_strcmp(key, "SO"))
 		return (settextures_value(key, data, mlx, value));
 	if (!ft_strcmp(key, "EA"))

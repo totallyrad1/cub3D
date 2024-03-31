@@ -11,22 +11,22 @@ int check1(char **map, int i, int j)
 {
 	if (map && map[i + 1] && check0(map[i + 1][j]))
 	{
-		wrerror("invalid map\n");
+		wrerror("invalid map5\n");
 		return (0);
 	}
 	if (map && i - 1 >= 0 && check0(map[i - 1][j]))
 	{
-		wrerror("invalid map\n");
+		wrerror("invalid map6\n");
 		return (0);
 	}
 	if (map && map[i][j + 1] && check0(map[i][j + 1]))
 	{
-		wrerror("invalid map\n");
+		wrerror("invalid map7\n");
 		return (0);
 	}
 	if (map && j - 1 >= 0 && check0(map[i][j - 1]))
 	{
-		wrerror("invalid map\n");
+		wrerror("invalid map8\n");
 		return (0);
 	}
 	return (1);
@@ -36,22 +36,22 @@ int check2(char **map, int i, int j)
 {
 	if (map && !map[i + 1])
 	{
-		wrerror("invalid map\n");
+		wrerror("invalid map1\n");
 		return (0);
 	}
 	if (map && i - 1 < 0)
 	{
-		wrerror("invalid map\n");
+		wrerror("invalid map2\n");
 		return (0);
 	}
 	if (map && !map[i][j + 1])
 	{
-		wrerror("invalid map\n");
+		wrerror("invalid map3\n");
 		return (0);
 	}
 	if (map && j - 1 < 0)
 	{
-		wrerror("invalid map\n");
+		wrerror("invalid map4\n");
 		return (0);
 	}
 	return (1);
@@ -95,10 +95,10 @@ int	checkifmapvalid(t_data *data)
 		{
 			c = (data)->mp[i][j];
 			if (mapcharscheck(c))
-				return (wrerror("invalid map\n"), 1);
+				return (wrerror("invalid map1\n"), 1);
 			if (c == ' ' && !check1((data)->mp, i , j))
 				return (1);
-			if (c == '0' && !check2((data)->mp, i, j))
+			if ((c == '0'  || playerchar_found(c, &(data->angle)))&& !check2((data)->mp, i, j))
 				return (1);
 			if (playerchar_found(c, &(data->angle)))
 			{
