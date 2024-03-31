@@ -31,7 +31,7 @@ int fillandcheckmap(t_data **data, char *filename, int longestline)
 		free(get_next_line(fd));
 	i = 0;
 	line = get_next_line(fd);
-	while((*data)->mp[i] && line)
+	while( line)
 	{
 		(*data)->mp[i] = linemodified(line, longestline);
 		line = get_next_line(fd);
