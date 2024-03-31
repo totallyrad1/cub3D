@@ -1,0 +1,20 @@
+NO ./textures/wall.xpm
+SO ./textures/floor.xpm
+WE ./textures/coin.xpm
+EA ./textures/door.xpm
+F 20,20,20
+C 200,200,200
+
+111
+1N1
+101
+101
+101
+101
+101
+101
+101
+101
+101
+101
+111
