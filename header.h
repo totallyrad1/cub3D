@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   header.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mozennou <mozennou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: asnaji <asnaji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 12:45:39 by mozennou          #+#    #+#             */
-/*   Updated: 2024/03/31 00:45:58 by mozennou         ###   ########.fr       */
+/*   Updated: 2024/03/31 01:14:40 by asnaji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,5 +108,7 @@ int fill_forkey(t_data **data, char *key, char *value, t_strct **mlx);
 int		checkifmapvalid(t_data *data);
 int		is_wall(t_data *data, int x, int y);
 void	mini_map(t_strct *mlx, t_data *data);
+
+int checkvalidnumbers(char *str);
 
 #endif
