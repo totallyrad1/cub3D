@@ -88,7 +88,7 @@ int setcolors_value(char *key, char *value, t_data **data)
 		b = ft_atoi(value, &j);
 		if(!checkvalues(r, g, b))
 			return (-1);
-		return ((*data)->f_color = to_color(r, g, b), 1);
+		return ((*data)->c_color = to_color(r, g, b), 1);
 	}
 	if (!ft_strcmp(key, "F") && (*data)->f_color == -1)
 	{
@@ -97,7 +97,7 @@ int setcolors_value(char *key, char *value, t_data **data)
 		b = ft_atoi(value, &j);
 		if(!checkvalues(r, g, b))
 			return (-1);
-		return ((*data)->c_color = to_color(r, g, b), 1);
+		return ((*data)->f_color = to_color(r, g, b), 1);
 	}
 	return ( -1);
 }

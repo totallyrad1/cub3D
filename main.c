@@ -6,7 +6,7 @@
 /*   By: asnaji <asnaji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 12:47:17 by mozennou          #+#    #+#             */
-/*   Updated: 2024/03/30 19:49:33 by asnaji           ###   ########.fr       */
+/*   Updated: 2024/03/31 00:09:28 by asnaji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,6 +164,10 @@ int main(int ac, char **av)
 		return (1);
 	init_data1(&mlx, &data);
 	init_graphics(&mlx);
+	if(parsing(&data, &mlx, av[1]) == -1)
+		return (1);
+	if(checkifmapvalid(&data) == -1)
+		return (1);
 	init_data2(&data);
 	init_events(&mlx);
 	mlx_loop_hook(mlx.mlx, render3d, &data);

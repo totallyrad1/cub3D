@@ -40,7 +40,7 @@ int parse_clrs_txtrs(t_data **data, t_strct **mlx, int fd)
 	line = get_next_line(fd);
 	while(line && !check_that(*data))
 	{
-		if(line[0])
+		if(line && line[0])
 		{
 			fillkey_value(line, &key, &value);
 			if (!key)
@@ -52,9 +52,15 @@ int parse_clrs_txtrs(t_data **data, t_strct **mlx, int fd)
 			free(key);
 			free(value);
 		}
-		line = get_next_line(fd);
+		else
+			free(line);
 		(*data)->lc_tillstartofmap++;
+		if (check_that(*data) == 1)
+			return (1);
+		line = get_next_line(fd);
 	}
+	printf("%d\n", (*data)->lc_tillstartofmap);
+	return (1);
 }
 
 int fn_open(char *filename)
@@ -67,17 +73,18 @@ int fn_open(char *filename)
 	return (fd);
 }
 
-int parsing(t_data **data, t_strct **mlx, char *filename)
+int parsing(t_data *data, t_strct *mlx, char *filename)
 {
 	int fd;
-	char *line;
 
 	fd = fn_open(filename);
 	if (fd == -1)
 		return (-1);
-	if (parse_clrs_txtrs(data, mlx, fd) == -1)
-		return (-1);
-	if (check_that(*data) == 0 || (line = get_next_line(fd)) == NULL)
-		return (wrerror("Error5\n"),-1);
-	
+	if (parse_clrs_txtrs(&data, &mlx, fd) == -1)
+		return (close(fd), -1);
+	if (check_that(data) == 0)
+		return (close(fd), wrerror("Error5\n"), -1);
+	if (get_map(&data, filename, fd) == -1)
+		return (close(fd), wrerror("Error7\n"), -1);
+	return (1);
 }

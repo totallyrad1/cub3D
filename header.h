@@ -6,7 +6,7 @@
 /*   By: asnaji <asnaji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 12:45:39 by mozennou          #+#    #+#             */
-/*   Updated: 2024/03/30 21:03:28 by asnaji           ###   ########.fr       */
+/*   Updated: 2024/03/31 00:09:04 by asnaji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,14 +91,18 @@ void	direction(double angle, int *up, int *right);
 void	vinter(t_data *data, double *xinter, double *yinter, double angle);
 void	vstep(t_data *data, double *xstep, double *ystep, double angle);
 
-size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
-char	*ft_strdup(const char *s1);
-char	*ft_substr(char *s, unsigned int start, size_t len);
 int	ft_isspace(char c);
 
 int settextures_value(char *key, t_data **data, t_strct **mlx, char *value);
 int setcolors_value(char *key, char *value, t_data **data);
 
+char *linemodified(char *line, int longestline);
+
+int parsing(t_data *data, t_strct *mlx, char *filename);
+
+int get_map(t_data **data, char *filename, int fd);
 int fill_forkey(t_data **data, char *key, char *value, t_strct **mlx);
+
+int	checkifmapvalid(t_data *data);
 
 #endif
