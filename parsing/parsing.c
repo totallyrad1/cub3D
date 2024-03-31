@@ -81,6 +81,8 @@ int setcolors_value(char *key, char *value, t_data **data)
 	int	b;
 
 	j = 0;
+	if(checkvalidnumbers(value) == 0)
+		return (-1);
 	if (!ft_strcmp(key, "C") && (*data)->c_color == -1)
 	{
 		r = ft_atoi(value, &j);

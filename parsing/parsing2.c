@@ -68,3 +68,33 @@ int get_map(t_data **data, char *filename, int fd)
 	close(fd);
 	return (fillandcheckmap(data, filename, longestline));
 }
+
+int checkvalidnumbers(char *str)
+{
+	int ncount;
+	int ccount;
+	int i;
+
+	i = 0;
+	ncount = 0;
+	ccount = 0;
+	while(str && str[i])
+	{
+		if(str[i] >= '0' && str[i] <= '9')
+			ncount++;
+		else
+			return(0);
+		while(str[i] >= '0' && str[i] <= '9')
+			i++;
+		if(str[i] && str[i] == ',')
+		{
+			ccount++;
+			i++;
+		}
+		else if (str[i])
+			return(0);
+	}
+	if (ncount != 3 || ccount != 2)
+		return(0);
+	return (1);
+}
