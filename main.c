@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asnaji <asnaji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mozennou <mozennou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 12:47:17 by mozennou          #+#    #+#             */
-/*   Updated: 2024/03/31 00:29:06 by asnaji           ###   ########.fr       */
+/*   Updated: 2024/03/31 00:44:09 by mozennou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	init_data2(t_data *data)
 	data->rotation_speed = 2 * (M_PI / 180);
 }
 
-t_ray *ray_generator(t_data *data)
+t_ray	*ray_generator(t_data *data)
 {
 	t_ray	*rays = malloc(sizeof(t_ray) * WIDTH);
 	double angle = data->angle - (FOV / 2);
@@ -47,6 +47,7 @@ t_ray *ray_generator(t_data *data)
 		rays[i].dis = cast(data, angle) * cos(angle - data->angle);
 		rays[i].hitx = data->hhitx;
 		rays[i].hity = data->hhity;
+		rays[i].ver = data->ver;
 		rays[i].wallprjct = (TILE_SIZE / rays[i].dis) * DISPROJ;
 		angle += res;
 	}
@@ -148,6 +149,7 @@ int	render3d(void *ptr)
 	rays = ray_generator(data);
 	floor_ceiling(mlx, data);
 	walls(rays, mlx);
+	mini_map(mlx, data);
 	free(rays);
 	mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->img, 0, 0);
 	return (0);
