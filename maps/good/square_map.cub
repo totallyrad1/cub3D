@@ -1,6 +1,5 @@
 
 
-F   69, 222, 199
 
 NO ./textures/wall.xpm
 SO ./textures/floor.xpm
@@ -9,7 +8,8 @@ EA ./textures/door.xpm
 
 
 
-C 235, 198, 52
+F 50,50,50
+C 0,200,200
 
 111111111111111111111111
 100000000000000000000001
