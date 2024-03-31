@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   header.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asnaji <asnaji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mozennou <mozennou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 12:45:39 by mozennou          #+#    #+#             */
-/*   Updated: 2024/03/31 00:09:04 by asnaji           ###   ########.fr       */
+/*   Updated: 2024/03/31 00:45:58 by mozennou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ typedef struct s_data
 	int		right;
 	int		i;
 	int		j;
+	int		ver;
 	t_strct	*mlx;
 	int		lc_tillstartofmap;
 }			t_data;
@@ -59,6 +60,7 @@ typedef struct s_ray
 	double	hitx;
 	double	hity;
 	double	dis;
+	int		ver;
 	double	wallprjct;
 }	t_ray;
 
@@ -103,6 +105,8 @@ int parsing(t_data *data, t_strct *mlx, char *filename);
 int get_map(t_data **data, char *filename, int fd);
 int fill_forkey(t_data **data, char *key, char *value, t_strct **mlx);
 
-int	checkifmapvalid(t_data *data);
+int		checkifmapvalid(t_data *data);
+int		is_wall(t_data *data, int x, int y);
+void	mini_map(t_strct *mlx, t_data *data);
 
 #endif
