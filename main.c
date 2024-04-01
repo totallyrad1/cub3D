@@ -6,7 +6,7 @@
 /*   By: mozennou <mozennou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 12:47:17 by mozennou          #+#    #+#             */
-/*   Updated: 2024/04/01 12:52:10 by mozennou         ###   ########.fr       */
+/*   Updated: 2024/04/01 14:52:24 by mozennou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int	is_ok(t_data *data, int x, int y)
 {
 	int a;
 
-	a = data->move_speed / 2;
+	a = data->move_speed;
 	if (data->mp[y / TILE_SIZE][x / TILE_SIZE] == '1')
 		return (0);
 	if (data->mp[(y + a)  / TILE_SIZE][x / TILE_SIZE] == '1'
@@ -161,8 +161,13 @@ int	render3d(void *ptr)
 	walls(rays, mlx);
 	if (data->scope)
 		draw_scope(mlx);
-	mini_map(mlx, data);
-	draw_amo(mlx, 8 - data->amo);
+	if (data->map)
+		draw_map(mlx, data);
+	else
+	{
+		mini_map(mlx, data);
+		draw_amo(mlx, 8 - data->amo);
+	}
 	free(rays);
 	mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->img, 0, 0);
 	return (0);

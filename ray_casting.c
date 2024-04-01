@@ -6,7 +6,7 @@
 /*   By: mozennou <mozennou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 12:33:28 by mozennou          #+#    #+#             */
-/*   Updated: 2024/03/31 00:45:45 by mozennou         ###   ########.fr       */
+/*   Updated: 2024/04/01 13:32:51 by mozennou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ void	hstep(t_data *data, double *xstep, double *ystep, double angle)
 
 int	is_wall(t_data *data, int x, int y)
 {
-	if (x < 0 || x >= (data->j / TILE_SIZE)
-		|| y < 0 || y >= (data->i) / TILE_SIZE)
+	if (x <= 0 || x >= (data->j / TILE_SIZE)
+		|| y <= 0 || y >= (data->i) / TILE_SIZE)
 		return (1);
 	if (data->mp[x][y] == '1')
 		return (1);
