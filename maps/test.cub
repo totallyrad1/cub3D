@@ -1,6 +1,6 @@
-NO ./textures/wall.xpm
-SO ./textures/floor.xpm
-WE ./textures/coin.xpm
+NO ./textures/door.xpm
+SO ./textures/wall1.xpm
+WE ./textures/door.xpm
 EA ./textures/door.xpm
 
 F 50,50,50
