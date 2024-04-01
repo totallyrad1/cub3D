@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mozennou <mozennou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: asnaji <asnaji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 12:47:17 by mozennou          #+#    #+#             */
-/*   Updated: 2024/04/01 14:52:24 by mozennou         ###   ########.fr       */
+/*   Updated: 2024/04/01 22:31:20 by asnaji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ t_ray	*ray_generator(t_data *data)
 	for (int i = 0; i < WIDTH; i++)
 	{
 		angle = normalize(angle);
+		rays[i].angle = angle;
 		rays[i].dis = cast(data, angle) * cos(angle - data->angle);
 		rays[i].hitx = data->hhitx;
 		rays[i].hity = data->hhity;
@@ -116,21 +117,91 @@ void	floor_ceiling(t_strct *mlx, t_data *data)
 	}
 }
 
+// void	walls(t_ray *rays, t_strct *mlx)
+// {
+// 	t_data	*d;
+// 	int	i;
+// 	int	j;
+
+// 	d = mlx->data;
+// 	i = 0;
+// 	while (i < WIDTH)
+// 	{
+// 		j = 0;
+// 		while (j < HEIGHT)
+// 		{
+// 			if (j > (HEIGHT / 2 - d->test * 100 - rays[i].wallprjct / 2) && j < (HEIGHT / 2 - d->test * 100+ rays[i].wallprjct / 2))
+// 			{
+				
+// 				pixel_put(mlx, i, j, 0xFFFFFF);
+// 			}	
+// 			if (((i - WIDTH / 2) * (i - WIDTH / 2) + (j - HEIGHT / 2) * (j - HEIGHT / 2)) < 10)
+// 				pixel_put(mlx, i, j, 0x000000);
+// 			j++;
+// 		}
+// 		i++;
+// 	}
+// }
+
+unsigned int getpixelcolor(char *tex, int b, int texOffset)
+{
+	unsigned int color;
+	unsigned char red = tex[texOffset];
+	unsigned char green = tex[texOffset + 1];
+	unsigned char blue = tex[texOffset + 2];
+	unsigned char alpha = tex[texOffset + 3];
+	
+	color = 0;
+	color |= red;
+	color |= green << 8;
+	color |= blue << 16;
+	color |= alpha << 24;
+	return (color);
+}
+
 void	walls(t_ray *rays, t_strct *mlx)
 {
 	t_data	*d;
 	int	i;
 	int	j;
+	unsigned int color;
+
+	int b;
+	int l;
+	int x;
+	char *tex = mlx_get_data_addr(mlx->data->so, &b, &l, &x);
 
 	d = mlx->data;
 	i = 0;
 	while (i < WIDTH)
 	{
+		float distanceProjPlane = (WIDTH / 2) / tan(rays[i].angle / 2);
+        float projectedWallHeight = (TILE_SIZE / rays[i].dis) * DISPROJ;
+		
+		int wallStripHeight = (int)projectedWallHeight;
+		
+		int wallTopPixel = (HEIGHT / 2) - (wallStripHeight / 2);
+        wallTopPixel = wallTopPixel < 0 ? 0 : wallTopPixel;
+
+		int wallBottomPixel = (HEIGHT / 2) + (wallStripHeight / 2);
+        wallBottomPixel = wallBottomPixel > HEIGHT ? HEIGHT : wallBottomPixel;
+
+		int textureOffsetX;
+        if (rays[i].ver)
+            textureOffsetX = (int)rays[i].hity % TILE_SIZE;
+        else
+            textureOffsetX = (int)rays[i].hitx % TILE_SIZE;
 		j = 0;
 		while (j < HEIGHT)
 		{
 			if (j > (HEIGHT / 2 - d->test * 100 - rays[i].wallprjct / 2) && j < (HEIGHT / 2 - d->test * 100+ rays[i].wallprjct / 2))
-				pixel_put(mlx, i, j, 0xFFFFFF);
+			{
+				int distanceFromTop = j + (wallStripHeight / 2) - (HEIGHT / 2);
+				int textureOffsetY = distanceFromTop * ((float)64 / wallStripHeight);
+				
+				color = getpixelcolor(tex, b, (TILE_SIZE * textureOffsetY + textureOffsetX) * (b / 8));
+				pixel_put(mlx, i, j, color);
+			}	
 			if (((i - WIDTH / 2) * (i - WIDTH / 2) + (j - HEIGHT / 2) * (j - HEIGHT / 2)) < 10)
 				pixel_put(mlx, i, j, 0x000000);
 			j++;
@@ -138,6 +209,53 @@ void	walls(t_ray *rays, t_strct *mlx)
 		i++;
 	}
 }
+
+// void textrues(t_ray *rays, t_strct *mlx)
+// {
+// 	int b;
+// 	int l;
+// 	int x;
+// 	char *tex = mlx_get_data_addr(mlx->data->so, &b, &l, &x);
+
+// 	for (int i = 0; i < WIDTH; i++) {
+//         float perpDistance = rays[i].dis;
+//         float distanceProjPlane = (WIDTH / 2) / tan(rays[i].angle / 2);
+//         float projectedWallHeight = (TILE_SIZE / rays[i].dis) * DISPROJ;
+
+//         int wallStripHeight = (int)projectedWallHeight;
+
+//         int wallTopPixel = (HEIGHT / 2) - (wallStripHeight / 2);
+//         wallTopPixel = wallTopPixel < 0 ? 0 : wallTopPixel;
+
+//         int wallBottomPixel = (HEIGHT / 2) + (wallStripHeight / 2);
+//         wallBottomPixel = wallBottomPixel > HEIGHT ? HEIGHT : wallBottomPixel;
+
+//         // calculate texture offset X
+//         int textureOffsetX;
+//         if (rays[i].ver)
+//             textureOffsetX = (int)rays[i].hity % TILE_SIZE;
+//         else
+//             textureOffsetX = (int)rays[i].hitx % TILE_SIZE;
+
+//         for (int y = wallTopPixel; y <= wallBottomPixel; y++) {
+//             int distanceFromTop = y + (wallStripHeight / 2) - (HEIGHT / 2);
+//             int textureOffsetY = distanceFromTop * ((float)TILE_SIZE / wallStripHeight);
+
+// 			int texOffset = (TILE_SIZE * textureOffsetY + textureOffsetX) * (b / 8);
+// 			unsigned char red = tex[texOffset];
+// 			unsigned char green = tex[texOffset + 1];
+// 			unsigned char blue = tex[texOffset + 2];
+// 			unsigned char alpha = tex[texOffset + 3];
+            
+// 			unsigned int color = 0;
+// 			color |= tex[texOffset];
+// 			color |= tex[texOffset + 1] << 8;
+// 			color |= tex[texOffset + 2] << 16;
+// 			color |= alpha << 24;
+//             pixel_put(mlx, i, y, color);
+//         }
+//     }
+// }
 
 int	render3d(void *ptr)
 {
@@ -159,6 +277,7 @@ int	render3d(void *ptr)
 	rays = ray_generator(data);
 	floor_ceiling(mlx, data);
 	walls(rays, mlx);
+	// textrues(rays, mlx);
 	if (data->scope)
 		draw_scope(mlx);
 	if (data->map)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_casting.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mozennou <mozennou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: asnaji <asnaji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 12:33:28 by mozennou          #+#    #+#             */
-/*   Updated: 2024/04/01 13:32:51 by mozennou         ###   ########.fr       */
+/*   Updated: 2024/04/01 22:32:43 by asnaji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,9 +105,11 @@ double	cast(t_data *data, double angle)
 	v = vcast(data, angle, 0, 0);
 	if (h > v)
 	{
+		data->ver = 1;
 		data->hhitx = data->vhitx;
 		data->hhity = data->vhity;
 		return (v);
 	}
+	data->ver = 0;
 	return (h);
 }
