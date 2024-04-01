@@ -25,8 +25,14 @@
 # define RIGHT_KEY 2
 
 //events defines
-# define ON_KEYDOWN 2
-# define ON_KEYRELEASE 3
-# define ON_DESTROY 17
+enum {
+	ON_KEYDOWN = 2,
+	ON_KEYRELEASE = 3,
+	ON_MOUSEDOWN = 4,
+	ON_MOUSEUP = 5,
+	ON_MOUSEMOVE = 6,
+	ON_EXPOSE = 12,
+	ON_DESTROY = 17
+};
 
 #endif

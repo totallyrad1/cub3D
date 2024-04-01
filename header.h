@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   header.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asnaji <asnaji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mozennou <mozennou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 12:45:39 by mozennou          #+#    #+#             */
-/*   Updated: 2024/03/31 01:14:40 by asnaji           ###   ########.fr       */
+/*   Updated: 2024/04/01 12:44:49 by mozennou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef HEADER_H
 # define HEADER_H
 
-# include <mlx.h>
+# include "./mlx/mlx.h"
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
@@ -29,9 +29,9 @@ typedef struct s_data
 {
 	int		x;
 	int		y;
-	float	angle;
-	float	move_speed;
-	float	rotation_speed;
+	double	angle;
+	double	move_speed;
+	double	rotation_speed;
 	int		walk;
 	int		left_right;
 	int		turn;
@@ -51,7 +51,13 @@ typedef struct s_data
 	int		i;
 	int		j;
 	int		ver;
+	double	old_angle;
 	t_strct	*mlx;
+	double	test;
+	int		scope;
+	int		amo;
+	int		mini_map;
+	int		hide;
 	int		lc_tillstartofmap;
 }			t_data;
 
@@ -108,7 +114,9 @@ int fill_forkey(t_data **data, char *key, char *value, t_strct **mlx);
 int		checkifmapvalid(t_data *data);
 int		is_wall(t_data *data, int x, int y);
 void	mini_map(t_strct *mlx, t_data *data);
-
+int	gun_sound(char *s);
+void draw_amo(t_strct *mlx, int amo);
 int checkvalidnumbers(char *str);
+void	draw_scope(t_strct	*mlx);
 
 #endif
