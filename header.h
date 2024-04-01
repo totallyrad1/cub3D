@@ -6,7 +6,7 @@
 /*   By: mozennou <mozennou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 12:45:39 by mozennou          #+#    #+#             */
-/*   Updated: 2024/04/01 12:44:49 by mozennou         ###   ########.fr       */
+/*   Updated: 2024/04/01 12:57:48 by mozennou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ typedef struct s_data
 	double	test;
 	int		scope;
 	int		amo;
-	int		mini_map;
+	int		map;
 	int		hide;
 	int		lc_tillstartofmap;
 }			t_data;
@@ -118,5 +118,6 @@ int	gun_sound(char *s);
 void draw_amo(t_strct *mlx, int amo);
 int checkvalidnumbers(char *str);
 void	draw_scope(t_strct	*mlx);
+void	draw_map(t_strct *mlx, t_data *data);
 
 #endif

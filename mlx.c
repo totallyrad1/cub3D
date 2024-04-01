@@ -73,6 +73,8 @@ int	keyclick(int ky, void *ptr)
 			data->hide = 0;
 		}
 	}
+	else if (ky == 35)
+		data->map = !data->map;
 	return (0);
 }
 
@@ -138,6 +140,7 @@ int	mouseup(int ky, int x, int y, void *ptr)
 
 	if (ky == 1)
 		data->test = 0;
+	return (0);
 }
 
 void	init_events(t_strct *mlx)

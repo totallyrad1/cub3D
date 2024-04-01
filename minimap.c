@@ -6,7 +6,7 @@
 /*   By: mozennou <mozennou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/30 20:05:12 by mozennou          #+#    #+#             */
-/*   Updated: 2024/04/01 12:44:41 by mozennou         ###   ########.fr       */
+/*   Updated: 2024/04/01 14:09:56 by mozennou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	mini_map(t_strct *mlx, t_data *data)
 	while (i < WIDTH / 5)
 	{
 		j = 0;
-		while (j < HEIGHT / 4)
+		while (j < HEIGHT / 5 + 5)
 		{
 			if (((i - WIDTH / 10) * (i - WIDTH / 10) + (j - HEIGHT / 10) * (j - HEIGHT / 10)) < 8500)
 			{
@@ -136,4 +136,51 @@ void	draw_scope(t_strct	*mlx)
 		}
 		i++;
 	}
+}
+
+void	draw_map(t_strct *mlx, t_data *data)
+{
+	int	i;
+	int	j;
+
+	// i = WIDTH / 10;
+	// while (i < (WIDTH / 10) * 9)
+	// {
+	// 	j = HEIGHT / 10;
+	// 	while (j < (HEIGHT / 10) * 9)
+	// 	{
+	// 		if (is_wall(data, (data->y + j * 2 - 1280) / TILE_SIZE, (data->x + i * 2 - 1024) / TILE_SIZE))
+	// 			pixel_put(mlx, i, j, 0xFF9800);
+	// 		else
+	// 			pixel_put(mlx, i, j, 0xD9EDBF);
+	// 		j++;
+	// 	}
+	// 	i++;
+	// }
+
+	i = WIDTH / 10;
+	while (i < (WIDTH / 10) * 9)
+	{
+		j = HEIGHT / 10;
+		while (j < (HEIGHT / 10) * 9)
+		{
+			if (j < HEIGHT / 10 + 10 || j > (HEIGHT / 10) * 9 - 10 || i < WIDTH / 10 + 10 || i > (WIDTH / 10) * 9 - 10)
+			{
+				pixel_put(mlx, i, j, 0x000000);
+			}
+			else
+			{
+				if (is_wall(data, (data->y + j - 960 / 2) / 64, (data->x + i - 1024 / 2  - 64 * 2) / 64))
+					pixel_put(mlx, i, j, 0xFF9800);
+				else
+					pixel_put(mlx, i, j, 0xD9EDBF);
+				if (((i - WIDTH / 2) * (i - WIDTH / 2) + (j - HEIGHT / 2) * (j - HEIGHT / 2)) < 10)
+					pixel_put(mlx, i, j, 0X2C7865);
+			}
+			j++;
+		}
+		i++;
+	}
+	direction_line(WIDTH / 2, HEIGHT / 2, WIDTH / 2 + cos(data->angle) * 20,
+		HEIGHT / 2 + sin(data->angle) * 20, mlx);
 }
