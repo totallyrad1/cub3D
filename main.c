@@ -6,7 +6,7 @@
 /*   By: mozennou <mozennou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 12:47:17 by mozennou          #+#    #+#             */
-/*   Updated: 2024/03/31 01:08:02 by mozennou         ###   ########.fr       */
+/*   Updated: 2024/04/01 12:52:10 by mozennou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,12 @@ void	init_data1(t_strct *mlx, t_data *data)
 	data->left_right = 0;
 	mlx->data = data;
 	data->mlx = mlx;
+	data->hide = 1;
+	data->scope = 0;
+	data->test = 0;
 	data->f_color = -1;
 	data->c_color = -1;
+	data->amo = 0;
 	data->lc_tillstartofmap = 0;
 }
 
@@ -74,8 +78,8 @@ void	update(t_data *data)
 	int	xx;
 	int	yy;
 
-	xx = cos(data->angle) * data->move_speed;
-	yy = sin(data->angle) * data->move_speed;
+	xx = cos(data->angle) * (data->move_speed - data->scope * data->move_speed / 2);
+	yy = sin(data->angle) * (data->move_speed - data->scope * data->move_speed / 2);
 	if (data->walk && is_ok(data, data->x + data->walk * xx, data->y + data->walk * yy))
 	{
 		data->x += data->walk * xx;
@@ -86,7 +90,9 @@ void	update(t_data *data)
 		data->x += data->left_right * yy;
 		data->y -= data->left_right * xx;
 	}
-	data->angle += data->turn * data->rotation_speed;
+	data->angle += data->turn * data->rotation_speed * data->hide;
+	if (data->turn && !data->hide)
+		mlx_mouse_move(data->mlx->win, (int)((data->angle /((M_PI / 180) / 1.8)) + WIDTH / 2) % WIDTH, HEIGHT / 2);
 }
 
 void	floor_ceiling(t_strct *mlx, t_data *data)
@@ -100,7 +106,7 @@ void	floor_ceiling(t_strct *mlx, t_data *data)
 		j = 0;
 		while (j < HEIGHT)
 		{
-			if (j > HEIGHT / 2)
+			if (j > HEIGHT / 2 - data->test * 100)
 				pixel_put(mlx, i, j, data->f_color);
 			else	
 				pixel_put(mlx, i, j, data->c_color);
@@ -112,17 +118,21 @@ void	floor_ceiling(t_strct *mlx, t_data *data)
 
 void	walls(t_ray *rays, t_strct *mlx)
 {
+	t_data	*d;
 	int	i;
 	int	j;
 
+	d = mlx->data;
 	i = 0;
 	while (i < WIDTH)
 	{
 		j = 0;
 		while (j < HEIGHT)
 		{
-			if (j > (HEIGHT / 2 - rays[i].wallprjct / 2) && j < (HEIGHT / 2 + rays[i].wallprjct / 2))
+			if (j > (HEIGHT / 2 - d->test * 100 - rays[i].wallprjct / 2) && j < (HEIGHT / 2 - d->test * 100+ rays[i].wallprjct / 2))
 				pixel_put(mlx, i, j, 0xFFFFFF);
+			if (((i - WIDTH / 2) * (i - WIDTH / 2) + (j - HEIGHT / 2) * (j - HEIGHT / 2)) < 10)
+				pixel_put(mlx, i, j, 0x000000);
 			j++;
 		}
 		i++;
@@ -149,7 +159,10 @@ int	render3d(void *ptr)
 	rays = ray_generator(data);
 	floor_ceiling(mlx, data);
 	walls(rays, mlx);
+	if (data->scope)
+		draw_scope(mlx);
 	mini_map(mlx, data);
+	draw_amo(mlx, 8 - data->amo);
 	free(rays);
 	mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->img, 0, 0);
 	return (0);

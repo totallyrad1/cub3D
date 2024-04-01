@@ -6,7 +6,7 @@
 /*   By: mozennou <mozennou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/30 20:05:12 by mozennou          #+#    #+#             */
-/*   Updated: 2024/03/31 00:47:19 by mozennou         ###   ########.fr       */
+/*   Updated: 2024/04/01 12:44:41 by mozennou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,4 +82,58 @@ void	mini_map(t_strct *mlx, t_data *data)
 	player_dot(mlx);
 	direction_line(WIDTH / 10, HEIGHT / 10, WIDTH / 10 + cos(data->angle) * 20,
 		HEIGHT / 10 + sin(data->angle) * 20, mlx);
+}
+
+void draw_amo(t_strct *mlx, int amo)
+{
+	int	i;
+	int	m;
+	int	j;
+
+	m = (WIDTH - (WIDTH / 10) * 8 - 20) / 8;
+	i = (WIDTH / 10) * 8;
+	while (i < WIDTH)
+	{
+		j = 0;
+		while (j < HEIGHT / 15)
+		{
+			pixel_put(mlx, i, j, 0xFFFFFF);
+			if (j > (HEIGHT / 15) - 8 || j < 8 || i < ((WIDTH / 10) * 8 + 8) || i > WIDTH - 8)
+				pixel_put(mlx, i, j, 0);
+			if ((i - (WIDTH / 10) * 8 - 10) < (amo * m)
+				&& j < (HEIGHT / 15) - 10
+				&& j > 10 && i > ((WIDTH / 10) * 8 + 10) && i < WIDTH - 10
+				&& ((i - (WIDTH / 10) * 8 - 10) % m) != 0)
+				pixel_put(mlx, i, j, 0x0000FF);
+			j++;
+		}
+		i++;
+	}
+}
+
+void	draw_scope(t_strct	*mlx)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (i < WIDTH)
+	{
+		j = 0;
+		while (j < HEIGHT)
+		{
+			if (((i - WIDTH / 2) * (i - WIDTH / 2) + (j - HEIGHT / 2) * (j - HEIGHT / 2)) > 200000)
+				pixel_put(mlx, i, j, 0);
+			else if (((i - WIDTH / 2) * (i - WIDTH / 2) + (j - HEIGHT / 2) * (j - HEIGHT / 2)) < 10)
+				pixel_put(mlx, i, j, 0xFF0000);
+			else if (((i - WIDTH / 2) * (i - WIDTH / 2) + (j - HEIGHT / 2) * (j - HEIGHT / 2)) < 200
+				&& ((i - WIDTH / 2) * (i - WIDTH / 2) + (j - HEIGHT / 2) * (j - HEIGHT / 2)) > 150)
+				pixel_put(mlx, i, j, 0x00AA00);
+			else if (((i - WIDTH / 2) * (i - WIDTH / 2) + (j - HEIGHT / 2) * (j - HEIGHT / 2)) < 10000
+				&& ((i - WIDTH / 2) * (i - WIDTH / 2) + (j - HEIGHT / 2) * (j - HEIGHT / 2)) > 9000)
+				pixel_put(mlx, i, j, 0);
+			j++;
+		}
+		i++;
+	}
 }
