@@ -1,10 +1,10 @@
-NO ./textures/wall.xpm
-SO ./textures/floor.xpm
-WE ./textures/coin.xpm
-EA ./textures/door.xpm
+NO ./textures/nowall.xpm
+SO ./textures/sowall.xpm
+WE ./textures/wewall.xpm
+EA ./textures/eawall.xpm
 
-F 164,169,20
-C 153,204,255
+F     50,   50,    50
+C     135, 206, 235
 
 111111111111111111111
 101000001000000000001

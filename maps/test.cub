@@ -1,7 +1,7 @@
-NO ./textures/bg29.xpm
-SO ./textures/wall1.xpm
-WE ./textures/door.xpm
-EA ./textures/door2.xpm
+NO ./textures/nowall.xpm
+SO ./textures/sowall.xpm
+WE ./textures/wewall.xpm
+EA ./textures/eawall.xpm
 
 F     50,   50,    50
 C      0,    200,    200

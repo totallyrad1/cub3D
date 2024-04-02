@@ -57,8 +57,8 @@ int	keyclick(int ky, void *ptr)
 		data->turn = -1;
 	else if (ky == RLEFT_KEY)
 		data->turn = 1;
-	else if (ky == 15 && !gun_sound("./sounds/reload.wav"))
-		data->amo = 0;
+	// else if (ky == 15 && !gun_sound("./sounds/reload.wav"))
+	// 	data->amo = 0;
 	else if (ky == 12)
 	{
 		if (!data->hide)
@@ -148,7 +148,7 @@ void	init_events(t_strct *mlx)
 	mlx_hook(mlx->win, ON_KEYRELEASE, 0, keyrelease, mlx->data);
 	mlx_hook(mlx->win, ON_DESTROY, 0, destroy, mlx);
 	mlx_hook(mlx->win, ON_KEYDOWN, 0, keyclick, mlx);
-	mlx_hook(mlx->win, ON_MOUSEDOWN, 0, mouseclick, mlx->data);
+	// mlx_hook(mlx->win, ON_MOUSEDOWN, 0, mouseclick, mlx->data);
 	mlx_hook(mlx->win, ON_MOUSEUP, 0, mouseup, mlx->data);
 	mlx_hook(mlx->win, ON_MOUSEMOVE, 0, mousemove, mlx->data);
 }

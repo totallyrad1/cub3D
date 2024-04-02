@@ -34,25 +34,13 @@ int settextures_value(char *key, t_data **data, t_strct **mlx, char *value)
 	int w;
 	int h;
 	if (!ft_strcmp(key, "SO") && !(*data)->so)
-	{
-		(*data)->so = mlx_xpm_file_to_image((*mlx)->mlx, value, &w, &h);
-		return (1);
-	}
+		return ((*data)->so = mlx_xpm_file_to_image((*mlx)->mlx, value, &w, &h), 1);
 	else if (!ft_strcmp(key, "EA") && !(*data)->ea)
-	{
-		(*data)->ea = mlx_xpm_file_to_image((*mlx)->mlx, value, &w, &h);
-		return (1);
-	}
+		return ((*data)->ea = mlx_xpm_file_to_image((*mlx)->mlx, value, &w, &h), 1);
 	else if (!ft_strcmp(key, "NO") && !(*data)->no)
-	{
-		(*data)->no = mlx_xpm_file_to_image((*mlx)->mlx, value, &w, &h);
-		return (1);
-	}
+		return ((*data)->no = mlx_xpm_file_to_image((*mlx)->mlx, value, &w, &h), 1);
 	else if (!ft_strcmp(key, "WE") && !(*data)->we)
-	{
-		(*data)->we = mlx_xpm_file_to_image((*mlx)->mlx, value, &w, &h);
-		return (1);
-	}
+		return ((*data)->we = mlx_xpm_file_to_image((*mlx)->mlx, value, &w, &h), 1);
 	else
 		return (-1);
 }

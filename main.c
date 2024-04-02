@@ -6,7 +6,7 @@
 /*   By: asnaji <asnaji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 12:47:17 by mozennou          #+#    #+#             */
-/*   Updated: 2024/04/02 01:03:02 by asnaji           ###   ########.fr       */
+/*   Updated: 2024/04/02 02:22:21 by asnaji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -227,14 +227,14 @@ int	render3d(void *ptr)
 	rays = ray_generator(data);
 	floor_ceiling(mlx, data);
 	walls(rays, mlx);
-	if (data->scope)
-		draw_scope(mlx);
+	// if (data->scope)
+	// 	draw_scope(mlx);
 	if (data->map)
 		draw_map(mlx, data);
 	else
 	{
 		mini_map(mlx, data);
-		draw_amo(mlx, 8 - data->amo);
+		// draw_amo(mlx, 8 - data->amo);
 	}
 	free(rays);
 	mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->img, 0, 0);
