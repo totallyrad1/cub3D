@@ -1,93 +1,71 @@
 #include "../header.h"
 
-char *linemodified(char *line, int longestline)
+char	*linemodified(char *line, int longestline)
 {
-	char *newline = malloc(longestline + 1);
-	int i = 0;
-	while(i < longestline && line[i])
+	char	*newline;
+	int		i;
+
+	newline = malloc(longestline + 1);
+	if (!newline)
+		return (NULL);
+	i = 0;
+	while (i < longestline && line[i])
 	{
 		newline[i] = line[i];
 		i++;
 	}
-	while(i < longestline)
+	while (i < longestline)
 		newline[i++] = ' ';
 	newline[i] = '\0';
 	free(line);
 	return (newline);
 }
 
-void free_array(char **line)
+void	free_array(char **line)
 {
 	int	i;
 
 	i = 0;
 	if (line)
 	{
-		while(line[i])
+		while (line[i])
 			free(line[i++]);
 		free(line);
 	}
 }
 
-int settextures_value(char *key, t_data **data, t_strct **mlx, char *value)
+int	checkandreturn(int w, int h, void *img)
 {
-	int w;
-	int h;
+	if (img == NULL || w != 64 || h != 64)
+		return (-1);
+	return (0);
+}
+
+int	settextures_value(char *key, t_data **data, t_strct **mlx, char *value)
+{
+	int	w;
+	int	h;
+
 	if (!ft_strcmp(key, "SO") && !(*data)->so)
-		return ((*data)->so = mlx_xpm_file_to_image((*mlx)->mlx, value, &w, &h), 1);
+	{
+		(*data)->so = mlx_xpm_file_to_image((*mlx)->mlx, value, &w, &h);
+		return (checkandreturn(w, h, (*data)->so));
+	}
 	else if (!ft_strcmp(key, "EA") && !(*data)->ea)
-		return ((*data)->ea = mlx_xpm_file_to_image((*mlx)->mlx, value, &w, &h), 1);
+	{
+		(*data)->ea = mlx_xpm_file_to_image((*mlx)->mlx, value, &w, &h);
+		return (checkandreturn(w, h, (*data)->ea));
+	}
 	else if (!ft_strcmp(key, "NO") && !(*data)->no)
-		return ((*data)->no = mlx_xpm_file_to_image((*mlx)->mlx, value, &w, &h), 1);
+	{
+		(*data)->no = mlx_xpm_file_to_image((*mlx)->mlx, value, &w, &h);
+		return (checkandreturn(w, h, (*data)->no));
+	}
 	else if (!ft_strcmp(key, "WE") && !(*data)->we)
-		return ((*data)->we = mlx_xpm_file_to_image((*mlx)->mlx, value, &w, &h), 1);
+	{
+		(*data)->we = mlx_xpm_file_to_image((*mlx)->mlx, value, &w, &h);
+		return (checkandreturn(w, h, (*data)->we));
+	}
 	else
 		return (-1);
-}
-
-int checkvalues(int i1, int i2, int i3)
-{
-	if (i1 < 0 || i1 > 255)
-		return (0);
-	if (i2 < 0 || i2 > 255)
-		return (0);
-	if (i3 < 0 || i3 > 255)
-		return (0);
-	return (1);
-}
-
-int	to_color(int r, int g, int b)
-{
-	return (((r) << 16) | ((g) << 8) | (b));
-}
-
-int setcolors_value(char *key, char *value, t_data **data)
-{
-	int j;
-	int	r;
-	int	g;
-	int	b;
-
-	j = 0;
-	if(checkvalidnumbers(value) == 0)
-		return (-1);
-	if (!ft_strcmp(key, "C") && (*data)->c_color == -1)
-	{
-		r = ft_atoi(value, &j);
-		g = ft_atoi(value, &j);
-		b = ft_atoi(value, &j);
-		if(!checkvalues(r, g, b))
-			return (-1);
-		return ((*data)->c_color = to_color(r, g, b), 1);
-	}
-	if (!ft_strcmp(key, "F") && (*data)->f_color == -1)
-	{
-		r = ft_atoi(value, &j);
-		g = ft_atoi(value, &j);
-		b = ft_atoi(value, &j);
-		if(!checkvalues(r, g, b))
-			return (-1);
-		return ((*data)->f_color = to_color(r, g, b), 1);
-	}
-	return ( -1);
 }

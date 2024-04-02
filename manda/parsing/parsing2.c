@@ -1,6 +1,6 @@
 #include "../header.h"
 
-int fill_forkey(t_data **data, char *key, char *value, t_strct **mlx)
+int	fill_forkey(t_data **data, char *key, char *value, t_strct **mlx)
 {
 	if (!ft_strcmp(key, "SO"))
 		return (settextures_value(key, data, mlx, value));
@@ -17,17 +17,17 @@ int fill_forkey(t_data **data, char *key, char *value, t_strct **mlx)
 	return (-1);
 }
 
-int fillandcheckmap(t_data **data, char *filename, int longestline)
+int	fillandcheckmap(t_data **data, char *filename, int longestline)
 {
-	int fd;
-	char *line;
-	int i;
-	
+	int		fd;
+	char	*line;
+	int		i;
+
 	i = 0;	
 	fd = open(filename, O_RDONLY);
 	if (fd == -1)
 		return (wrerror("error opening file\n"), free((*data)->mp), -1);
-	while((*data)->lc_tillstartofmap-- > 0)
+	while ((*data)->lc_tillstartofmap-- > 0)
 		free(get_next_line(fd));
 	i = 0;
 	line = get_next_line(fd);
@@ -42,7 +42,7 @@ int fillandcheckmap(t_data **data, char *filename, int longestline)
 	return (1);
 }
 
-int get_map(t_data **data, char *filename, int fd)
+int	get_map(t_data **data, char *filename, int fd)
 {
 	char	*line;
 	int		arr_size;
@@ -53,9 +53,9 @@ int get_map(t_data **data, char *filename, int fd)
 	if(line == NULL)
 		return (-1);
 	longestline = 0;
-	while(line)
+	while (line)
 	{
-		if((int)ft_strlen(line) > longestline)
+		if ((int)ft_strlen(line) > longestline)
 			longestline = (int)ft_strlen(line);
 		arr_size++;
 		free(line);
@@ -69,7 +69,7 @@ int get_map(t_data **data, char *filename, int fd)
 	return (fillandcheckmap(data, filename, longestline));
 }
 
-int checkvalidnumbers(char *str)
+int checknum(char *str)
 {
 	int ncount;
 	int ccount;

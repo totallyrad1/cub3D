@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   header.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mozennou <mozennou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: asnaji <asnaji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 12:45:39 by mozennou          #+#    #+#             */
-/*   Updated: 2024/04/02 16:14:49 by mozennou         ###   ########.fr       */
+/*   Updated: 2024/04/02 18:01:39 by asnaji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,7 @@ int fill_forkey(t_data **data, char *key, char *value, t_strct **mlx);
 
 int		checkifmapvalid(t_data *data);
 int		is_wall(t_data *data, int x, int y);
-int		checkvalidnumbers(char *str);
+int		checknum(char *str);
 void	draw_scope(t_strct	*mlx);
 
 #endif
