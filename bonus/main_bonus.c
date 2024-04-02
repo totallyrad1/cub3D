@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mozennou <mozennou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: asnaji <asnaji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 12:47:17 by mozennou          #+#    #+#             */
-/*   Updated: 2024/04/02 15:35:04 by mozennou         ###   ########.fr       */
+/*   Updated: 2024/04/02 21:31:42 by asnaji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,6 @@ unsigned int	getpixelcolor(char *tex, int b, int texOffset)
 	green = tex[texOffset + 1];
 	blue = tex[texOffset + 2];
 	alpha = tex[texOffset + 3];
-	
 	color = 0;
 	color |= red;
 	color |= green << 8;
@@ -161,6 +160,24 @@ void	*getwalltexture(t_ray *rays, t_strct *mlx, int i)
 			return (mlx->data->no);
 }
 
+void *getanimetex(t_strct *mlx)
+{
+	if(mlx->texid < 10)
+		return (mlx->anim1);
+	else if(mlx->texid < 20)
+		return (mlx->anim2);
+	else if(mlx->texid < 30)
+		return (mlx->anim3);
+	else if(mlx->texid < 40)
+		return (mlx->anim4);
+	else if(mlx->texid < 50)
+		return (mlx->anim5);
+	else if(mlx->texid < 60)
+		return (mlx->anim6);
+	else
+		return (mlx->anim7);
+}
+
 void	setvalues(t_vars *vars, t_ray *rays, t_strct *mlx, int i)
 {
 	vars->tex = mlx_get_data_addr(getwalltexture(rays, mlx, i), &vars->b, &vars->l, &vars->x);
@@ -176,6 +193,7 @@ void	setvalues(t_vars *vars, t_ray *rays, t_strct *mlx, int i)
 		vars->texX = (int)rays[i].hity % TILE_SIZE;
 	else
 		vars->texX = (int)rays[i].hitx % TILE_SIZE;
+	vars->animtex = mlx_get_data_addr(getanimetex(mlx), &vars->b1, &vars->l1, &vars->x1);
 	vars->j = 0;
 }
 
@@ -195,9 +213,16 @@ void	walls(t_ray *rays, t_strct *mlx)
 			{
 				vars.disfromtop = vars.j + (vars.wallheight / 2) - (HEIGHT / 2);
 				vars.texY = vars.disfromtop * ((float)TILE_SIZE / vars.wallheight);
-				vars.color = getpixelcolor(vars.tex, vars.b, (TILE_SIZE * vars.texY + vars.texX) * (vars.b / 8));
+				vars.color = getpixelcolor(vars.animtex, vars.b1, (TILE_SIZE * vars.texY + vars.texX) * (vars.b1 / 8));
 				pixel_put(mlx, vars.i, vars.j, vars.color);
-			}	
+			}
+			if (vars.j % 2 == 0 && vars.j > (HEIGHT / 2 - rays[vars.i].wallprjct / 2) && vars.j < (HEIGHT / 2 + rays[vars.i].wallprjct / 2))
+			{
+				vars.disfromtop = vars.j + (vars.wallheight / 2) - (HEIGHT / 2);
+				vars.texY = vars.disfromtop * ((float)TILE_SIZE / vars.wallheight);
+				vars.color = getpixelcolor(vars.animtex, vars.b1, (TILE_SIZE * vars.texY + vars.texX) * (vars.b1 / 8));
+				pixel_put(mlx, vars.i, vars.j, vars.color);
+			}
 			if (((vars.i - WIDTH / 2) * (vars.i - WIDTH / 2) + (vars.j - HEIGHT / 2) * (vars.j - HEIGHT / 2)) < 10)
 				pixel_put(mlx, vars.i, vars.j, 0x000000);
 			vars.j++;
@@ -214,6 +239,9 @@ int	render3d(void *ptr)
 
 	data = ptr;
 	mlx = data->mlx;
+	if (mlx->texid > 70)
+		mlx->texid = 0;
+	mlx->texid++;
 	mlx_clear_window(mlx->mlx, mlx->win);
 	mlx_destroy_image(mlx->mlx, mlx->img);
 	mlx->img = mlx_new_image(mlx->mlx, WIDTH, HEIGHT);
@@ -240,6 +268,35 @@ int	render3d(void *ptr)
 	return (0);
 }
 
+int initanimtex(t_strct *mlx)
+{
+	int w;
+	int h;
+	
+	mlx->anim1 = mlx_xpm_file_to_image(mlx->mlx, "./tex/anim1.xpm", &w, &h);
+	if (checkandreturn(w, h, mlx->anim1) == -1)
+		return (-1);
+	mlx->anim2 = mlx_xpm_file_to_image(mlx->mlx, "./tex/anim2.xpm", &w, &h);
+	if (checkandreturn(w, h, mlx->anim2) == -1)
+		return (-1);
+	mlx->anim3 = mlx_xpm_file_to_image(mlx->mlx, "./tex/anim3.xpm", &w, &h);
+	if (checkandreturn(w, h, mlx->anim3) == -1)
+		return (-1);
+	mlx->anim4 = mlx_xpm_file_to_image(mlx->mlx, "./tex/anim4.xpm", &w, &h);
+	if (checkandreturn(w, h, mlx->anim4) == -1)
+		return (-1);
+	mlx->anim5 = mlx_xpm_file_to_image(mlx->mlx, "./tex/anim5.xpm", &w, &h);
+	if (checkandreturn(w, h, mlx->anim5) == -1)
+		return (-1);
+	mlx->anim6 = mlx_xpm_file_to_image(mlx->mlx, "./tex/anim6.xpm", &w, &h);
+	if (checkandreturn(w, h, mlx->anim6) == -1)
+		return (-1);
+	mlx->anim7 = mlx_xpm_file_to_image(mlx->mlx, "./tex/anim7.xpm", &w, &h);
+	if (checkandreturn(w, h, mlx->anim7) == -1)
+		return (-1);
+	return (1);
+}
+
 int main(int ac, char **av)
 {
 	t_strct	mlx;
@@ -251,9 +308,11 @@ int main(int ac, char **av)
 		return (1);
 	init_data1(&mlx, &data);
 	init_graphics(&mlx);
-	if(parsing(&data, &mlx, av[1]) == -1)
+	if (initanimtex(&mlx) == -1)
 		return (1);
-	if(checkifmapvalid(&data))
+	if (parsing(&data, &mlx, av[1]) == -1)
+		return (1);
+	if (checkifmapvalid(&data))
 		return (1);
 	init_data2(&data);
 	init_events(&mlx);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mozennou <mozennou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: asnaji <asnaji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 15:47:45 by mozennou          #+#    #+#             */
-/*   Updated: 2024/04/02 15:47:46 by mozennou         ###   ########.fr       */
+/*   Updated: 2024/04/02 21:14:40 by asnaji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,18 +41,38 @@ void free_array(char **line)
 	}
 }
 
-int settextures_value(char *key, t_data **data, t_strct **mlx, char *value)
+int	checkandreturn(int w, int h, void *img)
 {
-	int w;
-	int h;
+	if (img == NULL || w != 64 || h != 64)
+		return (wrerror("invalid texture size or path\n"), -1);
+	return (0);
+}
+
+int	settextures_value(char *key, t_data **data, t_strct **mlx, char *value)
+{
+	int	w;
+	int	h;
+
 	if (!ft_strcmp(key, "SO") && !(*data)->so)
-		return ((*data)->so = mlx_xpm_file_to_image((*mlx)->mlx, value, &w, &h), 1);
+	{
+		(*data)->so = mlx_xpm_file_to_image((*mlx)->mlx, value, &w, &h);
+		return (checkandreturn(w, h, (*data)->so));
+	}
 	else if (!ft_strcmp(key, "EA") && !(*data)->ea)
-		return ((*data)->ea = mlx_xpm_file_to_image((*mlx)->mlx, value, &w, &h), 1);
+	{
+		(*data)->ea = mlx_xpm_file_to_image((*mlx)->mlx, value, &w, &h);
+		return (checkandreturn(w, h, (*data)->ea));
+	}
 	else if (!ft_strcmp(key, "NO") && !(*data)->no)
-		return ((*data)->no = mlx_xpm_file_to_image((*mlx)->mlx, value, &w, &h), 1);
+	{
+		(*data)->no = mlx_xpm_file_to_image((*mlx)->mlx, value, &w, &h);
+		return (checkandreturn(w, h, (*data)->no));
+	}
 	else if (!ft_strcmp(key, "WE") && !(*data)->we)
-		return ((*data)->we = mlx_xpm_file_to_image((*mlx)->mlx, value, &w, &h), 1);
+	{
+		(*data)->we = mlx_xpm_file_to_image((*mlx)->mlx, value, &w, &h);
+		return (checkandreturn(w, h, (*data)->we));
+	}
 	else
 		return (-1);
 }
