@@ -6,7 +6,7 @@
 /*   By: mozennou <mozennou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 12:45:39 by mozennou          #+#    #+#             */
-/*   Updated: 2024/04/02 16:11:36 by mozennou         ###   ########.fr       */
+/*   Updated: 2024/04/02 16:14:49 by mozennou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,11 +126,7 @@ int fill_forkey(t_data **data, char *key, char *value, t_strct **mlx);
 
 int		checkifmapvalid(t_data *data);
 int		is_wall(t_data *data, int x, int y);
-void	mini_map(t_strct *mlx, t_data *data);
-int	gun_sound(char *s);
-void draw_amo(t_strct *mlx, int amo);
-int checkvalidnumbers(char *str);
+int		checkvalidnumbers(char *str);
 void	draw_scope(t_strct	*mlx);
-void	draw_map(t_strct *mlx, t_data *data);
 
 #endif

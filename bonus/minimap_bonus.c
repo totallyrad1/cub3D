@@ -6,7 +6,7 @@
 /*   By: mozennou <mozennou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/30 20:05:12 by mozennou          #+#    #+#             */
-/*   Updated: 2024/04/02 15:46:42 by mozennou         ###   ########.fr       */
+/*   Updated: 2024/04/02 16:14:23 by mozennou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,21 +142,6 @@ void	draw_map(t_strct *mlx, t_data *data)
 {
 	int	i;
 	int	j;
-
-	// i = WIDTH / 10;
-	// while (i < (WIDTH / 10) * 9)
-	// {
-	// 	j = HEIGHT / 10;
-	// 	while (j < (HEIGHT / 10) * 9)
-	// 	{
-	// 		if (is_wall(data, (data->y + j * 2 - 1280) / TILE_SIZE, (data->x + i * 2 - 1024) / TILE_SIZE))
-	// 			pixel_put(mlx, i, j, 0xFF9800);
-	// 		else
-	// 			pixel_put(mlx, i, j, 0xD9EDBF);
-	// 		j++;
-	// 	}
-	// 	i++;
-	// }
 
 	i = WIDTH / 10;
 	while (i < (WIDTH / 10) * 9)
