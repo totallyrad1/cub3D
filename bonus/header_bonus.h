@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   header_bonus.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mozennou <mozennou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: asnaji <asnaji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 12:45:39 by mozennou          #+#    #+#             */
-/*   Updated: 2024/04/02 16:00:11 by mozennou         ###   ########.fr       */
+/*   Updated: 2024/04/02 21:01:25 by asnaji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,14 @@ typedef struct s_strct
 	int		pxl_b;
 	int		ln_b;
 	int		endian;
+	void	*anim1;
+	void	*anim2;
+	void	*anim3;
+	void	*anim4;
+	void	*anim5;
+	void	*anim6;
+	void	*anim7;
+	int		texid;
 	t_data	*data;
 }	t_strct;
 
@@ -96,8 +104,12 @@ typedef struct s_vars
 	int		b;
 	int		l;
 	int		x;
+	int		b1;
+	int		l1;
+	int		x1;
 	int		i;
 	int		j;
+	char	*animtex;
 }	t_vars;
 
 void	init_graphics(t_strct *mlx);
@@ -137,5 +149,7 @@ void draw_amo(t_strct *mlx, int amo);
 int checkvalidnumbers(char *str);
 void	draw_scope(t_strct	*mlx);
 void	draw_map(t_strct *mlx, t_data *data);
+
+int	checkandreturn(int w, int h, void *img);
 
 #endif

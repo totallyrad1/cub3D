@@ -1,7 +1,7 @@
-NO ./textures/nowall.xpm
-SO ./textures/sowall.xpm
-WE ./textures/wewall.xpm
-EA ./textures/eawall.xpm
+NO ./tex/nowall.xpm
+SO ./tex/sowall.xpm
+WE ./tex/wewall.xpm
+EA ./tex/eawall.xpm
 
 F     50,   50,    50
 C      0,    200,    200

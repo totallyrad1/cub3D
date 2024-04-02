@@ -14,7 +14,7 @@ HEADER = manda/defines.h manda/get_next_line/get_next_line.h manda/header.h
 
 HEADER_B = bonus/defines_bonus.h bonus/get_next_line/get_next_line_bonus.h bonus/header_bonus.h
 
-CC = cc -O3 -I ./mlx #-Wall -Werror -Wextra #-g -fsanitize=address 
+CC = cc -O3 -I ./mlx -g #-fsanitize=address #-Wall -Werror -Wextra -g -fsanitize=address 
 
 RM = rm -f
 

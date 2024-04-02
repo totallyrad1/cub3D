@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_bonus.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mozennou <mozennou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: asnaji <asnaji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 15:46:59 by mozennou          #+#    #+#             */
-/*   Updated: 2024/04/02 16:06:45 by mozennou         ###   ########.fr       */
+/*   Updated: 2024/04/02 20:56:03 by asnaji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	init_graphics(t_strct *mlx)
 	mlx->bf = mlx_get_data_addr(mlx->img, &mlx->pxl_b, &mlx->ln_b, &mlx->endian);
 	if (!mlx->bf)
 		exit(1);
+	mlx->texid = 0;
 }
 
 void	free_map(char **map)
