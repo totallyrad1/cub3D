@@ -6,7 +6,7 @@
 /*   By: asnaji <asnaji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 12:45:39 by mozennou          #+#    #+#             */
-/*   Updated: 2024/04/01 21:17:55 by asnaji           ###   ########.fr       */
+/*   Updated: 2024/04/02 00:56:36 by asnaji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,24 @@ typedef struct s_strct
 	int		endian;
 	t_data	*data;
 }	t_strct;
+
+typedef struct s_vars
+{
+	char	*tex;
+	float	projwallheight;
+	int		wallheight;
+	int		wtoppixel;
+	int		wbpotpixel;
+	int		texX;
+	int		texY;
+	int		color;
+	int		disfromtop;
+	int		b;
+	int		l;
+	int		x;
+	int		i;
+	int		j;
+}	t_vars;
 
 void	init_graphics(t_strct *mlx);
 void	init_events(t_strct *mlx);

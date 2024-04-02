@@ -93,6 +93,8 @@ int checkvalidnumbers(char *str)
 		}
 		else if (str[i])
 			return(0);
+		while(str[i] && ft_isspace(str[i]))
+			i++;
 	}
 	if (ncount != 3 || ccount != 2)
 		return(0);
