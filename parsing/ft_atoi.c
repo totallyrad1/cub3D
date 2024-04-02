@@ -12,5 +12,7 @@ int ft_atoi(char *str, int *j)
 	}
 	if (str[*j] == ',')
 		(*j)++;
+	while(str[*j] && ft_isspace(str[*j]))
+			(*j)++;
 	return (res);
 }
