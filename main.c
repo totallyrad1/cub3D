@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asnaji <asnaji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mozennou <mozennou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 12:47:17 by mozennou          #+#    #+#             */
-/*   Updated: 2024/04/02 02:22:21 by asnaji           ###   ########.fr       */
+/*   Updated: 2024/04/02 14:06:17 by mozennou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ void	init_data1(t_strct *mlx, t_data *data)
 	data->mlx = mlx;
 	data->hide = 1;
 	data->scope = 0;
-	data->test = 0;
 	data->f_color = -1;
 	data->c_color = -1;
 	data->amo = 0;
@@ -107,7 +106,7 @@ void	floor_ceiling(t_strct *mlx, t_data *data)
 		j = 0;
 		while (j < HEIGHT)
 		{
-			if (j > HEIGHT / 2 - data->test * 100)
+			if (j > HEIGHT / 2)
 				pixel_put(mlx, i, j, data->f_color);
 			else	
 				pixel_put(mlx, i, j, data->c_color);
@@ -192,7 +191,7 @@ void	walls(t_ray *rays, t_strct *mlx)
 		setvalues(&vars, rays, mlx, vars.i);
 		while (vars.j < HEIGHT)
 		{
-			if (vars.j > (HEIGHT / 2 - d->test * 100 - rays[vars.i].wallprjct / 2) && vars.j < (HEIGHT / 2 - d->test * 100+ rays[vars.i].wallprjct / 2))
+			if (vars.j > (HEIGHT / 2 - rays[vars.i].wallprjct / 2) && vars.j < (HEIGHT / 2 + rays[vars.i].wallprjct / 2))
 			{
 				vars.disfromtop = vars.j + (vars.wallheight / 2) - (HEIGHT / 2);
 				vars.texY = vars.disfromtop * ((float)TILE_SIZE / vars.wallheight);
@@ -227,14 +226,14 @@ int	render3d(void *ptr)
 	rays = ray_generator(data);
 	floor_ceiling(mlx, data);
 	walls(rays, mlx);
-	// if (data->scope)
-	// 	draw_scope(mlx);
+	if (data->scope)
+		draw_scope(mlx);
 	if (data->map)
 		draw_map(mlx, data);
 	else
 	{
 		mini_map(mlx, data);
-		// draw_amo(mlx, 8 - data->amo);
+		draw_amo(mlx, 8 - data->amo);
 	}
 	free(rays);
 	mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->img, 0, 0);
