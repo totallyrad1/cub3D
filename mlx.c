@@ -57,8 +57,8 @@ int	keyclick(int ky, void *ptr)
 		data->turn = -1;
 	else if (ky == RLEFT_KEY)
 		data->turn = 1;
-	// else if (ky == 15 && !gun_sound("./sounds/reload.wav"))
-	// 	data->amo = 0;
+	else if (ky == 15 && !gun_sound("./sounds/reload.wav"))
+		data->amo = 0;
 	else if (ky == 12)
 	{
 		if (!data->hide)
@@ -124,32 +124,20 @@ int	mouseclick(int ky, int x, int y, void *ptr)
 		if (data->amo == 8)
 			gun_sound("./sounds/test.wav");
 		else if (!gun_sound("./sounds/gun_shot.wav"))
-		{
-			data->test = -0.8;
 			data->amo++;
-		}
 	}
 	else if (ky == 2)
 		data->scope = !data->scope;
 	return (0);
 }
 
-int	mouseup(int ky, int x, int y, void *ptr)
-{
-	t_data	*data = ptr;
-
-	if (ky == 1)
-		data->test = 0;
-	return (0);
-}
 
 void	init_events(t_strct *mlx)
 {
 	mlx_hook(mlx->win, ON_KEYRELEASE, 0, keyrelease, mlx->data);
 	mlx_hook(mlx->win, ON_DESTROY, 0, destroy, mlx);
 	mlx_hook(mlx->win, ON_KEYDOWN, 0, keyclick, mlx);
-	// mlx_hook(mlx->win, ON_MOUSEDOWN, 0, mouseclick, mlx->data);
-	mlx_hook(mlx->win, ON_MOUSEUP, 0, mouseup, mlx->data);
+	mlx_hook(mlx->win, ON_MOUSEDOWN, 0, mouseclick, mlx->data);
 	mlx_hook(mlx->win, ON_MOUSEMOVE, 0, mousemove, mlx->data);
 }
 
