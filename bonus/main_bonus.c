@@ -6,7 +6,7 @@
 /*   By: asnaji <asnaji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 12:47:17 by mozennou          #+#    #+#             */
-/*   Updated: 2024/04/02 21:31:42 by asnaji           ###   ########.fr       */
+/*   Updated: 2024/04/03 01:18:33 by asnaji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void	init_data1(t_strct *mlx, t_data *data)
 	data->c_color = -1;
 	data->amo = 0;
 	data->lc_tillstartofmap = 0;
+	data->texid = 0;
 }
 
 void	init_data2(t_data *data)
@@ -170,12 +171,6 @@ void *getanimetex(t_strct *mlx)
 		return (mlx->anim3);
 	else if(mlx->texid < 40)
 		return (mlx->anim4);
-	else if(mlx->texid < 50)
-		return (mlx->anim5);
-	else if(mlx->texid < 60)
-		return (mlx->anim6);
-	else
-		return (mlx->anim7);
 }
 
 void	setvalues(t_vars *vars, t_ray *rays, t_strct *mlx, int i)
@@ -193,7 +188,7 @@ void	setvalues(t_vars *vars, t_ray *rays, t_strct *mlx, int i)
 		vars->texX = (int)rays[i].hity % TILE_SIZE;
 	else
 		vars->texX = (int)rays[i].hitx % TILE_SIZE;
-	vars->animtex = mlx_get_data_addr(getanimetex(mlx), &vars->b1, &vars->l1, &vars->x1);
+	// vars->animtex = mlx_get_data_addr(getanimetex(mlx), &vars->b1, &vars->l1, &vars->x1);
 	vars->j = 0;
 }
 
@@ -213,22 +208,51 @@ void	walls(t_ray *rays, t_strct *mlx)
 			{
 				vars.disfromtop = vars.j + (vars.wallheight / 2) - (HEIGHT / 2);
 				vars.texY = vars.disfromtop * ((float)TILE_SIZE / vars.wallheight);
-				vars.color = getpixelcolor(vars.animtex, vars.b1, (TILE_SIZE * vars.texY + vars.texX) * (vars.b1 / 8));
+				vars.color = getpixelcolor(vars.tex, vars.b, (TILE_SIZE * vars.texY + vars.texX) * (vars.b / 8));
 				pixel_put(mlx, vars.i, vars.j, vars.color);
 			}
-			if (vars.j % 2 == 0 && vars.j > (HEIGHT / 2 - rays[vars.i].wallprjct / 2) && vars.j < (HEIGHT / 2 + rays[vars.i].wallprjct / 2))
-			{
-				vars.disfromtop = vars.j + (vars.wallheight / 2) - (HEIGHT / 2);
-				vars.texY = vars.disfromtop * ((float)TILE_SIZE / vars.wallheight);
-				vars.color = getpixelcolor(vars.animtex, vars.b1, (TILE_SIZE * vars.texY + vars.texX) * (vars.b1 / 8));
-				pixel_put(mlx, vars.i, vars.j, vars.color);
-			}
-			if (((vars.i - WIDTH / 2) * (vars.i - WIDTH / 2) + (vars.j - HEIGHT / 2) * (vars.j - HEIGHT / 2)) < 10)
-				pixel_put(mlx, vars.i, vars.j, 0x000000);
+			// if (vars.j % 2 == 0 && vars.j > (HEIGHT / 2 - rays[vars.i].wallprjct / 2) && vars.j < (HEIGHT / 2 + rays[vars.i].wallprjct / 2))
+			// {
+			// 	vars.disfromtop = vars.j + (vars.wallheight / 2) - (HEIGHT / 2);
+			// 	vars.texY = vars.disfromtop * ((float)TILE_SIZE / vars.wallheight);
+			// 	vars.color = getpixelcolor(vars.animtex, vars.b1, (TILE_SIZE * vars.texY + vars.texX) * (vars.b1 / 8));
+			// 	pixel_put(mlx, vars.i, vars.j, vars.color);
+			// }
+			// if (((vars.i - WIDTH / 2) * (vars.i - WIDTH / 2) + (vars.j - HEIGHT / 2) * (vars.j - HEIGHT / 2)) < 10)
+			// 	pixel_put(mlx, vars.i, vars.j, 0x000000);
 			vars.j++;
 		}
 		vars.i++;
 	}
+}
+
+void drawarm(t_data *data , t_strct *mlx)
+{
+	if(data->texid >= 0)
+	{
+		if(data->texid < 2)
+			mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->anim1, WIDTH / 2 - 150, HEIGHT / 2);
+		else if (data->texid < 4)
+			mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->anim2, WIDTH / 2 - 150, HEIGHT / 2);
+		else if (data->texid < 6)
+			mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->anim3, WIDTH / 2 - 150, HEIGHT / 2);
+		else if (data->texid < 8)
+			mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->anim4, WIDTH / 2 - 150, HEIGHT / 2);
+	}
+	else
+	{
+		if(data->texid > -2)
+			mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->reload1, WIDTH / 2 - 150, HEIGHT / 2);
+		else if (data->texid > -5)
+			mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->reload2, WIDTH / 2 - 150, HEIGHT / 2);
+		else if (data->texid > -10)
+			mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->reload3, WIDTH / 2 - 150, HEIGHT / 2);
+		else if (data->texid > -15)
+			mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->reload4, WIDTH / 2 - 150, HEIGHT / 2);
+		else if (data->texid > -20)
+			mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->reload5, WIDTH / 2 - 150, HEIGHT / 2);
+	}
+		
 }
 
 int	render3d(void *ptr)
@@ -239,9 +263,10 @@ int	render3d(void *ptr)
 
 	data = ptr;
 	mlx = data->mlx;
-	if (mlx->texid > 70)
-		mlx->texid = 0;
-	mlx->texid++;
+	if (data->texid > 0)
+		data->texid--;
+	if (data->texid <= 0)
+		data->texid++;
 	mlx_clear_window(mlx->mlx, mlx->win);
 	mlx_destroy_image(mlx->mlx, mlx->img);
 	mlx->img = mlx_new_image(mlx->mlx, WIDTH, HEIGHT);
@@ -254,8 +279,8 @@ int	render3d(void *ptr)
 	rays = ray_generator(data);
 	floor_ceiling(mlx, data);
 	walls(rays, mlx);
-	if (data->scope)
-		draw_scope(mlx);
+	// if (data->scope)
+	// 	draw_scope(mlx);
 	if (data->map)
 		draw_map(mlx, data);
 	else
@@ -265,6 +290,8 @@ int	render3d(void *ptr)
 	}
 	free(rays);
 	mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->img, 0, 0);
+	if(!data->map)
+		drawarm(data, mlx);
 	return (0);
 }
 
@@ -273,26 +300,32 @@ int initanimtex(t_strct *mlx)
 	int w;
 	int h;
 	
-	mlx->anim1 = mlx_xpm_file_to_image(mlx->mlx, "./tex/anim1.xpm", &w, &h);
-	if (checkandreturn(w, h, mlx->anim1) == -1)
+	mlx->anim1 = mlx_xpm_file_to_image(mlx->mlx, "./tet/shoot1.xpm", &w, &h);
+	if (checkandreturn(64, 64, mlx->anim1) == -1)
 		return (-1);
-	mlx->anim2 = mlx_xpm_file_to_image(mlx->mlx, "./tex/anim2.xpm", &w, &h);
-	if (checkandreturn(w, h, mlx->anim2) == -1)
+	mlx->anim2 = mlx_xpm_file_to_image(mlx->mlx, "./tet/shoot3.xpm", &w, &h);
+	if (checkandreturn(64, 64, mlx->anim2) == -1)
 		return (-1);
-	mlx->anim3 = mlx_xpm_file_to_image(mlx->mlx, "./tex/anim3.xpm", &w, &h);
-	if (checkandreturn(w, h, mlx->anim3) == -1)
+	mlx->anim3 = mlx_xpm_file_to_image(mlx->mlx, "./tet/shoot4.xpm", &w, &h);
+	if (checkandreturn(64, 64, mlx->anim3) == -1)
 		return (-1);
-	mlx->anim4 = mlx_xpm_file_to_image(mlx->mlx, "./tex/anim4.xpm", &w, &h);
-	if (checkandreturn(w, h, mlx->anim4) == -1)
+	mlx->anim4 = mlx_xpm_file_to_image(mlx->mlx, "./tet/shoot5.xpm", &w, &h);
+	if (checkandreturn(64, 64, mlx->anim4) == -1)
 		return (-1);
-	mlx->anim5 = mlx_xpm_file_to_image(mlx->mlx, "./tex/anim5.xpm", &w, &h);
-	if (checkandreturn(w, h, mlx->anim5) == -1)
+	mlx->reload1 = mlx_xpm_file_to_image(mlx->mlx, "./tet/reload0.xpm", &w, &h);
+	if (checkandreturn(64, 64, mlx->reload1) == -1)
 		return (-1);
-	mlx->anim6 = mlx_xpm_file_to_image(mlx->mlx, "./tex/anim6.xpm", &w, &h);
-	if (checkandreturn(w, h, mlx->anim6) == -1)
+	mlx->reload2 = mlx_xpm_file_to_image(mlx->mlx, "./tet/reload1.xpm", &w, &h);
+	if (checkandreturn(64, 64, mlx->reload2) == -1)
 		return (-1);
-	mlx->anim7 = mlx_xpm_file_to_image(mlx->mlx, "./tex/anim7.xpm", &w, &h);
-	if (checkandreturn(w, h, mlx->anim7) == -1)
+	mlx->reload3 = mlx_xpm_file_to_image(mlx->mlx, "./tet/reload2.xpm", &w, &h);
+	if (checkandreturn(64, 64, mlx->reload3) == -1)
+		return (-1);
+	mlx->reload4 = mlx_xpm_file_to_image(mlx->mlx, "./tet/reload3.xpm", &w, &h);
+	if (checkandreturn(64, 64, mlx->reload4) == -1)
+		return (-1);
+	mlx->reload5 = mlx_xpm_file_to_image(mlx->mlx, "./tet/reload4.xpm", &w, &h);
+	if (checkandreturn(64, 64, mlx->reload5) == -1)
 		return (-1);
 	return (1);
 }
