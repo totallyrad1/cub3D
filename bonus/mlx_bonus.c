@@ -6,7 +6,7 @@
 /*   By: asnaji <asnaji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 15:46:59 by mozennou          #+#    #+#             */
-/*   Updated: 2024/04/02 20:56:03 by asnaji           ###   ########.fr       */
+/*   Updated: 2024/04/03 01:19:03 by asnaji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,10 @@ int	keyclick(int ky, void *ptr)
 	else if (ky == RLEFT_KEY)
 		data->turn = 1;
 	else if (ky == 15 && data->amo && !gun_sound("./bonus/sounds/reload.wav"))
+	{
+		data->texid = -20;
 		data->amo = 0;
+	}
 	else if (ky == 12)
 	{
 		if (!data->hide)
@@ -135,12 +138,17 @@ int	mouseclick(int ky, int x, int y, void *ptr)
 	if (ky == 1)
 	{
 		if (data->amo == 8)
+		{
 			gun_sound("./bonus/sounds/test.wav");
+		}
 		else if (!gun_sound("./bonus/sounds/gun_shot.wav"))
+		{
+			data->texid = 10;
 			data->amo++;
+		}
 	}
-	else if (ky == 2)
-		data->scope = !data->scope;
+	// else if (ky == 2)
+	// 	data->scope = !data->scope;
 	return (0);
 }
 

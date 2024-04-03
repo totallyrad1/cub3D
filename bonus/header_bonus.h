@@ -6,7 +6,7 @@
 /*   By: asnaji <asnaji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 12:45:39 by mozennou          #+#    #+#             */
-/*   Updated: 2024/04/02 21:01:25 by asnaji           ###   ########.fr       */
+/*   Updated: 2024/04/03 01:03:00 by asnaji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ typedef struct s_data
 	int		map;
 	int		hide;
 	int		lc_tillstartofmap;
+	int		texid;
 }			t_data;
 
 typedef struct s_ray
@@ -83,9 +84,11 @@ typedef struct s_strct
 	void	*anim2;
 	void	*anim3;
 	void	*anim4;
-	void	*anim5;
-	void	*anim6;
-	void	*anim7;
+	void	*reload1;
+	void	*reload2;
+	void	*reload3;
+	void	*reload4;
+	void	*reload5;
 	int		texid;
 	t_data	*data;
 }	t_strct;
