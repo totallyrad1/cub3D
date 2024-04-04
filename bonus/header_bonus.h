@@ -6,7 +6,7 @@
 /*   By: asnaji <asnaji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 12:45:39 by mozennou          #+#    #+#             */
-/*   Updated: 2024/04/03 01:03:00 by asnaji           ###   ########.fr       */
+/*   Updated: 2024/04/04 00:50:21 by asnaji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,14 @@ typedef struct s_strct
 	void	*reload3;
 	void	*reload4;
 	void	*reload5;
+	void	*kirby1;
+	void	*kirby2;
+	void	*kirby3;
+	void	*kirby4;
+	void	*kirby5;
+	void	*kirby6;
+	void	*kirby7;
+	int		texid1;
 	int		texid;
 	t_data	*data;
 }	t_strct;

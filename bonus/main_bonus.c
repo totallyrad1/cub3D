@@ -6,7 +6,7 @@
 /*   By: asnaji <asnaji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 12:47:17 by mozennou          #+#    #+#             */
-/*   Updated: 2024/04/03 01:18:33 by asnaji           ###   ########.fr       */
+/*   Updated: 2024/04/04 00:56:28 by asnaji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	init_data1(t_strct *mlx, t_data *data)
 	data->amo = 0;
 	data->lc_tillstartofmap = 0;
 	data->texid = 0;
+	mlx->texid1 = 0;
 }
 
 void	init_data2(t_data *data)
@@ -163,14 +164,20 @@ void	*getwalltexture(t_ray *rays, t_strct *mlx, int i)
 
 void *getanimetex(t_strct *mlx)
 {
-	if(mlx->texid < 10)
-		return (mlx->anim1);
-	else if(mlx->texid < 20)
-		return (mlx->anim2);
-	else if(mlx->texid < 30)
-		return (mlx->anim3);
-	else if(mlx->texid < 40)
-		return (mlx->anim4);
+	if(mlx->texid1 < 10)
+		return (mlx->kirby1);
+	else if(mlx->texid1 < 20)
+		return (mlx->kirby2);
+	else if(mlx->texid1 < 30)
+		return (mlx->kirby3);
+	else if(mlx->texid1 < 40)
+		return (mlx->kirby4);
+	else if(mlx->texid1 < 50)
+		return (mlx->kirby5);
+	else if(mlx->texid1 < 60)
+		return (mlx->kirby6);
+	else
+		return (mlx->kirby7);
 }
 
 void	setvalues(t_vars *vars, t_ray *rays, t_strct *mlx, int i)
@@ -218,8 +225,8 @@ void	walls(t_ray *rays, t_strct *mlx)
 			// 	vars.color = getpixelcolor(vars.animtex, vars.b1, (TILE_SIZE * vars.texY + vars.texX) * (vars.b1 / 8));
 			// 	pixel_put(mlx, vars.i, vars.j, vars.color);
 			// }
-			// if (((vars.i - WIDTH / 2) * (vars.i - WIDTH / 2) + (vars.j - HEIGHT / 2) * (vars.j - HEIGHT / 2)) < 10)
-			// 	pixel_put(mlx, vars.i, vars.j, 0x000000);
+			if (((vars.i - WIDTH / 2) * (vars.i - WIDTH / 2) + (vars.j - HEIGHT / 2) * (vars.j - HEIGHT / 2)) < 10)
+				pixel_put(mlx, vars.i, vars.j, 0x000000);
 			vars.j++;
 		}
 		vars.i++;
@@ -230,26 +237,26 @@ void drawarm(t_data *data , t_strct *mlx)
 {
 	if(data->texid >= 0)
 	{
-		if(data->texid < 2)
+		if(data->texid < 3)
 			mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->anim1, WIDTH / 2 - 150, HEIGHT / 2);
-		else if (data->texid < 4)
+		else if (data->texid < 5)
 			mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->anim2, WIDTH / 2 - 150, HEIGHT / 2);
-		else if (data->texid < 6)
-			mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->anim3, WIDTH / 2 - 150, HEIGHT / 2);
 		else if (data->texid < 8)
+			mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->anim3, WIDTH / 2 - 150, HEIGHT / 2);
+		else if (data->texid < 13)
 			mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->anim4, WIDTH / 2 - 150, HEIGHT / 2);
 	}
 	else
 	{
-		if(data->texid > -2)
+		if(data->texid > -5)
 			mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->reload1, WIDTH / 2 - 150, HEIGHT / 2);
-		else if (data->texid > -5)
-			mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->reload2, WIDTH / 2 - 150, HEIGHT / 2);
 		else if (data->texid > -10)
-			mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->reload3, WIDTH / 2 - 150, HEIGHT / 2);
+			mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->reload2, WIDTH / 2 - 150, HEIGHT / 2);
 		else if (data->texid > -15)
-			mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->reload4, WIDTH / 2 - 150, HEIGHT / 2);
+			mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->reload3, WIDTH / 2 - 150, HEIGHT / 2);
 		else if (data->texid > -20)
+			mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->reload4, WIDTH / 2 - 150, HEIGHT / 2);
+		else if (data->texid > -25)
 			mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->reload5, WIDTH / 2 - 150, HEIGHT / 2);
 	}
 		
@@ -267,6 +274,9 @@ int	render3d(void *ptr)
 		data->texid--;
 	if (data->texid <= 0)
 		data->texid++;
+	if(mlx->texid1 > 70)
+		mlx->texid1 = 0;
+	mlx->texid1++;
 	mlx_clear_window(mlx->mlx, mlx->win);
 	mlx_destroy_image(mlx->mlx, mlx->img);
 	mlx->img = mlx_new_image(mlx->mlx, WIDTH, HEIGHT);
@@ -327,6 +337,27 @@ int initanimtex(t_strct *mlx)
 	mlx->reload5 = mlx_xpm_file_to_image(mlx->mlx, "./tet/reload4.xpm", &w, &h);
 	if (checkandreturn(64, 64, mlx->reload5) == -1)
 		return (-1);
+	// mlx->kirby1 = mlx_xpm_file_to_image(mlx->mlx, "./bonus/tex/anim1.xpm", &w, &h);
+	// if (checkandreturn(64, 64, mlx->kirby1) == -1)
+	// 	return (-1);
+	// mlx->kirby2 = mlx_xpm_file_to_image(mlx->mlx, "./bonus/tex/anim2.xpm", &w, &h);
+	// if (checkandreturn(64, 64, mlx->kirby2) == -1)
+	// 	return (-1);
+	// mlx->kirby3 = mlx_xpm_file_to_image(mlx->mlx, "./bonus/tex/anim3.xpm", &w, &h);
+	// if (checkandreturn(64, 64, mlx->kirby3) == -1)
+	// 	return (-1);
+	// mlx->kirby4 = mlx_xpm_file_to_image(mlx->mlx, "./bonus/tex/anim4.xpm", &w, &h);
+	// if (checkandreturn(64, 64, mlx->kirby4) == -1)
+	// 	return (-1);
+	// mlx->kirby5 = mlx_xpm_file_to_image(mlx->mlx, "./bonus/tex/anim5.xpm", &w, &h);
+	// if (checkandreturn(64, 64, mlx->kirby5) == -1)
+	// 	return (-1);
+	// mlx->kirby6 = mlx_xpm_file_to_image(mlx->mlx, "./bonus/tex/anim6.xpm", &w, &h);
+	// if (checkandreturn(64, 64, mlx->kirby6) == -1)
+	// 	return (-1);
+	// mlx->kirby7 = mlx_xpm_file_to_image(mlx->mlx, "./bonus/tex/anim7.xpm", &w, &h);
+	// if (checkandreturn(64, 64, mlx->kirby7) == -1)
+	// 	return (-1);
 	return (1);
 }
 
