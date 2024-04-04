@@ -6,7 +6,7 @@
 /*   By: asnaji <asnaji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 15:46:59 by mozennou          #+#    #+#             */
-/*   Updated: 2024/04/03 01:19:03 by asnaji           ###   ########.fr       */
+/*   Updated: 2024/04/04 00:46:28 by asnaji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int	keyclick(int ky, void *ptr)
 		data->turn = 1;
 	else if (ky == 15 && data->amo && !gun_sound("./bonus/sounds/reload.wav"))
 	{
-		data->texid = -20;
+		data->texid = -25;
 		data->amo = 0;
 	}
 	else if (ky == 12)
