@@ -70,13 +70,31 @@ int	is_ok(t_data *data, int x, int y)
 	return (1);
 }
 
+int ft_roundf(double v)
+{
+    int l;
+    if (v > 0)
+        l = -(int)v;
+    else
+        l = (int)v;
+	if (v + l > 0.5 || v + l < -0.5)
+    {
+        if (v > 0)
+            return (v + 1);
+        else
+            return (v - 1);
+    }
+    return (v);
+}
+
 void	update(t_data *data)
 {
 	int	xx;
 	int	yy;
 
-	xx = cos(data->angle) * (data->move_speed);
-	yy = sin(data->angle) * (data->move_speed);
+	data->angle = normalize(data->angle);
+	xx = ft_roundf(cos(data->angle) * (data->move_speed));
+	yy = ft_roundf(sin(data->angle) * (data->move_speed));
 	if (data->walk && is_ok(data, data->x + data->walk * xx, data->y + data->walk * yy))
 	{
 		data->x += data->walk * xx;
@@ -101,7 +119,7 @@ void	floor_ceiling(t_strct *mlx, t_data *data)
 		j = 0;
 		while (j < HEIGHT)
 		{
-			if (j > HEIGHT / 2)
+			if (j < HEIGHT / 2)
 				pixel_put(mlx, i, j, data->f_color);
 			else	
 				pixel_put(mlx, i, j, data->c_color);

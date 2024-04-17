@@ -86,7 +86,7 @@ int	mapcharscheck(char c)
 {
 	if (c == ' ' || c == '0' || c == '1'
 		|| c == 'N' || c == 'S' || c == 'E'
-		|| c == 'W')
+		|| c == 'W' || c == 'D') // add D for the door
 		return (0);
 	return (1);
 }

@@ -52,7 +52,7 @@ double	hcast(t_data *data, double angle, double xstep, double ystep)
 	hstep(data, &xstep, &ystep, angle);
 	while (xinter > 0 && xinter < data->i && yinter > 0 && yinter < data->j)
 	{
-		if (is_wall(data, floor(yinter / TILE_SIZE), floor(xinter / TILE_SIZE)))
+		if (is_wall(data, (yinter / TILE_SIZE), (xinter / TILE_SIZE)))
 		{
 			data->hhitx = xinter;
 			data->hhity = yinter + data->up;
@@ -79,7 +79,7 @@ double	vcast(t_data *data, double angle, double xstep, double ystep)
 	vstep(data, &xstep, &ystep, angle);
 	while (xinter > 0 && xinter < data->i && yinter > 0 && yinter < data->j)
 	{	
-		if (is_wall(data, floor(yinter / TILE_SIZE), floor(xinter / TILE_SIZE)))
+		if (is_wall(data, (yinter / TILE_SIZE), (xinter / TILE_SIZE)))
 		{
 			data->vhitx = xinter + !data->right;
 			data->vhity = yinter;
