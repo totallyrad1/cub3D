@@ -152,7 +152,7 @@ int get_map(t_data **data, char *filename, int fd);
 int fill_forkey(t_data **data, char *key, char *value, t_strct **mlx);
 
 int		checkifmapvalid(t_data *data);
-int		is_wall(t_data *data, int x, int y);
+int		is_wall(t_data *data, double xx, double yy);
 void	mini_map(t_strct *mlx, t_data *data);
 int	gun_sound(char *s);
 void draw_amo(t_strct *mlx, int amo);

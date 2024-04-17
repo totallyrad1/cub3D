@@ -32,13 +32,24 @@ void	hstep(t_data *data, double *xstep, double *ystep, double angle)
 		(*xstep) *= -1;
 }
 
-int	is_wall(t_data *data, int x, int y)
+int	is_wall(t_data *data, double xx, double yy)
 {
+	int x = xx / TILE_SIZE;
+	int y = yy / TILE_SIZE;
 	if (x <= 0 || x >= (data->j / TILE_SIZE)
 		|| y <= 0 || y >= (data->i) / TILE_SIZE)
 		return (1);
 	if (data->mp[x][y] == '1')
 		return (1);
+	if (data->mp[x][y] == 'D')
+	{
+		if (x == data->y / TILE_SIZE || x == data->y / TILE_SIZE + 1 || x == data->y / TILE_SIZE - 1)
+		{
+			if (y == data->x / TILE_SIZE || y == data->x / TILE_SIZE - 1 || y == data->x / TILE_SIZE + 1)
+				return (0);
+		}
+		return (2);
+	}
 	return (0);
 }
 
@@ -52,7 +63,7 @@ double	hcast(t_data *data, double angle, double xstep, double ystep)
 	hstep(data, &xstep, &ystep, angle);
 	while (xinter > 0 && xinter < data->i && yinter > 0 && yinter < data->j)
 	{
-		if (is_wall(data, floor(yinter / TILE_SIZE), floor(xinter / TILE_SIZE)))
+		if (is_wall(data, yinter, xinter))
 		{
 			data->hhitx = xinter;
 			data->hhity = yinter + data->up;
@@ -79,7 +90,7 @@ double	vcast(t_data *data, double angle, double xstep, double ystep)
 	vstep(data, &xstep, &ystep, angle);
 	while (xinter > 0 && xinter < data->i && yinter > 0 && yinter < data->j)
 	{	
-		if (is_wall(data, floor(yinter / TILE_SIZE), floor(xinter / TILE_SIZE)))
+		if (is_wall(data, yinter, xinter))
 		{
 			data->vhitx = xinter + !data->right;
 			data->vhity = yinter;

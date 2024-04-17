@@ -125,7 +125,7 @@ void	floor_ceiling(t_strct *mlx, t_data *data)
 		j = 0;
 		while (j < HEIGHT)
 		{
-			if (j > HEIGHT / 2)
+			if (j < HEIGHT / 2)
 				pixel_put(mlx, i, j, data->f_color);
 			else	
 				pixel_put(mlx, i, j, data->c_color);
