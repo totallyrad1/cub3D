@@ -48,7 +48,7 @@ void	player_dot(t_strct *mlx)
 		while (j < 5)
 		{
 			if ((i * i + j * j) < 20)
-				pixel_put(mlx, i + WIDTH / 10, j + HEIGHT / 10, 0X2C7865);
+				pixel_put(mlx, i + WIDTH / 10, j + HEIGHT / 10, 0XFEFAE0);
 			j++;
 		}
 		i++;
@@ -69,9 +69,9 @@ void	mini_map(t_strct *mlx, t_data *data)
 			if (((i - WIDTH / 10) * (i - WIDTH / 10) + (j - HEIGHT / 10) * (j - HEIGHT / 10)) < 8500)
 			{
 				if (is_wall(data, (data->y + j * 2 - 192) / TILE_SIZE, (data->x + i * 2 - 256) / TILE_SIZE))
-					pixel_put(mlx, i, j, 0xFF9800);
+					pixel_put(mlx, i, j, 0x5F6F52);
 				else
-					pixel_put(mlx, i, j, 0xD9EDBF);
+					pixel_put(mlx, i, j, 0xA9B388);
 			}
 			else if (((i - WIDTH / 10) * (i - WIDTH / 10) + (j - HEIGHT / 10) * (j - HEIGHT / 10)) < 10000)
 					pixel_put(mlx, i, j, 0);
@@ -111,33 +111,6 @@ void draw_amo(t_strct *mlx, int amo)
 	}
 }
 
-void	draw_scope(t_strct	*mlx)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	while (i < WIDTH)
-	{
-		j = 0;
-		while (j < HEIGHT)
-		{
-			if (((i - WIDTH / 2) * (i - WIDTH / 2) + (j - HEIGHT / 2) * (j - HEIGHT / 2)) > 200000)
-				pixel_put(mlx, i, j, 0);
-			else if (((i - WIDTH / 2) * (i - WIDTH / 2) + (j - HEIGHT / 2) * (j - HEIGHT / 2)) < 10)
-				pixel_put(mlx, i, j, 0xFF0000);
-			else if (((i - WIDTH / 2) * (i - WIDTH / 2) + (j - HEIGHT / 2) * (j - HEIGHT / 2)) < 200
-				&& ((i - WIDTH / 2) * (i - WIDTH / 2) + (j - HEIGHT / 2) * (j - HEIGHT / 2)) > 150)
-				pixel_put(mlx, i, j, 0x00AA00);
-			else if (((i - WIDTH / 2) * (i - WIDTH / 2) + (j - HEIGHT / 2) * (j - HEIGHT / 2)) < 10000
-				&& ((i - WIDTH / 2) * (i - WIDTH / 2) + (j - HEIGHT / 2) * (j - HEIGHT / 2)) > 9000)
-				pixel_put(mlx, i, j, 0);
-			j++;
-		}
-		i++;
-	}
-}
-
 void	draw_map(t_strct *mlx, t_data *data)
 {
 	int	i;
@@ -156,16 +129,16 @@ void	draw_map(t_strct *mlx, t_data *data)
 			else
 			{
 				if (is_wall(data, (data->y + j - 960 / 2) / 64, (data->x + i - 1024 / 2  - 64 * 2) / 64))
-					pixel_put(mlx, i, j, 0xFF9800);
+					pixel_put(mlx, i, j, 0x5F6F52);
 				else
-					pixel_put(mlx, i, j, 0xD9EDBF);
+					pixel_put(mlx, i, j, 0xA9B388);
 				if (((i - WIDTH / 2) * (i - WIDTH / 2) + (j - HEIGHT / 2) * (j - HEIGHT / 2)) < 10)
-					pixel_put(mlx, i, j, 0X2C7865);
+					pixel_put(mlx, i, j, 0XFEFAE0);
 			}
 			j++;
 		}
 		i++;
 	}
-	direction_line(WIDTH / 2, HEIGHT / 2, WIDTH / 2 + cos(data->angle) * 20,
-		HEIGHT / 2 + sin(data->angle) * 20, mlx);
+	direction_line(WIDTH / 2, HEIGHT / 2, WIDTH / 2 + cos(data->angle) * 200,
+		HEIGHT / 2 + sin(data->angle) * 200, mlx);   //change 200 to 20
 }

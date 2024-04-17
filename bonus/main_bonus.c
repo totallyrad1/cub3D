@@ -24,7 +24,6 @@ void	init_data1(t_strct *mlx, t_data *data)
 	mlx->data = data;
 	data->mlx = mlx;
 	data->hide = 1;
-	data->scope = 0;
 	data->f_color = -1;
 	data->c_color = -1;
 	data->amo = 0;
@@ -75,13 +74,31 @@ int	is_ok(t_data *data, int x, int y)
 	return (1);
 }
 
+int ft_roundf(double v)
+{
+    int l;
+    if (v > 0)
+        l = -(int)v;
+    else
+        l = (int)v;
+	if (v + l > 0.5 || v + l < -0.5)
+    {
+        if (v > 0)
+            return (v + 1);
+        else
+            return (v - 1);
+    }
+    return (v);
+}
+
 void	update(t_data *data)
 {
 	int	xx;
 	int	yy;
-
-	xx = cos(data->angle) * (data->move_speed - data->scope * data->move_speed / 2);
-	yy = sin(data->angle) * (data->move_speed - data->scope * data->move_speed / 2);
+	
+	data->angle = normalize(data->angle);
+	xx = ft_roundf(cos(data->angle) * (data->move_speed));
+	yy = ft_roundf(sin(data->angle) * (data->move_speed));
 	if (data->walk && is_ok(data, data->x + data->walk * xx, data->y + data->walk * yy))
 	{
 		data->x += data->walk * xx;
