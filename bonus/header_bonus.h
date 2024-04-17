@@ -53,7 +53,6 @@ typedef struct s_data
 	int		ver;
 	double	old_angle;
 	t_strct	*mlx;
-	int		scope;
 	int		amo;
 	int		map;
 	int		hide;
@@ -158,7 +157,6 @@ void	mini_map(t_strct *mlx, t_data *data);
 int	gun_sound(char *s);
 void draw_amo(t_strct *mlx, int amo);
 int checkvalidnumbers(char *str);
-void	draw_scope(t_strct	*mlx);
 void	draw_map(t_strct *mlx, t_data *data);
 
 int	checkandreturn(int w, int h, void *img);
