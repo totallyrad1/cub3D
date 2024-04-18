@@ -6,7 +6,7 @@
 /*   By: mozennou <mozennou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 15:47:59 by mozennou          #+#    #+#             */
-/*   Updated: 2024/04/02 15:48:00 by mozennou         ###   ########.fr       */
+/*   Updated: 2024/04/18 08:31:59 by mozennou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@ int	checkifmapvalid(t_data *data)
 	int		j;
 	int 	count;
 	char	c;
+	float	t;
 
 	i = 0;
 	count = 0;
@@ -110,10 +111,11 @@ int	checkifmapvalid(t_data *data)
 				return (wrerror("invalid map1\n"), 1);
 			if (c == ' ' && !check1((data)->mp, i , j))
 				return (1);
-			if ((c == '0'  || playerchar_found(c, &(data->angle)))&& !check2((data)->mp, i, j))
+			if ((c == '0'  || playerchar_found(c, &t))&& !check2((data)->mp, i, j))
 				return (1);
-			if (playerchar_found(c, &(data->angle)))
+			if (playerchar_found(c, &t))
 			{
+				data->angle = t;
 				data->x = j;
 				data->y = i;
 				count++;
