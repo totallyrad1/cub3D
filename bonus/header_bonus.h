@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   header_bonus.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asnaji <asnaji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mozennou <mozennou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 12:45:39 by mozennou          #+#    #+#             */
-/*   Updated: 2024/04/04 00:50:21 by asnaji           ###   ########.fr       */
+/*   Updated: 2024/04/26 15:42:56 by mozennou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,9 @@ typedef struct s_strct	t_strct;
 
 typedef struct s_data
 {
-	int		x;
-	int		y;
+	double	x;
+	double	y;
 	double	angle;
-	double	move_speed;
 	double	rotation_speed;
 	int		walk;
 	int		left_right;

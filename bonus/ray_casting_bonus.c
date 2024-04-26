@@ -6,7 +6,7 @@
 /*   By: mozennou <mozennou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 12:33:28 by mozennou          #+#    #+#             */
-/*   Updated: 2024/04/02 15:46:58 by mozennou         ###   ########.fr       */
+/*   Updated: 2024/04/26 13:58:28 by mozennou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	hinter(t_data *data, double *xinter, double *yinter, double angle)
 {
-	(*yinter) = (data->y / TILE_SIZE) * TILE_SIZE + !data->up * TILE_SIZE;
-	(*xinter) = data->x + ((*yinter) - data->y) / tan(angle);
+	(*yinter) = ((int)data->y / TILE_SIZE) * TILE_SIZE + !data->up * TILE_SIZE;
+	(*xinter) = (int)data->x + ((*yinter) - (int)data->y) / tan(angle);
 	(*yinter) += -data->up;
 }
 

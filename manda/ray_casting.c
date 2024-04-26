@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_casting.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asnaji <asnaji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mozennou <mozennou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 12:33:28 by mozennou          #+#    #+#             */
-/*   Updated: 2024/04/01 22:32:43 by asnaji           ###   ########.fr       */
+/*   Updated: 2024/04/26 15:16:42 by mozennou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	hinter(t_data *data, double *xinter, double *yinter, double angle)
 {
-	(*yinter) = (data->y / TILE_SIZE) * TILE_SIZE + !data->up * TILE_SIZE;
-	(*xinter) = data->x + ((*yinter) - data->y) / tan(angle);
+	(*yinter) = ((int)round(data->y) / TILE_SIZE) * TILE_SIZE + !data->up * TILE_SIZE;
+	(*xinter) = (int)round(data->x) + ((*yinter) - (int)round(data->y)) / tan(angle);
 	(*yinter) += -data->up;
 }
 
