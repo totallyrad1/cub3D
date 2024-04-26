@@ -6,7 +6,7 @@
 /*   By: mozennou <mozennou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 15:36:03 by mozennou          #+#    #+#             */
-/*   Updated: 2024/04/02 15:36:04 by mozennou         ###   ########.fr       */
+/*   Updated: 2024/04/26 15:45:25 by mozennou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 
 # define FOV (60 * M_PI / 180)
 
-# define TILE_SIZE 64
+# define TILE_SIZE 512
 
 # define DISPROJ 1108.5125
 
@@ -35,6 +35,7 @@
 # define DOWN_KEY 1
 # define LEFT_KEY 0
 # define RIGHT_KEY 2
+# define MOVE_SPEED 20
 
 //events defines
 enum {

@@ -6,7 +6,7 @@
 /*   By: mozennou <mozennou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 12:47:17 by mozennou          #+#    #+#             */
-/*   Updated: 2024/04/02 16:11:04 by mozennou         ###   ########.fr       */
+/*   Updated: 2024/04/26 15:18:24 by mozennou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ void	init_data2(t_data *data)
 {
 	data->x = data->x * TILE_SIZE + TILE_SIZE / 2;
 	data->y = data->y * TILE_SIZE + TILE_SIZE / 2;
-	data->move_speed = 3;
 	data->rotation_speed = 2 * (M_PI / 180);
 }
 
@@ -59,7 +58,7 @@ int	is_ok(t_data *data, int x, int y)
 {
 	int a;
 
-	a = data->move_speed;
+	a = MOVE_SPEED;
 	if (data->mp[y / TILE_SIZE][x / TILE_SIZE] == '1')
 		return (0);
 	if (data->mp[(y + a)  / TILE_SIZE][x / TILE_SIZE] == '1'
@@ -70,31 +69,14 @@ int	is_ok(t_data *data, int x, int y)
 	return (1);
 }
 
-int ft_roundf(double v)
-{
-    int l;
-    if (v > 0)
-        l = -(int)v;
-    else
-        l = (int)v;
-	if (v + l > 0.5 || v + l < -0.5)
-    {
-        if (v > 0)
-            return (v + 1);
-        else
-            return (v - 1);
-    }
-    return (v);
-}
-
 void	update(t_data *data)
 {
-	int	xx;
-	int	yy;
+	double	xx;
+	double	yy;
 
 	data->angle = normalize(data->angle);
-	xx = ft_roundf(cos(data->angle) * (data->move_speed));
-	yy = ft_roundf(sin(data->angle) * (data->move_speed));
+	xx = cos(data->angle) * (MOVE_SPEED);
+	yy = sin(data->angle) * (MOVE_SPEED);
 	if (data->walk && is_ok(data, data->x + data->walk * xx, data->y + data->walk * yy))
 	{
 		data->x += data->walk * xx;
