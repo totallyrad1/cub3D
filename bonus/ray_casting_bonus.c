@@ -6,7 +6,7 @@
 /*   By: mozennou <mozennou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 12:33:28 by mozennou          #+#    #+#             */
-/*   Updated: 2024/04/26 13:58:28 by mozennou         ###   ########.fr       */
+/*   Updated: 2024/05/02 14:59:43 by mozennou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,12 @@ int	is_wall(t_data *data, double xx, double yy)
 		|| y <= 0 || y >= (data->i) / TILE_SIZE)
 		return (1);
 	if (data->mp[x][y] == '1')
-		return (1);
+		return (1);	
 	if (data->mp[x][y] == 'D')
 	{
-		if (x == data->y / TILE_SIZE || x == data->y / TILE_SIZE + 1 || x == data->y / TILE_SIZE - 1)
+		if (x == (int)(data->y / TILE_SIZE) || x == (int)(data->y / TILE_SIZE) + 1 || x == (int)(data->y / TILE_SIZE) - 1)
 		{
-			if (y == data->x / TILE_SIZE || y == data->x / TILE_SIZE - 1 || y == data->x / TILE_SIZE + 1)
+			if (y == (int)(data->x / TILE_SIZE) || y == (int)(data->x / TILE_SIZE) - 1 || y == (int)(data->x / TILE_SIZE) + 1)
 				return (0);
 		}
 		return (2);
