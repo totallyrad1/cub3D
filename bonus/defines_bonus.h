@@ -6,7 +6,7 @@
 /*   By: mozennou <mozennou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 15:35:17 by mozennou          #+#    #+#             */
-/*   Updated: 2024/05/02 14:08:06 by mozennou         ###   ########.fr       */
+/*   Updated: 2024/05/02 16:02:12 by mozennou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,11 @@
 # define HEIGHT 960
 
 # define E 0
-# define S (M_PI / 2)
-# define W (M_PI)
-# define N ((M_PI * 3) / 2)
+# define S 1.57079632679
+# define W 3.14159265359
+# define N 4.71238898038
 
-# define FOV (60 * M_PI / 180)
+# define FOV 1.0471975512 
 
 # define TILE_SIZE 512
 
@@ -38,7 +38,8 @@
 # define MOVE_SPEED 25
 
 //events defines
-enum {
+enum
+{
 	ON_KEYDOWN = 2,
 	ON_KEYRELEASE = 3,
 	ON_MOUSEDOWN = 4,
@@ -46,6 +47,6 @@ enum {
 	ON_MOUSEMOVE = 6,
 	ON_EXPOSE = 12,
 	ON_DESTROY = 17
-};
+}	;
 
 #endif

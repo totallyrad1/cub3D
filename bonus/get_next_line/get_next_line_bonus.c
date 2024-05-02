@@ -6,7 +6,7 @@
 /*   By: mozennou <mozennou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 15:56:34 by mozennou          #+#    #+#             */
-/*   Updated: 2024/04/02 15:56:35 by mozennou         ###   ########.fr       */
+/*   Updated: 2024/05/02 15:49:13 by mozennou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,6 @@ char	*ft_getline(char *hold)
 		return (NULL);
 	while (hold[i] && hold[i] != '\n')
 		i++;
-	// if (hold[i] == '\n')
-		// i++;
 	res = ft_substr(hold, 0, i);
 	return (res);
 }

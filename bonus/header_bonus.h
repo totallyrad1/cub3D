@@ -6,7 +6,7 @@
 /*   By: mozennou <mozennou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 12:45:39 by mozennou          #+#    #+#             */
-/*   Updated: 2024/04/26 15:42:56 by mozennou         ###   ########.fr       */
+/*   Updated: 2024/05/02 17:08:00 by mozennou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ typedef struct s_ray
 	double	dis;
 	int		ver;
 	double	wallprjct;
-	double angle;
+	double	angle;
 }	t_ray;
 
 typedef struct s_strct
@@ -121,43 +121,52 @@ typedef struct s_vars
 	char	*animtex;
 }	t_vars;
 
-void	init_graphics(t_strct *mlx);
-void	init_events(t_strct *mlx);
-int		keyclick(int key, void *ptr);
-void	wrerror(char *str);
-int		ft_strcmp(const char *s1, const char *s2);
-int		ft_atoi(char *str, int *j);
-int		checkfilename(char *filename);
-void	pixel_put(t_strct *mlx, int x, int y, int color);
-void	free_map(char **map);
-int		destroy(t_strct *mlx);
-double	cast(t_data *data, double angle);
-double	normalize(double angle);
-double	dis(double x1, double y1, double x2, double y2);
-void	direction(double angle, int *up, int *right);
-void	vinter(t_data *data, double *xinter, double *yinter, double angle);
-void	vstep(t_data *data, double *xstep, double *ystep, double angle);
-
-int	ft_isspace(char c);
-
-int settextures_value(char *key, t_data **data, t_strct **mlx, char *value);
-int setcolors_value(char *key, char *value, t_data **data);
-
-char *linemodified(char *line, int longestline);
-
-int parsing(t_data *data, t_strct *mlx, char *filename);
-
-int get_map(t_data **data, char *filename, int fd);
-int fill_forkey(t_data **data, char *key, char *value, t_strct **mlx);
-
-int		checkifmapvalid(t_data *data);
-int		is_wall(t_data *data, double xx, double yy);
-void	mini_map(t_strct *mlx, t_data *data);
-int	gun_sound(char *s);
-void draw_amo(t_strct *mlx, int amo);
-int checkvalidnumbers(char *str);
-void	draw_map(t_strct *mlx, t_data *data);
-
-int	checkandreturn(int w, int h, void *img);
-
+void			vinter(t_data *data, double *xinter, double *yinter,
+					double angle);
+int				settextures_value(char *key, t_data **data, t_strct **mlx,
+					char *value);
+int				fill_forkey(t_data **data, char *key, char *value,
+					t_strct **mlx);
+void			vstep(t_data *data, double *xstep, double *ystep, double angle);
+void			init_graphics(t_strct *mlx);
+void			init_events(t_strct *mlx);
+int				keyclick(int key, void *ptr);
+void			wrerror(char *str);
+int				ft_strcmp(const char *s1, const char *s2);
+int				ft_atoi(char *str, int *j);
+int				checkfilename(char *filename);
+void			pixel_put(t_strct *mlx, int x, int y, int color);
+void			free_map(char **map);
+int				destroy(t_strct *mlx);
+double			cast(t_data *data, double angle);
+double			normalize(double angle);
+double			dis(double x1, double y1, double x2, double y2);
+void			direction(double angle, int *up, int *right);
+int				ft_isspace(char c);
+int				setcolors_value(char *key, char *value, t_data **data);
+char			*linemodified(char *line, int longestline);
+int				parsing(t_data *data, t_strct *mlx, char *filename);
+int				get_map(t_data **data, char *filename, int fd);
+int				checkifmapvalid(t_data *data);
+int				is_wall(t_data *data, double xx, double yy);
+void			mini_map(t_strct *mlx, t_data *data);
+int				gun_sound(char *s);
+void			draw_amo(t_strct *mlx, int amo);
+int				checkvalidnumbers(char *str);
+void			draw_map(t_strct *mlx, t_data *data);
+int				checkandreturn(int w, int h, void *img);
+void			init_data1(t_strct *mlx, t_data *data);
+void			init_data2(t_data *data);
+t_ray			*ray_generator(t_data *data);
+int				is_ok(t_data *data, int x, int y);
+int				ft_roundf(double v);
+void			update(t_data *data);
+void			floor_ceiling(t_strct *mlx, t_data *data);
+unsigned int	getpixelcolor(char *tex, int b, int texOffset);
+void			*getwalltexture(t_ray *rays, t_strct *mlx, int i);
+void			*getanimetex(t_strct *mlx);
+void			setvalues(t_vars *vars, t_ray *rays, t_strct *mlx, int i);
+void			drawarm(t_data *data , t_strct *mlx);
+void			walls(t_ray *rays, t_strct *mlx);
+int				render3d(void *ptr);
 #endif
