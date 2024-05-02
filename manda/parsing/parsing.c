@@ -36,7 +36,7 @@ void	free_array(char **line)
 
 int	checkandreturn(int w, int h, void *img)
 {
-	if (img == NULL || w != 64 || h != 64)
+	if (img == NULL || w != 512 || h != 512)
 		return (-1);
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mozennou <mozennou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: asnaji <asnaji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 12:47:17 by mozennou          #+#    #+#             */
-/*   Updated: 2024/04/26 15:43:22 by mozennou         ###   ########.fr       */
+/*   Updated: 2024/05/02 13:40:58 by asnaji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -211,7 +211,6 @@ void	setvalues(t_vars *vars, t_ray *rays, t_strct *mlx, int i)
 		vars->texX = (int)rays[i].hity % TILE_SIZE;
 	else
 		vars->texX = (int)rays[i].hitx % TILE_SIZE;
-	// vars->animtex = mlx_get_data_addr(getanimetex(mlx), &vars->b1, &vars->l1, &vars->x1);
 	vars->j = 0;
 }
 
@@ -234,15 +233,6 @@ void	walls(t_ray *rays, t_strct *mlx)
 				vars.color = getpixelcolor(vars.tex, vars.b, (TILE_SIZE * vars.texY + vars.texX) * (vars.b / 8));
 				pixel_put(mlx, vars.i, vars.j, vars.color);
 			}
-			// if (vars.j % 2 == 0 && vars.j > (HEIGHT / 2 - rays[vars.i].wallprjct / 2) && vars.j < (HEIGHT / 2 + rays[vars.i].wallprjct / 2))
-			// {
-			// 	vars.disfromtop = vars.j + (vars.wallheight / 2) - (HEIGHT / 2);
-			// 	vars.texY = vars.disfromtop * ((float)TILE_SIZE / vars.wallheight);
-			// 	vars.color = getpixelcolor(vars.animtex, vars.b1, (TILE_SIZE * vars.texY + vars.texX) * (vars.b1 / 8));
-			// 	pixel_put(mlx, vars.i, vars.j, vars.color);
-			// }
-			if (((vars.i - WIDTH / 2) * (vars.i - WIDTH / 2) + (vars.j - HEIGHT / 2) * (vars.j - HEIGHT / 2)) < 10)
-				pixel_put(mlx, vars.i, vars.j, 0x000000);
 			vars.j++;
 		}
 		vars.i++;
@@ -325,53 +315,32 @@ int initanimtex(t_strct *mlx)
 	int h;
 	
 	mlx->anim1 = mlx_xpm_file_to_image(mlx->mlx, "./tet/shoot1.xpm", &w, &h);
-	if (checkandreturn(64, 64, mlx->anim1) == -1)
+	if (checkandreturn(512, 512, mlx->anim1) == -1)
 		return (-1);
 	mlx->anim2 = mlx_xpm_file_to_image(mlx->mlx, "./tet/shoot3.xpm", &w, &h);
-	if (checkandreturn(64, 64, mlx->anim2) == -1)
+	if (checkandreturn(512, 512, mlx->anim2) == -1)
 		return (-1);
 	mlx->anim3 = mlx_xpm_file_to_image(mlx->mlx, "./tet/shoot4.xpm", &w, &h);
-	if (checkandreturn(64, 64, mlx->anim3) == -1)
+	if (checkandreturn(512, 512, mlx->anim3) == -1)
 		return (-1);
 	mlx->anim4 = mlx_xpm_file_to_image(mlx->mlx, "./tet/shoot5.xpm", &w, &h);
-	if (checkandreturn(64, 64, mlx->anim4) == -1)
+	if (checkandreturn(512, 512, mlx->anim4) == -1)
 		return (-1);
 	mlx->reload1 = mlx_xpm_file_to_image(mlx->mlx, "./tet/reload0.xpm", &w, &h);
-	if (checkandreturn(64, 64, mlx->reload1) == -1)
+	if (checkandreturn(512, 512, mlx->reload1) == -1)
 		return (-1);
 	mlx->reload2 = mlx_xpm_file_to_image(mlx->mlx, "./tet/reload1.xpm", &w, &h);
-	if (checkandreturn(64, 64, mlx->reload2) == -1)
+	if (checkandreturn(512, 512, mlx->reload2) == -1)
 		return (-1);
 	mlx->reload3 = mlx_xpm_file_to_image(mlx->mlx, "./tet/reload2.xpm", &w, &h);
-	if (checkandreturn(64, 64, mlx->reload3) == -1)
+	if (checkandreturn(512, 512, mlx->reload3) == -1)
 		return (-1);
 	mlx->reload4 = mlx_xpm_file_to_image(mlx->mlx, "./tet/reload3.xpm", &w, &h);
-	if (checkandreturn(64, 64, mlx->reload4) == -1)
+	if (checkandreturn(512, 512, mlx->reload4) == -1)
 		return (-1);
 	mlx->reload5 = mlx_xpm_file_to_image(mlx->mlx, "./tet/reload4.xpm", &w, &h);
-	if (checkandreturn(64, 64, mlx->reload5) == -1)
+	if (checkandreturn(512, 512, mlx->reload5) == -1)
 		return (-1);
-	// mlx->kirby1 = mlx_xpm_file_to_image(mlx->mlx, "./bonus/tex/anim1.xpm", &w, &h);
-	// if (checkandreturn(64, 64, mlx->kirby1) == -1)
-	// 	return (-1);
-	// mlx->kirby2 = mlx_xpm_file_to_image(mlx->mlx, "./bonus/tex/anim2.xpm", &w, &h);
-	// if (checkandreturn(64, 64, mlx->kirby2) == -1)
-	// 	return (-1);
-	// mlx->kirby3 = mlx_xpm_file_to_image(mlx->mlx, "./bonus/tex/anim3.xpm", &w, &h);
-	// if (checkandreturn(64, 64, mlx->kirby3) == -1)
-	// 	return (-1);
-	// mlx->kirby4 = mlx_xpm_file_to_image(mlx->mlx, "./bonus/tex/anim4.xpm", &w, &h);
-	// if (checkandreturn(64, 64, mlx->kirby4) == -1)
-	// 	return (-1);
-	// mlx->kirby5 = mlx_xpm_file_to_image(mlx->mlx, "./bonus/tex/anim5.xpm", &w, &h);
-	// if (checkandreturn(64, 64, mlx->kirby5) == -1)
-	// 	return (-1);
-	// mlx->kirby6 = mlx_xpm_file_to_image(mlx->mlx, "./bonus/tex/anim6.xpm", &w, &h);
-	// if (checkandreturn(64, 64, mlx->kirby6) == -1)
-	// 	return (-1);
-	// mlx->kirby7 = mlx_xpm_file_to_image(mlx->mlx, "./bonus/tex/anim7.xpm", &w, &h);
-	// if (checkandreturn(64, 64, mlx->kirby7) == -1)
-	// 	return (-1);
 	return (1);
 }
 

@@ -1,7 +1,7 @@
-NO ./tex/nowall.xpm
-SO ./tex/sowall.xpm
-WE ./tex/wewall.xpm
-EA ./tex/eawall.xpm
+NO ./tex/512_wall.xpm
+SO ./tex/512_wall.xpm
+WE ./tex/512_wall.xpm
+EA ./tex/512_wall.xpm
 
 C     50,   50,    50
 F      0,    200,    200
