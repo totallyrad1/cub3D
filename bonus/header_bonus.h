@@ -6,7 +6,7 @@
 /*   By: mozennou <mozennou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 12:45:39 by mozennou          #+#    #+#             */
-/*   Updated: 2024/05/02 18:28:14 by mozennou         ###   ########.fr       */
+/*   Updated: 2024/05/02 20:55:20 by mozennou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ typedef struct s_data
 	int		hide;
 	int		lc_tillstartofmap;
 	int		texid;
+	int		hdoor;
+	int		vdoor;
 }			t_data;
 
 typedef struct s_ray
@@ -65,6 +67,7 @@ typedef struct s_ray
 	double	hity;
 	double	dis;
 	int		ver;
+	int		door;
 	double	wallprjct;
 	double	angle;
 }	t_ray;

@@ -6,7 +6,7 @@
 /*   By: mozennou <mozennou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 16:56:04 by mozennou          #+#    #+#             */
-/*   Updated: 2024/05/02 18:05:49 by mozennou         ###   ########.fr       */
+/*   Updated: 2024/05/02 20:57:30 by mozennou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ int	new_image(t_strct *mlx, t_data *data)
 			&mlx->en);
 	if (!mlx->bf)
 		return (free(data->mp), exit(1), 1);
-    return (0);
+	return (0);
 }
 
 int	render3d(void *ptr)
