@@ -6,7 +6,7 @@
 /*   By: mozennou <mozennou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/30 20:05:12 by mozennou          #+#    #+#             */
-/*   Updated: 2024/04/17 15:03:11 by mozennou         ###   ########.fr       */
+/*   Updated: 2024/05/02 14:18:23 by mozennou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,9 @@ void	mini_map(t_strct *mlx, t_data *data)
 		{
 			if (((i - WIDTH / 10) * (i - WIDTH / 10) + (j - HEIGHT / 10) * (j - HEIGHT / 10)) < 8500)
 			{
-				if (is_wall(data, (data->y + j * 2 - 192), (data->x + i * 2 - 256)) == 1)
+				if (is_wall(data, (data->y + j * 16 - 192 * 8), (data->x + i * 16 - 256 * 8)) == 1)
 					pixel_put(mlx, i, j, 0x5F6F52);
-				else if (is_wall(data, (data->y + j * 2 - 192), (data->x + i * 2 - 256)) == 2)
+				else if (is_wall(data, (data->y + j * 16 - 192 * 8), (data->x + i * 16 - 256 * 8)) == 2)
 					pixel_put(mlx, i, j, 0x124076);
 				else
 					pixel_put(mlx, i, j, 0xA9B388);
@@ -130,9 +130,9 @@ void	draw_map(t_strct *mlx, t_data *data)
 			}
 			else
 			{
-				if (is_wall(data, (data->y + j - 960 / 2), (data->x + i - 1024 / 2  - 64 * 2)) == 1)
+				if (is_wall(data, (data->y + j * 8 - 960 * 4), (data->x + i * 8 - 1024 * 4  - 512 * 2)) == 1)
 					pixel_put(mlx, i, j, 0x5F6F52);
-				else if (is_wall(data, (data->y + j - 960 / 2), (data->x + i - 1024 / 2  - 64 * 2)) == 2)
+				else if (is_wall(data, (data->y + j * 8 - 960 * 4), (data->x + i * 8 - 1024 * 4  - 512 * 2)) == 2)
 					pixel_put(mlx, i, j, 0x124076);
 				else
 					pixel_put(mlx, i, j, 0xA9B388);

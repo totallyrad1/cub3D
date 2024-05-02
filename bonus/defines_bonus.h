@@ -6,7 +6,7 @@
 /*   By: mozennou <mozennou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 15:35:17 by mozennou          #+#    #+#             */
-/*   Updated: 2024/04/26 15:44:43 by mozennou         ###   ########.fr       */
+/*   Updated: 2024/05/02 14:08:06 by mozennou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@
 # define DOWN_KEY 1
 # define LEFT_KEY 0
 # define RIGHT_KEY 2
-# define MOVE_SPEED 20
+# define MOVE_SPEED 25
 
 //events defines
 enum {
