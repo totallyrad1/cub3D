@@ -6,7 +6,7 @@
 /*   By: mozennou <mozennou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 12:33:28 by mozennou          #+#    #+#             */
-/*   Updated: 2024/05/02 18:26:44 by mozennou         ###   ########.fr       */
+/*   Updated: 2024/05/02 20:53:12 by mozennou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,16 +64,22 @@ double	hcast(t_data *data, double angle, double xstep, double ystep)
 {
 	double	xinter;
 	double	yinter;
+	int		m;
 
 	direction(angle, &data->up, &data->right);
 	hinter(data, &xinter, &yinter, angle);
 	hstep(data, &xstep, &ystep, angle);
 	while (xinter > 0 && xinter < data->i && yinter > 0 && yinter < data->j)
 	{
-		if (is_wall(data, yinter, xinter))
+		m = is_wall(data, yinter, xinter);
+		if (m)
 		{
 			data->hhitx = xinter;
 			data->hhity = yinter + data->up;
+			if (m == 2)
+				data->hdoor = 1;
+			else
+				data->hdoor = 0;
 			break ;
 		}
 		else
@@ -91,16 +97,22 @@ double	vcast(t_data *data, double angle, double xstep, double ystep)
 {
 	double	xinter;
 	double	yinter;
+	int		m;
 
 	direction(angle, &data->up, &data->right);
 	vinter(data, &xinter, &yinter, angle);
 	vstep(data, &xstep, &ystep, angle);
 	while (xinter > 0 && xinter < data->i && yinter > 0 && yinter < data->j)
 	{
-		if (is_wall(data, yinter, xinter))
+		m = is_wall(data, yinter, xinter);
+		if (m)
 		{
 			data->vhitx = xinter + !data->right;
 			data->vhity = yinter;
+			if (m == 2)
+				data->vdoor = 1;
+			else
+				data->vdoor = 0;
 			break ;
 		}
 		else
@@ -113,5 +125,3 @@ double	vcast(t_data *data, double angle, double xstep, double ystep)
 		return (INT_MAX);
 	return (dis(data->x, data->y, data->vhitx, data->vhity));
 }
-
-

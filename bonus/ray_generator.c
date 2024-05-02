@@ -6,7 +6,7 @@
 /*   By: mozennou <mozennou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 16:09:10 by mozennou          #+#    #+#             */
-/*   Updated: 2024/05/02 16:47:57 by mozennou         ###   ########.fr       */
+/*   Updated: 2024/05/02 20:55:37 by mozennou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ t_ray	*ray_generator(t_data *data)
 		rays[i].dis = cast(data, angle) * cos(angle - data->angle);
 		rays[i].hitx = data->hhitx;
 		rays[i].hity = data->hhity;
+		rays[i].door = data->hdoor;
 		rays[i].ver = data->ver;
 		rays[i].wallprjct = (TILE_SIZE / rays[i].dis) * DISPROJ;
 		angle += res;

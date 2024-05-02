@@ -6,7 +6,7 @@
 /*   By: mozennou <mozennou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 16:21:10 by mozennou          #+#    #+#             */
-/*   Updated: 2024/05/02 16:28:56 by mozennou         ###   ########.fr       */
+/*   Updated: 2024/05/02 20:58:01 by mozennou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,8 @@ unsigned int	getpixelcolor(char *tex, int b, int texOffset)
 
 void	*getwalltexture(t_ray *rays, t_strct *mlx, int i)
 {
+	if (rays[i].door == 1)
+		return (mlx->data->ea);
 	if (rays[i].angle >= E && rays[i].angle <= S)
 	{
 		if (rays[i].ver)
