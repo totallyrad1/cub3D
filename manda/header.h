@@ -6,7 +6,7 @@
 /*   By: mozennou <mozennou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 12:45:39 by mozennou          #+#    #+#             */
-/*   Updated: 2024/04/26 15:17:31 by mozennou         ###   ########.fr       */
+/*   Updated: 2024/05/02 18:05:52 by mozennou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ typedef struct s_strct
 	char	*bf;
 	int		pxl_b;
 	int		ln_b;
-	int		endian;
+	int		en;
 	t_data	*data;
 }	t_strct;
 

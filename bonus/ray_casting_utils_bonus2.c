@@ -1,33 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sound_bonus.c                                      :+:      :+:    :+:   */
+/*   ray_casting_utils_bonus2.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mozennou <mozennou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/02 15:47:07 by mozennou          #+#    #+#             */
-/*   Updated: 2024/05/02 18:29:28 by mozennou         ###   ########.fr       */
+/*   Created: 2024/05/02 18:26:46 by mozennou          #+#    #+#             */
+/*   Updated: 2024/05/02 18:26:52 by mozennou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header_bonus.h"
 
-int	gun_sound(char *s)
+double	cast(t_data *data, double angle)
 {
-	int		pid;
-	char	*ss;
+	double	h;
+	double	v;
 
-	if (access(s, R_OK) || access("/usr/bin/afplay", X_OK))
-		return (1);
-	pid = fork();
-	if (pid == -1)
-		return (1);
-	ss = ft_strjoin(ft_strdup("/usr/bin/afplay "), s);
-	if (!pid)
+	h = hcast(data, angle, 0, 0);
+	v = vcast(data, angle, 0, 0);
+	if (h > v)
 	{
-		system(ss);
-		exit(0);
+		data->ver = 1;
+		data->hhitx = data->vhitx;
+		data->hhity = data->vhity;
+		return (v);
 	}
-	free(ss);
-	return (0);
+	data->ver = 0;
+	return (h);
 }

@@ -6,41 +6,46 @@
 /*   By: mozennou <mozennou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/30 20:05:12 by mozennou          #+#    #+#             */
-/*   Updated: 2024/05/02 15:47:36 by mozennou         ###   ########.fr       */
+/*   Updated: 2024/05/02 17:58:54 by mozennou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header_bonus.h"
 
-void direction_line(int x1, int y1, int x2, int y2, t_strct *mlx)
+void	direction_line(t_4points *p, t_strct *mlx)
 {
 	int	dx;
 	int	dy;
 	int	err;
+	int	e2;
 
-	dy = abs(y2 - y1);
-	dx = abs(x2 - x1);
+	dy = abs(p->y2 - p->y1);
+	dx = abs(p->x2 - p->x1);
 	err = dx - dy;
-	while (1) {
-		pixel_put(mlx, x1, y1, 0X006400);
-		if (x1 == x2 && y1 == y2) {
-			break;
-		}
-		int e2 = 2 * err;
-		if (e2 > -dy) {
+	while (1)
+	{
+		pixel_put(mlx, p->x1, p->y1, 0X006400);
+		if (p->x1 == p->x2 && p->y1 == p->y2)
+			break ;
+		e2 = 2 * err;
+		if (e2 > -dy)
+		{
 			err -= dy;
-			x1 += (x1 < x2) - !(x1 < x2);
+			p->x1 += (p->x1 < p->x2) - !(p->x1 < p->x2);
 		}
-		if (e2 < dx) {
+		if (e2 < dx)
+		{
 			err += dx;
-			y1 += (y1 < y2) - !(y1 < y2);
+			p->y1 += (p->y1 < p->y2) - !(p->y1 < p->y2);
 		}
 	}
 }
 
 void	player_dot(t_strct *mlx)
 {
-	int i, j;
+	int	i;
+	int	j;
+
 	i = -5;
 	while (i < 5)
 	{
@@ -55,10 +60,30 @@ void	player_dot(t_strct *mlx)
 	}
 }
 
+void	mini_map_func(int i, int j, t_data *d, t_strct *mlx)
+{
+	if (((i - WIDTH / 10) * (i - WIDTH / 10)
+			+ (j - HEIGHT / 10) * (j - HEIGHT / 10)) < 8500)
+	{
+		if (is_wall(d, (d->y + j * 16 - 192 * 8),
+				(d->x + i * 16 - 256 * 8)) == 1)
+			pixel_put(mlx, i, j, 0x5F6F52);
+		else if (is_wall(d, (d->y + j * 16 - 192 * 8),
+				(d->x + i * 16 - 256 * 8)) == 2)
+			pixel_put(mlx, i, j, 0x124076);
+		else
+			pixel_put(mlx, i, j, 0xA9B388);
+	}
+	else if (((i - WIDTH / 10) * (i - WIDTH / 10)
+			+ (j - HEIGHT / 10) * (j - HEIGHT / 10)) < 10000)
+		pixel_put(mlx, i, j, 0);
+}
+
 void	mini_map(t_strct *mlx, t_data *data)
 {
-	int	i;
-	int	j;
+	int			i;
+	int			j;
+	t_4points	p;
 
 	i = 0;
 	while (i < WIDTH / 5)
@@ -66,27 +91,18 @@ void	mini_map(t_strct *mlx, t_data *data)
 		j = 0;
 		while (j < HEIGHT / 5 + 5)
 		{
-			if (((i - WIDTH / 10) * (i - WIDTH / 10) + (j - HEIGHT / 10) * (j - HEIGHT / 10)) < 8500)
-			{
-				if (is_wall(data, (data->y + j * 16 - 192 * 8), (data->x + i * 16 - 256 * 8)) == 1)
-					pixel_put(mlx, i, j, 0x5F6F52);
-				else if (is_wall(data, (data->y + j * 16 - 192 * 8), (data->x + i * 16 - 256 * 8)) == 2)
-					pixel_put(mlx, i, j, 0x124076);
-				else
-					pixel_put(mlx, i, j, 0xA9B388);
-			}
-			else if (((i - WIDTH / 10) * (i - WIDTH / 10) + (j - HEIGHT / 10) * (j - HEIGHT / 10)) < 10000)
-					pixel_put(mlx, i, j, 0);
+			mini_map_func(i, j, data, mlx);
 			j++;
 		}
 		i++;
 	}
 	player_dot(mlx);
-	direction_line(WIDTH / 10, HEIGHT / 10, WIDTH / 10 + cos(data->angle) * 20,
-		HEIGHT / 10 + sin(data->angle) * 20, mlx);
+	p = (t_4points){WIDTH / 10, HEIGHT / 10, WIDTH / 10 + cos(data->angle) * 20,
+		HEIGHT / 10 + sin(data->angle) * 20};
+	direction_line(&p, mlx);
 }
 
-void draw_amo(t_strct *mlx, int amo)
+void	draw_amo(t_strct *mlx, int amo)
 {
 	int	i;
 	int	m;
@@ -100,7 +116,8 @@ void draw_amo(t_strct *mlx, int amo)
 		while (j < HEIGHT / 15)
 		{
 			pixel_put(mlx, i, j, 0xFFFFFF);
-			if (j > (HEIGHT / 15) - 8 || j < 8 || i < ((WIDTH / 10) * 8 + 8) || i > WIDTH - 8)
+			if (j > (HEIGHT / 15) - 8 || j < 8
+				|| i < ((WIDTH / 10) * 8 + 8) || i > WIDTH - 8)
 				pixel_put(mlx, i, j, 0);
 			if ((i - (WIDTH / 10) * 8 - 10) < (amo * m)
 				&& j < (HEIGHT / 15) - 10
@@ -111,38 +128,4 @@ void draw_amo(t_strct *mlx, int amo)
 		}
 		i++;
 	}
-}
-
-void	draw_map(t_strct *mlx, t_data *data)
-{
-	int	i;
-	int	j;
-
-	i = WIDTH / 10;
-	while (i < (WIDTH / 10) * 9)
-	{
-		j = HEIGHT / 10;
-		while (j < (HEIGHT / 10) * 9)
-		{
-			if (j < HEIGHT / 10 + 10 || j > (HEIGHT / 10) * 9 - 10 || i < WIDTH / 10 + 10 || i > (WIDTH / 10) * 9 - 10)
-			{
-				pixel_put(mlx, i, j, 0x000000);
-			}
-			else
-			{
-				if (is_wall(data, (data->y + j * 8 - 960 * 4), (data->x + i * 8 - 1024 * 4  - 512 * 2)) == 1)
-					pixel_put(mlx, i, j, 0x5F6F52);
-				else if (is_wall(data, (data->y + j * 8 - 960 * 4), (data->x + i * 8 - 1024 * 4  - 512 * 2)) == 2)
-					pixel_put(mlx, i, j, 0x124076);
-				else
-					pixel_put(mlx, i, j, 0xA9B388);
-				if (((i - WIDTH / 2) * (i - WIDTH / 2) + (j - HEIGHT / 2) * (j - HEIGHT / 2)) < 20)
-					pixel_put(mlx, i, j, 0XFEFAE0);
-			}
-			j++;
-		}
-		i++;
-	}
-	direction_line(WIDTH / 2, HEIGHT / 2, WIDTH / 2 + cos(data->angle) * 20,
-		HEIGHT / 2 + sin(data->angle) * 20, mlx);
 }

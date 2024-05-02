@@ -6,7 +6,7 @@
 /*   By: mozennou <mozennou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 16:56:04 by mozennou          #+#    #+#             */
-/*   Updated: 2024/05/02 17:07:47 by mozennou         ###   ########.fr       */
+/*   Updated: 2024/05/02 18:05:49 by mozennou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ int	new_image(t_strct *mlx, t_data *data)
 	if (!mlx->img)
 		return (free(data->mp), exit(1), 1);
 	mlx->bf = mlx_get_data_addr(mlx->img, &mlx->pxl_b, &mlx->ln_b,
-			&mlx->endian);
+			&mlx->en);
 	if (!mlx->bf)
 		return (free(data->mp), exit(1), 1);
     return (0);
