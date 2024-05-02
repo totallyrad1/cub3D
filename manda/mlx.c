@@ -11,7 +11,7 @@ void	init_graphics(t_strct *mlx)
 	mlx->img = mlx_new_image(mlx->mlx, WIDTH, HEIGHT);
 	if (!mlx->img)
 		exit(1);
-	mlx->bf = mlx_get_data_addr(mlx->img, &mlx->pxl_b, &mlx->ln_b, &mlx->endian);
+	mlx->bf = mlx_get_data_addr(mlx->img, &mlx->pxl_b, &mlx->ln_b, &mlx->en);
 	if (!mlx->bf)
 		exit(1);
 }

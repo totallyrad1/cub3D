@@ -6,7 +6,7 @@
 /*   By: mozennou <mozennou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 15:47:07 by mozennou          #+#    #+#             */
-/*   Updated: 2024/04/02 16:04:25 by mozennou         ###   ########.fr       */
+/*   Updated: 2024/05/02 18:29:28 by mozennou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 int	gun_sound(char *s)
 {
-	int pid;
-	char *ss;
-	
+	int		pid;
+	char	*ss;
+
 	if (access(s, R_OK) || access("/usr/bin/afplay", X_OK))
 		return (1);
 	pid = fork();

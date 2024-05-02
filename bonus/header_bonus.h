@@ -6,7 +6,7 @@
 /*   By: mozennou <mozennou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 12:45:39 by mozennou          #+#    #+#             */
-/*   Updated: 2024/05/02 17:08:00 by mozennou         ###   ########.fr       */
+/*   Updated: 2024/05/02 18:28:14 by mozennou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ typedef struct s_strct
 	char	*bf;
 	int		pxl_b;
 	int		ln_b;
-	int		endian;
+	int		en;
 	void	*anim1;
 	void	*anim2;
 	void	*anim3;
@@ -120,6 +120,14 @@ typedef struct s_vars
 	int		j;
 	char	*animtex;
 }	t_vars;
+
+typedef struct s_4points
+{
+	int	x1;
+	int	y1;
+	int	x2;
+	int	y2;
+}	t_4points;
 
 void			vinter(t_data *data, double *xinter, double *yinter,
 					double angle);
@@ -166,7 +174,11 @@ unsigned int	getpixelcolor(char *tex, int b, int texOffset);
 void			*getwalltexture(t_ray *rays, t_strct *mlx, int i);
 void			*getanimetex(t_strct *mlx);
 void			setvalues(t_vars *vars, t_ray *rays, t_strct *mlx, int i);
-void			drawarm(t_data *data , t_strct *mlx);
+void			drawarm(t_data *data, t_strct *mlx);
 void			walls(t_ray *rays, t_strct *mlx);
+void			direction_line(t_4points *p, t_strct *mlx);
 int				render3d(void *ptr);
+double			hcast(t_data *data, double angle, double xstep, double ystep);
+double			vcast(t_data *data, double angle, double xstep, double ystep);
+int				keyrelease(int ky, void *ptr);
 #endif

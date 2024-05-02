@@ -6,7 +6,7 @@
 /*   By: mozennou <mozennou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 12:33:28 by mozennou          #+#    #+#             */
-/*   Updated: 2024/05/02 14:59:43 by mozennou         ###   ########.fr       */
+/*   Updated: 2024/05/02 18:26:44 by mozennou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,11 @@ void	hstep(t_data *data, double *xstep, double *ystep, double angle)
 
 int	is_wall(t_data *data, double xx, double yy)
 {
-	int x = xx / TILE_SIZE;
-	int y = yy / TILE_SIZE;
+	int	x;
+	int	y;
+
+	x = xx / TILE_SIZE;
+	y = yy / TILE_SIZE;
 	if (x <= 0 || x >= (data->j / TILE_SIZE)
 		|| y <= 0 || y >= (data->i) / TILE_SIZE)
 		return (1);
@@ -43,9 +46,13 @@ int	is_wall(t_data *data, double xx, double yy)
 		return (1);	
 	if (data->mp[x][y] == 'D')
 	{
-		if (x == (int)(data->y / TILE_SIZE) || x == (int)(data->y / TILE_SIZE) + 1 || x == (int)(data->y / TILE_SIZE) - 1)
+		if (x == (int)(data->y / TILE_SIZE)
+			|| x == (int)(data->y / TILE_SIZE) + 1
+			|| x == (int)(data->y / TILE_SIZE) - 1)
 		{
-			if (y == (int)(data->x / TILE_SIZE) || y == (int)(data->x / TILE_SIZE) - 1 || y == (int)(data->x / TILE_SIZE) + 1)
+			if (y == (int)(data->x / TILE_SIZE)
+				|| y == (int)(data->x / TILE_SIZE) - 1
+				|| y == (int)(data->x / TILE_SIZE) + 1)
 				return (0);
 		}
 		return (2);
@@ -89,7 +96,7 @@ double	vcast(t_data *data, double angle, double xstep, double ystep)
 	vinter(data, &xinter, &yinter, angle);
 	vstep(data, &xstep, &ystep, angle);
 	while (xinter > 0 && xinter < data->i && yinter > 0 && yinter < data->j)
-	{	
+	{
 		if (is_wall(data, yinter, xinter))
 		{
 			data->vhitx = xinter + !data->right;
@@ -107,20 +114,4 @@ double	vcast(t_data *data, double angle, double xstep, double ystep)
 	return (dis(data->x, data->y, data->vhitx, data->vhity));
 }
 
-double	cast(t_data *data, double angle)
-{
-	double	h;
-	double	v;
 
-	h = hcast(data, angle, 0, 0);
-	v = vcast(data, angle, 0, 0);
-	if (h > v)
-	{
-		data->ver = 1;
-		data->hhitx = data->vhitx;
-		data->hhity = data->vhity;
-		return (v);
-	}
-	data->ver = 0;
-	return (h);
-}
