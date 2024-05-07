@@ -6,7 +6,7 @@
 /*   By: asnaji <asnaji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 15:47:45 by mozennou          #+#    #+#             */
-/*   Updated: 2024/04/03 01:22:18 by asnaji           ###   ########.fr       */
+/*   Updated: 2024/05/07 15:58:30 by asnaji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ int setcolors_value(char *key, char *value, t_data **data)
 	int	b;
 
 	j = 0;
+	printf("here\n");
 	if(checkvalidnumbers(value) == 0)
 		return (-1);
 	if (!ft_strcmp(key, "C") && (*data)->c_color == -1)
@@ -108,6 +109,7 @@ int setcolors_value(char *key, char *value, t_data **data)
 		r = ft_atoi(value, &j);
 		g = ft_atoi(value, &j);
 		b = ft_atoi(value, &j);
+		printf("%d %d %d\n", r, g , b);
 		if(!checkvalues(r, g, b))
 			return (-1);
 		return ((*data)->c_color = to_color(r, g, b), 1);
@@ -117,6 +119,7 @@ int setcolors_value(char *key, char *value, t_data **data)
 		r = ft_atoi(value, &j);
 		g = ft_atoi(value, &j);
 		b = ft_atoi(value, &j);
+		printf("%d %d %d\n", r, g , b);
 		if(!checkvalues(r, g, b))
 			return (-1);
 		return ((*data)->f_color = to_color(r, g, b), 1);

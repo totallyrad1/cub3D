@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing2_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mozennou <mozennou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: asnaji <asnaji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 15:47:55 by mozennou          #+#    #+#             */
-/*   Updated: 2024/04/02 15:47:56 by mozennou         ###   ########.fr       */
+/*   Updated: 2024/05/07 16:10:21 by asnaji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,10 +98,12 @@ int checkvalidnumbers(char *str)
 			return(0);
 		while(str[i] >= '0' && str[i] <= '9')
 			i++;
+		while(str[i] && ft_isspace(str[i]))
+			i++;
 		if(str[i] && str[i] == ',')
 		{
+			i++; 
 			ccount++;
-			i++;
 		}
 		else if (str[i])
 			return(0);
