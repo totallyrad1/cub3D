@@ -6,7 +6,7 @@
 /*   By: asnaji <asnaji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 15:47:55 by mozennou          #+#    #+#             */
-/*   Updated: 2024/05/08 15:17:28 by asnaji           ###   ########.fr       */
+/*   Updated: 2024/05/08 15:38:00 by asnaji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	fillandcheckmap(t_data **data, char *filename, int longestline)
 	return (1);
 }
 
-int get_map(t_data **data, char *filename, int fd)
+int	get_map(t_data **data, char *filename, int fd)
 {
 	char	*line;
 	int		arr_size;
@@ -62,12 +62,12 @@ int get_map(t_data **data, char *filename, int fd)
 
 	arr_size = 0;
 	line = get_next_line(fd);
-	if(line == NULL)
+	if (line == NULL)
 		return (-1);
 	longestline = 0;
-	while(line)
+	while (line)
 	{
-		if((int)ft_strlen(line) > longestline)
+		if ((int)ft_strlen(line) > longestline)
 			longestline = (int)ft_strlen(line);
 		arr_size++;
 		free(line);
@@ -81,36 +81,43 @@ int get_map(t_data **data, char *filename, int fd)
 	return (fillandcheckmap(data, filename, longestline));
 }
 
-int checkvalidnumbers(char *str)
+int	skipspace_andcommac(int *i, int *ccount, char *str)
 {
-	int ncount;
-	int ccount;
-	int i;
+	while (str[*i] && ft_isspace(str[*i]))
+		(*i)++;
+	if (str[*i] && str[*i] == ',')
+	{
+		(*i)++;
+		(*ccount)++;
+	}
+	else if (str[*i])
+		return (0);
+	return (1);
+}
+
+int	checkvalidnumbers(char *str)
+{
+	int	ncount;
+	int	ccount;
+	int	i;
 
 	i = 0;
 	ncount = 0;
 	ccount = 0;
-	while(str && str[i])
+	while (str && str[i])
 	{
-		if(str[i] >= '0' && str[i] <= '9')
+		if (str[i] >= '0' && str[i] <= '9')
 			ncount++;
 		else
-			return(0);
-		while(str[i] >= '0' && str[i] <= '9')
+			return (0);
+		while (str[i] >= '0' && str[i] <= '9')
 			i++;
-		while(str[i] && ft_isspace(str[i]))
-			i++;
-		if(str[i] && str[i] == ',')
-		{
-			i++; 
-			ccount++;
-		}
-		else if (str[i])
-			return(0);
-		while(str[i] && ft_isspace(str[i]))
+		if (skipspace_andcommac(&i, &ccount, str) == 0)
+			return (0);
+		while (str[i] && ft_isspace(str[i]))
 			i++;
 	}
 	if (ncount != 3 || ccount != 2)
-		return(0);
+		return (0);
 	return (1);
 }
