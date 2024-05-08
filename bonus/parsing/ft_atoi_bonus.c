@@ -6,7 +6,7 @@
 /*   By: asnaji <asnaji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 15:47:32 by mozennou          #+#    #+#             */
-/*   Updated: 2024/05/08 14:54:05 by asnaji           ###   ########.fr       */
+/*   Updated: 2024/05/08 15:27:11 by asnaji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ int	ft_atoi(char *str, int *j)
 		res = res * 10 + (str[*j] - '0');
 		(*j)++;
 	}
+	while (str[*j] && ft_isspace(str[*j]))
+		(*j)++;
 	if (str[*j] == ',')
 		(*j)++;
 	while (str[*j] && ft_isspace(str[*j]))
