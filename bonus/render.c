@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mozennou <mozennou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: asnaji <asnaji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 16:56:04 by mozennou          #+#    #+#             */
-/*   Updated: 2024/05/02 20:57:30 by mozennou         ###   ########.fr       */
+/*   Updated: 2024/05/08 12:06:28 by asnaji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,9 @@ void	walls(t_ray *rays, t_strct *mlx)
 
 void	drawarm(t_data *data , t_strct *mlx)
 {
-	if(data->texid >= 0)
+	if (data->texid >= 0)
 	{
-		if(data->texid < 3)
+		if (data->texid < 3)
 			mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->anim1, WIDTH / 2 - 150, HEIGHT / 2);
 		else if (data->texid < 5)
 			mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->anim2, WIDTH / 2 - 150, HEIGHT / 2);
@@ -75,7 +75,7 @@ void	drawarm(t_data *data , t_strct *mlx)
 	}
 	else
 	{
-		if(data->texid > -5)
+		if (data->texid > -5)
 			mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->reload1, WIDTH / 2 - 150, HEIGHT / 2);
 		else if (data->texid > -10)
 			mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->reload2, WIDTH / 2 - 150, HEIGHT / 2);

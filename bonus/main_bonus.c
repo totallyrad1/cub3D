@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mozennou <mozennou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: asnaji <asnaji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 12:47:17 by mozennou          #+#    #+#             */
-/*   Updated: 2024/05/02 17:12:59 by mozennou         ###   ########.fr       */
+/*   Updated: 2024/05/08 12:24:18 by asnaji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,9 @@ int	initanimtex(t_strct *mlx)
 	int	w;
 	int	h;
 
+	mlx->data->door = mlx_xpm_file_to_image(mlx->mlx, "./tex/512_door.xpm", &w, &h);
+	if (checkandreturn(512, 512, mlx->data->door) == -1)
+		return (-1);
 	mlx->anim1 = mlx_xpm_file_to_image(mlx->mlx, "./tet/shoot1.xpm", &w, &h);
 	if (checkandreturn(512, 512, mlx->anim1) == -1)
 		return (-1);

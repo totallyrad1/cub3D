@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_generator.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mozennou <mozennou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: asnaji <asnaji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 16:09:10 by mozennou          #+#    #+#             */
-/*   Updated: 2024/05/02 20:55:37 by mozennou         ###   ########.fr       */
+/*   Updated: 2024/05/08 12:24:34 by asnaji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	init_data1(t_strct *mlx, t_data *data)
 	data->so = NULL;
 	data->ea = NULL;
 	data->we = NULL;
+	data->door = NULL;
 	data->walk = 0;
 	data->turn = 0;
 	data->left_right = 0;

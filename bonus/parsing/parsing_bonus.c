@@ -6,7 +6,7 @@
 /*   By: asnaji <asnaji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 15:47:45 by mozennou          #+#    #+#             */
-/*   Updated: 2024/05/07 15:58:30 by asnaji           ###   ########.fr       */
+/*   Updated: 2024/05/08 12:23:01 by asnaji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,8 @@ void free_array(char **line)
 
 int	checkandreturn(int w, int h, void *img)
 {
-	if (img == NULL)
+	printf("%p\n", img);
+	if (img == NULL || w != 512 || h != 512)
 		return (wrerror("invalid texture size or path\n"), -1);
 	return (0);
 }

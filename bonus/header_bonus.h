@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   header_bonus.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mozennou <mozennou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: asnaji <asnaji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 12:45:39 by mozennou          #+#    #+#             */
-/*   Updated: 2024/05/02 20:55:20 by mozennou         ###   ########.fr       */
+/*   Updated: 2024/05/08 12:13:58 by asnaji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ typedef struct s_data
 	void	*ea;
 	void	*we;
 	void	*no;
+	void	*door;
 	int		f_color;
 	int		c_color;
 	int		up;
