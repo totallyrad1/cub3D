@@ -6,7 +6,7 @@
 /*   By: asnaji <asnaji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 15:47:45 by mozennou          #+#    #+#             */
-/*   Updated: 2024/05/08 12:23:01 by asnaji           ###   ########.fr       */
+/*   Updated: 2024/05/08 13:16:50 by asnaji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ void free_array(char **line)
 
 int	checkandreturn(int w, int h, void *img)
 {
-	printf("%p\n", img);
 	if (img == NULL || w != 512 || h != 512)
 		return (wrerror("invalid texture size or path\n"), -1);
 	return (0);
@@ -102,7 +101,6 @@ int setcolors_value(char *key, char *value, t_data **data)
 	int	b;
 
 	j = 0;
-	printf("here\n");
 	if(checkvalidnumbers(value) == 0)
 		return (-1);
 	if (!ft_strcmp(key, "C") && (*data)->c_color == -1)
@@ -110,7 +108,6 @@ int setcolors_value(char *key, char *value, t_data **data)
 		r = ft_atoi(value, &j);
 		g = ft_atoi(value, &j);
 		b = ft_atoi(value, &j);
-		printf("%d %d %d\n", r, g , b);
 		if(!checkvalues(r, g, b))
 			return (-1);
 		return ((*data)->c_color = to_color(r, g, b), 1);
@@ -120,7 +117,6 @@ int setcolors_value(char *key, char *value, t_data **data)
 		r = ft_atoi(value, &j);
 		g = ft_atoi(value, &j);
 		b = ft_atoi(value, &j);
-		printf("%d %d %d\n", r, g , b);
 		if(!checkvalues(r, g, b))
 			return (-1);
 		return ((*data)->f_color = to_color(r, g, b), 1);
