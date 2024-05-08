@@ -6,7 +6,7 @@
 /*   By: asnaji <asnaji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 12:45:39 by mozennou          #+#    #+#             */
-/*   Updated: 2024/05/08 15:10:12 by asnaji           ###   ########.fr       */
+/*   Updated: 2024/05/08 15:52:56 by asnaji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -193,4 +193,10 @@ int	check_that(t_data *data);
 int	checkvalues(int i1, int i2, int i3);
 int	to_color(int r, int g, int b);
 void	free_array(char **line);
+
+int	playerchar_found(char c, float *angle);
+int	check2(char **map, int i, int j);
+int	check1(char **map, int i, int j);
+int	check0(char c);
+
 #endif
