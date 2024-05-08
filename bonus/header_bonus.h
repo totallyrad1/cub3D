@@ -6,7 +6,7 @@
 /*   By: asnaji <asnaji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 12:45:39 by mozennou          #+#    #+#             */
-/*   Updated: 2024/05/08 12:13:58 by asnaji           ###   ########.fr       */
+/*   Updated: 2024/05/08 15:10:12 by asnaji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,4 +185,12 @@ int				render3d(void *ptr);
 double			hcast(t_data *data, double angle, double xstep, double ystep);
 double			vcast(t_data *data, double angle, double xstep, double ystep);
 int				keyrelease(int ky, void *ptr);
+
+int	parse_clrs_txtrs(t_data **data, t_strct **mlx, int fd);
+void	fillkey_value(char *line, char **key, char **value);
+int	check_that(t_data *data);
+
+int	checkvalues(int i1, int i2, int i3);
+int	to_color(int r, int g, int b);
+void	free_array(char **line);
 #endif

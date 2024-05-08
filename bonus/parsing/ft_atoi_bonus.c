@@ -6,16 +6,16 @@
 /*   By: asnaji <asnaji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 15:47:32 by mozennou          #+#    #+#             */
-/*   Updated: 2024/05/07 16:15:29 by asnaji           ###   ########.fr       */
+/*   Updated: 2024/05/08 14:54:05 by asnaji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header_bonus.h"
 
-int ft_atoi(char *str, int *j)
+int	ft_atoi(char *str, int *j)
 {
-	int res;
-	int count;
+	int	res;
+	int	count;
 
 	res = 0;
 	count = 0;
@@ -28,9 +28,9 @@ int ft_atoi(char *str, int *j)
 	if (str[*j] == ',')
 		(*j)++;
 	while (str[*j] && ft_isspace(str[*j]))
-			(*j)++;
+		(*j)++;
 	if (count > 4)
-		return -1;
+		return (-1);
 	else
 		return (res);
 }
