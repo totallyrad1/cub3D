@@ -6,7 +6,7 @@
 /*   By: asnaji <asnaji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 15:47:36 by mozennou          #+#    #+#             */
-/*   Updated: 2024/05/08 15:14:18 by asnaji           ###   ########.fr       */
+/*   Updated: 2024/05/08 15:16:15 by asnaji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,19 +24,19 @@ int	ft_strcmp(const char *s1, const char *s2)
 	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 }
 
-int fn_open(char *filename)
+int	fn_open(char *filename)
 {
-	int fd;
+	int	fd;
 
 	fd = open(filename, O_RDONLY);
-	if(fd == -1)
+	if (fd == -1)
 		wrerror("Error :2 opening file\n");
 	return (fd);
 }
 
-int parsing(t_data *data, t_strct *mlx, char *filename)
+int	parsing(t_data *data, t_strct *mlx, char *filename)
 {
-	int fd;
+	int	fd;
 
 	fd = fn_open(filename);
 	if (fd == -1)
