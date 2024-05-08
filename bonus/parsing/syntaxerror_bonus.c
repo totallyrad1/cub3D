@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   syntaxerror_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mozennou <mozennou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: asnaji <asnaji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 15:47:59 by mozennou          #+#    #+#             */
-/*   Updated: 2024/04/18 08:31:59 by mozennou         ###   ########.fr       */
+/*   Updated: 2024/05/08 13:51:28 by asnaji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,23 @@ int	mapcharscheck(char c)
 	return (1);
 }
 
+int door_check(int i, int j, char **map)
+{
+	if (i <= 0 || !map[i - 1] || !map[i - 1][j])
+		return (wrerror("here 1\n"), -1);
+	if (!map[i + 1] || !map[i + 1][j])
+		return (wrerror("here 2\n"), -1);
+	if (j <= 0 || !map[i] || !map[i][j - 1])
+		return (wrerror("here 3\n"), -1);
+	if (!map[i] || !map[i][j + 1])
+		return (wrerror("here 4\n"), -1);
+	if(map[i + 1][j] == '1' && map[i - 1][j] == '1' && map[i][j + 1] == '0' && map[i][j - 1] == '0')
+		return (1);
+	if(map[i + 1][j] == '0' && map[i - 1][j] == '0' && map[i][j + 1] == '1' && map[i][j - 1] == '1')
+		return (1);
+	return (wrerror("here 5\n"), -1);
+}
+
 int	checkifmapvalid(t_data *data)
 {
 	int		i;
@@ -121,6 +138,8 @@ int	checkifmapvalid(t_data *data)
 				count++;
 				(data)->mp[i][j] = '0';
 			}
+			if ((data)->mp[i][j] == 'D' && door_check(i , j , (data)->mp) == -1)
+				return (wrerror("invalid door position\n"), 1);
 			j++;
 		}
 		i++;
