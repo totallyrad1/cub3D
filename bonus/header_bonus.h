@@ -6,7 +6,7 @@
 /*   By: asnaji <asnaji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 12:45:39 by mozennou          #+#    #+#             */
-/*   Updated: 2024/05/09 15:57:13 by asnaji           ###   ########.fr       */
+/*   Updated: 2024/05/09 19:48:46 by asnaji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -199,4 +199,7 @@ int				check1(char **map, int i, int j);
 int				check0(char c);
 
 void			exit_fn(t_data *data);
+
+void			draw_reload(t_data *data, t_strct *mlx);
+void			draw_shoot(t_data *data, t_strct *mlx);
 #endif

@@ -6,7 +6,7 @@
 /*   By: asnaji <asnaji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 16:56:04 by mozennou          #+#    #+#             */
-/*   Updated: 2024/05/09 15:45:42 by asnaji           ###   ########.fr       */
+/*   Updated: 2024/05/09 19:48:54 by asnaji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,33 +60,12 @@ void	walls(t_ray *rays, t_strct *mlx)
 	}
 }
 
-void	drawarm(t_data *data , t_strct *mlx)
+void	drawarm(t_data *data, t_strct *mlx)
 {
 	if (data->texid >= 0)
-	{
-		if (data->texid < 3)
-			mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->anim1, WIDTH / 2 - 150, HEIGHT / 2);
-		else if (data->texid < 5)
-			mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->anim2, WIDTH / 2 - 150, HEIGHT / 2);
-		else if (data->texid < 8)
-			mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->anim3, WIDTH / 2 - 150, HEIGHT / 2);
-		else if (data->texid < 13)
-			mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->anim4, WIDTH / 2 - 150, HEIGHT / 2);
-	}
+		draw_shoot(data, mlx);
 	else
-	{
-		if (data->texid > -5)
-			mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->reload1, WIDTH / 2 - 150, HEIGHT / 2);
-		else if (data->texid > -10)
-			mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->reload2, WIDTH / 2 - 150, HEIGHT / 2);
-		else if (data->texid > -15)
-			mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->reload3, WIDTH / 2 - 150, HEIGHT / 2);
-		else if (data->texid > -20)
-			mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->reload4, WIDTH / 2 - 150, HEIGHT / 2);
-		else if (data->texid > -25)
-			mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->reload5, WIDTH / 2 - 150, HEIGHT / 2);
-	}
-		
+		draw_reload(data, mlx);
 }
 
 int	new_image(t_strct *mlx, t_data *data)

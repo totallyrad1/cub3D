@@ -6,7 +6,7 @@
 /*   By: asnaji <asnaji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 16:21:10 by mozennou          #+#    #+#             */
-/*   Updated: 2024/05/09 15:46:23 by asnaji           ###   ########.fr       */
+/*   Updated: 2024/05/09 19:41:44 by asnaji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,16 +80,19 @@ unsigned int	getpixelcolor(char *tex, int texOffset)
 	return (color);
 }
 
+void	*e_swalltext(t_ray *rays, t_strct *mlx, int i)
+{
+	if (rays[i].ver)
+		return (mlx->data->ea);
+	return (mlx->data->so);
+}
+
 void	*getwalltexture(t_ray *rays, t_strct *mlx, int i)
 {
 	if (rays[i].door == 1)
 		return (mlx->data->door);
 	if (rays[i].angle >= E && rays[i].angle <= S)
-	{
-		if (rays[i].ver)
-			return (mlx->data->ea);
-		return (mlx->data->so);
-	}
+		return (e_swalltext(rays, mlx, i));
 	else if (rays[i].angle >= S && rays[i].angle <= W)
 	{
 		if (rays[i].ver)
@@ -108,21 +111,4 @@ void	*getwalltexture(t_ray *rays, t_strct *mlx, int i)
 			return (mlx->data->ea);
 		return (mlx->data->no);
 	}
-}
-
-void	*getanimetex(t_strct *mlx)
-{
-	if (mlx->texid1 < 10)
-		return (mlx->kirby1);
-	else if (mlx->texid1 < 20)
-		return (mlx->kirby2);
-	else if (mlx->texid1 < 30)
-		return (mlx->kirby3);
-	else if (mlx->texid1 < 40)
-		return (mlx->kirby4);
-	else if (mlx->texid1 < 50)
-		return (mlx->kirby5);
-	else if (mlx->texid1 < 60)
-		return (mlx->kirby6);
-	return (mlx->kirby7);
 }
