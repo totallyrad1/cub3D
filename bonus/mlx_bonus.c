@@ -6,7 +6,7 @@
 /*   By: asnaji <asnaji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 15:46:59 by mozennou          #+#    #+#             */
-/*   Updated: 2024/05/09 16:13:39 by asnaji           ###   ########.fr       */
+/*   Updated: 2024/05/09 17:39:45 by asnaji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	free_map(char **map)
 
 int	keyclick_func(t_data *data, int ky)
 {
-	if (ky == 15 && data->amo && !gun_sound("./bonus/sounds/reload.wav"))
+	if (ky == 15 && data->amo)
 	{
 		data->texid = -25;
 		data->amo = 0;
