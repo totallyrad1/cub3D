@@ -6,7 +6,7 @@
 /*   By: asnaji <asnaji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 12:47:17 by mozennou          #+#    #+#             */
-/*   Updated: 2024/05/09 17:42:04 by asnaji           ###   ########.fr       */
+/*   Updated: 2024/05/09 19:38:52 by asnaji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ int	initanimtex(t_strct *mlx)
 	int	w;
 	int	h;
 
-	mlx->data->door = mlx_xpm_file_to_image(mlx->mlx, "./tex/512_door.xpm", &w, &h);
+	mlx->data->door = mlx_xpm_file_to_image(mlx->mlx,
+			"./tex/512_door.xpm", &w, &h);
 	if (checkandreturn(w, h, mlx->data->door) == -1)
 		return (-1);
 	mlx->anim1 = mlx_xpm_file_to_image(mlx->mlx, "./tet/shoot1.xpm", &w, &h);
@@ -32,6 +33,14 @@ int	initanimtex(t_strct *mlx)
 	mlx->anim4 = mlx_xpm_file_to_image(mlx->mlx, "./tet/shoot5.xpm", &w, &h);
 	if (checkandreturn(512, 512, mlx->anim4) == -1)
 		return (-1);
+	return (1);
+}
+
+int	initanimtext2(t_strct *mlx)
+{
+	int	w;
+	int	h;
+	
 	mlx->reload1 = mlx_xpm_file_to_image(mlx->mlx, "./tet/reload0.xpm", &w, &h);
 	if (checkandreturn(512, 512, mlx->reload1) == -1)
 		return (-1);
@@ -50,14 +59,8 @@ int	initanimtex(t_strct *mlx)
 	return (1);
 }
 
-void lol()
-{
-	system("leaks cub3D_bonus");
-}
-
 int	main(int ac, char **av)
 {
-	atexit(lol);
 	t_strct	mlx;
 	t_data	data;
 
@@ -67,12 +70,12 @@ int	main(int ac, char **av)
 		return (1);
 	init_data1(&mlx, &data);
 	init_graphics(&mlx);
-	if (initanimtex(&mlx) == -1)
+	if (initanimtex(&mlx) == -1 || initanimtext2(&mlx) == -1)
 		return (1);
 	if (parsing(&data, &mlx, av[1]) == -1)
 		return (exit_fn(&data), 1);
 	if (checkifmapvalid(&data))
-		return (exit_fn(&data) ,1);
+		return (exit_fn(&data), 1);
 	init_data2(&data);
 	init_events(&mlx);
 	mlx_loop_hook(mlx.mlx, render3d, &data);
