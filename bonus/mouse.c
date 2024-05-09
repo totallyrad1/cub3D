@@ -6,7 +6,7 @@
 /*   By: asnaji <asnaji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 18:19:14 by mozennou          #+#    #+#             */
-/*   Updated: 2024/05/09 15:47:12 by asnaji           ###   ########.fr       */
+/*   Updated: 2024/05/09 17:39:32 by asnaji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,7 @@ int	mouseclick(int ky, int x, int y, void *ptr)
 	(void)x;
 	if (ky == 1)
 	{
-		if (data->amo == 8)
-		{
-			gun_sound("./bonus/sounds/test.wav");
-		}
-		else if (!gun_sound("./bonus/sounds/gun_shot.wav"))
+		if (data->amo != 8)
 		{
 			data->texid = 10;
 			data->amo++;
