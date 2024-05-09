@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_casting_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mozennou <mozennou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: asnaji <asnaji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 12:33:28 by mozennou          #+#    #+#             */
-/*   Updated: 2024/05/02 20:53:12 by mozennou         ###   ########.fr       */
+/*   Updated: 2024/05/08 21:20:45 by asnaji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	is_wall(t_data *data, double xx, double yy)
 		|| y <= 0 || y >= (data->i) / TILE_SIZE)
 		return (1);
 	if (data->mp[x][y] == '1')
-		return (1);	
+		return (1);
 	if (data->mp[x][y] == 'D')
 	{
 		if (x == (int)(data->y / TILE_SIZE)

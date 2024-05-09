@@ -6,7 +6,7 @@
 /*   By: asnaji <asnaji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 16:21:10 by mozennou          #+#    #+#             */
-/*   Updated: 2024/05/08 12:17:52 by asnaji           ###   ########.fr       */
+/*   Updated: 2024/05/09 15:46:23 by asnaji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	floor_ceiling(t_strct *mlx, t_data *data)
 	}
 }
 
-unsigned int	getpixelcolor(char *tex, int b, int texOffset)
+unsigned int	getpixelcolor(char *tex, int texOffset)
 {
 	unsigned int	color;
 	unsigned char	red;

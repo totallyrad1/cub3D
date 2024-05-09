@@ -6,7 +6,7 @@
 /*   By: asnaji <asnaji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 16:09:10 by mozennou          #+#    #+#             */
-/*   Updated: 2024/05/08 12:24:34 by asnaji           ###   ########.fr       */
+/*   Updated: 2024/05/09 16:19:09 by asnaji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void	init_data1(t_strct *mlx, t_data *data)
 	data->texid = 0;
 	mlx->texid1 = 0;
 	data->map = 0;
+	data->mp = NULL;
 }
 
 void	init_data2(t_data *data)
@@ -51,6 +52,8 @@ t_ray	*ray_generator(t_data *data)
 	angle = data->angle - (FOV / 2);
 	res = FOV / WIDTH;
 	rays = malloc(sizeof(t_ray) * WIDTH);
+	if (!rays)
+		exit(1);
 	update(data);
 	i = 0;
 	while (i < WIDTH)
@@ -82,22 +85,4 @@ int	is_ok(t_data *data, int x, int y)
 		|| data->mp[y / TILE_SIZE][(x - a) / TILE_SIZE] == '1')
 		return (0);
 	return (1);
-}
-
-int	ft_roundf(double v)
-{
-	int	l;
-
-	if (v > 0)
-		l = -(int)v;
-	else
-		l = (int)v;
-	if (v + l > 0.5 || v + l < -0.5)
-	{
-		if (v > 0)
-			return (v + 1);
-		else
-			return (v - 1);
-	}
-	return (v);
 }

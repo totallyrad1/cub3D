@@ -6,7 +6,7 @@
 /*   By: asnaji <asnaji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 12:47:17 by mozennou          #+#    #+#             */
-/*   Updated: 2024/05/08 15:14:30 by asnaji           ###   ########.fr       */
+/*   Updated: 2024/05/09 16:16:49 by asnaji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void lol()
 
 int	main(int ac, char **av)
 {
-	//atexit(lol);
+	atexit(lol);
 	t_strct	mlx;
 	t_data	data;
 
@@ -70,9 +70,9 @@ int	main(int ac, char **av)
 	if (initanimtex(&mlx) == -1)
 		return (1);
 	if (parsing(&data, &mlx, av[1]) == -1)
-		return (1);
+		return (exit_fn(&data), 1);
 	if (checkifmapvalid(&data))
-		return (1);
+		return (exit_fn(&data) ,1);
 	init_data2(&data);
 	init_events(&mlx);
 	mlx_loop_hook(mlx.mlx, render3d, &data);

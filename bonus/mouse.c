@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mouse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mozennou <mozennou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: asnaji <asnaji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 18:19:14 by mozennou          #+#    #+#             */
-/*   Updated: 2024/05/02 18:20:52 by mozennou         ###   ########.fr       */
+/*   Updated: 2024/05/09 15:47:12 by asnaji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int	mousemove(int x, int y, void *ptr)
 	static int	res;
 
 	data = ptr;
+	(void)y;
 	if (!data->hide)
 	{
 		if (x < 0 || x > WIDTH)
@@ -36,8 +37,11 @@ int	mousemove(int x, int y, void *ptr)
 
 int	mouseclick(int ky, int x, int y, void *ptr)
 {
-	t_data	*data = ptr;
+	t_data	*data;
 
+	data = ptr;
+	(void)y;
+	(void)x;
 	if (ky == 1)
 	{
 		if (data->amo == 8)

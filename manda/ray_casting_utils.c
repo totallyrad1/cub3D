@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_casting_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mozennou <mozennou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: asnaji <asnaji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 12:33:55 by mozennou          #+#    #+#             */
-/*   Updated: 2024/04/26 14:42:00 by mozennou         ###   ########.fr       */
+/*   Updated: 2024/05/09 15:39:11 by asnaji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ void	direction(double angle, int *up, int *right)
 
 void	vinter(t_data *data, double *xinter, double *yinter, double angle)
 {
-	(*xinter) = ((int)round(data->x) / TILE_SIZE) * TILE_SIZE + data->right * TILE_SIZE;
-	(*yinter) = (int)round(data->y) + ((*xinter) - (int)round(data->x)) * tan(angle);
+	(*xinter) = ((int)(data->x) / TILE_SIZE) * TILE_SIZE + data->right * TILE_SIZE;
+	(*yinter) = (int)(data->y) + ((*xinter) - (int)(data->x)) * tan(angle);
 	(*xinter) += -!data->right;
 }
 
