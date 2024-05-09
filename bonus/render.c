@@ -6,7 +6,7 @@
 /*   By: asnaji <asnaji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 16:56:04 by mozennou          #+#    #+#             */
-/*   Updated: 2024/05/08 12:06:28 by asnaji           ###   ########.fr       */
+/*   Updated: 2024/05/09 15:45:42 by asnaji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	walls(t_ray *rays, t_strct *mlx)
 			{
 				vars.disfromtop = vars.j + (vars.wallheight / 2) - (HEIGHT / 2);
 				vars.texY = vars.disfromtop * ((float)a / vars.wallheight);
-				vars.color = getpixelcolor(vars.tex, vars.b,
+				vars.color = getpixelcolor(vars.tex,
 						(a * vars.texY + vars.texX) * (vars.b / 8));
 				pixel_put(mlx, vars.i, vars.j, vars.color);
 			}

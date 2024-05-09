@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_bonus.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mozennou <mozennou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: asnaji <asnaji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 15:46:59 by mozennou          #+#    #+#             */
-/*   Updated: 2024/05/02 18:21:14 by mozennou         ###   ########.fr       */
+/*   Updated: 2024/05/09 16:13:39 by asnaji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	free_map(char **map)
 	free(map);
 }
 
-int	keyclick_func(t_strct *mlx, t_data *data, int ky)
+int	keyclick_func(t_data *data, int ky)
 {
 	if (ky == 15 && data->amo && !gun_sound("./bonus/sounds/reload.wav"))
 	{
@@ -88,7 +88,7 @@ int	keyclick(int ky, void *ptr)
 	else if (ky == RLEFT_KEY)
 		data->turn = 1;
 	else
-		keyclick_func(mlx, data, ky);
+		keyclick_func(data, ky);
 	return (0);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mozennou <mozennou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: asnaji <asnaji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 12:47:17 by mozennou          #+#    #+#             */
-/*   Updated: 2024/05/02 18:05:56 by mozennou         ###   ########.fr       */
+/*   Updated: 2024/05/09 15:45:57 by asnaji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ void	init_data2(t_data *data)
 t_ray	*ray_generator(t_data *data)
 {
 	t_ray	*rays = malloc(sizeof(t_ray) * WIDTH);
+	if (!rays)
+		exit(1);
 	double angle = data->angle - (FOV / 2);
 	float res = FOV / WIDTH;
 	for (int i = 0; i < WIDTH; i++)
@@ -111,7 +113,7 @@ void	floor_ceiling(t_strct *mlx, t_data *data)
 	}
 }
 
-unsigned int	getpixelcolor(char *tex, int b, int texOffset)
+unsigned int	getpixelcolor(char *tex, int texOffset)
 {
 	unsigned int	color;
 	unsigned char	red;
@@ -190,7 +192,7 @@ void	walls(t_ray *rays, t_strct *mlx)
 			{
 				vars.disfromtop = vars.j + (vars.wallheight / 2) - (HEIGHT / 2);
 				vars.texY = vars.disfromtop * ((float)TILE_SIZE / vars.wallheight);
-				vars.color = getpixelcolor(vars.tex, vars.b, (TILE_SIZE * vars.texY + vars.texX) * (vars.b / 8));
+				vars.color = getpixelcolor(vars.tex, (TILE_SIZE * vars.texY + vars.texX) * (vars.b / 8));
 				pixel_put(mlx, vars.i, vars.j, vars.color);
 			}	
 			if (((vars.i - WIDTH / 2) * (vars.i - WIDTH / 2) + (vars.j - HEIGHT / 2) * (vars.j - HEIGHT / 2)) < 10)

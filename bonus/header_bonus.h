@@ -6,7 +6,7 @@
 /*   By: asnaji <asnaji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 12:45:39 by mozennou          #+#    #+#             */
-/*   Updated: 2024/05/08 15:52:56 by asnaji           ###   ########.fr       */
+/*   Updated: 2024/05/09 15:57:13 by asnaji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,10 +171,9 @@ void			init_data1(t_strct *mlx, t_data *data);
 void			init_data2(t_data *data);
 t_ray			*ray_generator(t_data *data);
 int				is_ok(t_data *data, int x, int y);
-int				ft_roundf(double v);
 void			update(t_data *data);
 void			floor_ceiling(t_strct *mlx, t_data *data);
-unsigned int	getpixelcolor(char *tex, int b, int texOffset);
+unsigned int	getpixelcolor(char *tex, int texOffset);
 void			*getwalltexture(t_ray *rays, t_strct *mlx, int i);
 void			*getanimetex(t_strct *mlx);
 void			setvalues(t_vars *vars, t_ray *rays, t_strct *mlx, int i);
@@ -186,17 +185,18 @@ double			hcast(t_data *data, double angle, double xstep, double ystep);
 double			vcast(t_data *data, double angle, double xstep, double ystep);
 int				keyrelease(int ky, void *ptr);
 
-int	parse_clrs_txtrs(t_data **data, t_strct **mlx, int fd);
-void	fillkey_value(char *line, char **key, char **value);
-int	check_that(t_data *data);
+int				parse_clrs_txtrs(t_data **data, t_strct **mlx, int fd);
+void			fillkey_value(char *line, char **key, char **value);
+int				check_that(t_data *data);
 
-int	checkvalues(int i1, int i2, int i3);
-int	to_color(int r, int g, int b);
-void	free_array(char **line);
+int				checkvalues(int i1, int i2, int i3);
+int				to_color(int r, int g, int b);
+void			free_array(char **line);
 
-int	playerchar_found(char c, float *angle);
-int	check2(char **map, int i, int j);
-int	check1(char **map, int i, int j);
-int	check0(char c);
+int				playerchar_found(char c, float *angle);
+int				check2(char **map, int i, int j);
+int				check1(char **map, int i, int j);
+int				check0(char c);
 
+void			exit_fn(t_data *data);
 #endif

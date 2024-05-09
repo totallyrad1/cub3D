@@ -6,7 +6,7 @@
 /*   By: asnaji <asnaji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 15:47:45 by mozennou          #+#    #+#             */
-/*   Updated: 2024/05/08 15:27:18 by asnaji           ###   ########.fr       */
+/*   Updated: 2024/05/09 15:41:22 by asnaji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ char	*linemodified(char *line, int longestline)
 
 	i = 0;
 	newline = malloc(longestline + 1);
+	if (!newline)
+		exit(1);
 	while (i < longestline && line[i])
 	{
 		newline[i] = line[i];
