@@ -6,7 +6,7 @@
 /*   By: mozennou <mozennou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 17:58:42 by mozennou          #+#    #+#             */
-/*   Updated: 2024/05/10 14:12:24 by mozennou         ###   ########.fr       */
+/*   Updated: 2024/05/10 15:38:01 by mozennou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,11 @@ void	draw_map_func(int i, int j, t_strct *mlx, t_data *d)
 	}
 	else
 	{
-		if (is_wall(d, (d->y + j * 8 - 960 * 4),
-				(d->x + i * 8 - 1024 * 4 - 512 * 2)) == 1)
+		if (is_wall(d, (d->y + j * 8 - 3840),
+				(d->x + i * 8 - 5120)) == 1)
 			pixel_put(mlx, i, j, 0x5F6F52);
-		else if (is_wall(d, (d->y + j * 8 - 960 * 4),
-				(d->x + i * 8 - 1024 * 4 - 512 * 2)) == 2)
+		else if (is_wall(d, (d->y + j * 8 - 3840),
+				(d->x + i * 8 - 5120)) == 2)
 			pixel_put(mlx, i, j, 0x124076);
 		else
 			pixel_put(mlx, i, j, 0xA9B388);
