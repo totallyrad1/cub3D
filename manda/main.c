@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mozennou <mozennou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: asnaji <asnaji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 12:47:17 by mozennou          #+#    #+#             */
-/*   Updated: 2024/05/10 14:24:21 by mozennou         ###   ########.fr       */
+/*   Updated: 2024/05/10 14:57:13 by asnaji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,6 @@ int	initanimtex(t_strct *mlx)
 	int	w;
 	int	h;
 
-	mlx->data->door = mlx_xpm_file_to_image(mlx->mlx,
-			"./tex/512_door.xpm", &w, &h);
-	if (checkandreturn(w, h, mlx->data->door) == -1)
-		return (-1);
 	mlx->anim1 = mlx_xpm_file_to_image(mlx->mlx, "./tet/shoot1.xpm", &w, &h);
 	if (checkandreturn(512, 512, mlx->anim1) == -1)
 		return (-1);
@@ -59,14 +55,8 @@ int	initanimtext2(t_strct *mlx)
 	return (1);
 }
 
-void f()
-{
-	system("leaks cub3D_bonus");
-}
-
 int	main(int ac, char **av)
 {
-	// atexit(f);
 	t_strct	mlx;
 	t_data	data;
 

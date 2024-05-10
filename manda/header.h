@@ -43,7 +43,6 @@ typedef struct s_data
 	void	*ea;
 	void	*we;
 	void	*no;
-	void	*door;
 	int		f_color;
 	int		c_color;
 	int		up;
@@ -102,8 +101,6 @@ typedef struct s_vars
 	char	*tex;
 	float	projwallheight;
 	int		wallheight;
-	int		wtoppixel;
-	int		wbpotpixel;
 	int		texx;
 	int		texy;
 	int		color;
