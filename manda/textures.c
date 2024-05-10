@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   textures.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mozennou <mozennou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: asnaji <asnaji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 16:21:10 by mozennou          #+#    #+#             */
-/*   Updated: 2024/05/10 14:33:05 by mozennou         ###   ########.fr       */
+/*   Updated: 2024/05/10 14:55:19 by asnaji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,6 @@ void	*e_swalltext(t_ray *rays, t_strct *mlx, int i)
 
 void	*getwalltexture(t_ray *rays, t_strct *mlx, int i)
 {
-	if (rays[i].door == 1)
-		return (mlx->data->door);
 	if (rays[i].angle >= E && rays[i].angle <= S)
 		return (e_swalltext(rays, mlx, i));
 	else if (rays[i].angle >= S && rays[i].angle <= W)

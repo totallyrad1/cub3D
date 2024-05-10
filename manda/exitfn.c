@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exitfn.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mozennou <mozennou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: asnaji <asnaji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 19:32:31 by asnaji            #+#    #+#             */
-/*   Updated: 2024/05/10 14:17:09 by mozennou         ###   ########.fr       */
+/*   Updated: 2024/05/10 14:56:45 by asnaji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,6 @@ void	destroyimages(t_data *data)
 
 void	destroyanimtext(t_data *data)
 {
-	if (data->door)
-		mlx_destroy_image(data->mlx->mlx, data->door);
 	if (data->mlx->anim1)
 		mlx_destroy_image(data->mlx->mlx, data->mlx->anim1);
 	if (data->mlx->anim2)
