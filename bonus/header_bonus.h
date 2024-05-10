@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   header_bonus.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asnaji <asnaji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mozennou <mozennou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 12:45:39 by mozennou          #+#    #+#             */
-/*   Updated: 2024/05/09 19:48:46 by asnaji           ###   ########.fr       */
+/*   Updated: 2024/05/10 14:30:27 by mozennou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ typedef struct s_data
 	int		i;
 	int		j;
 	int		ver;
-	double	old_angle;
 	t_strct	*mlx;
 	int		amo;
 	int		map;
@@ -110,8 +109,8 @@ typedef struct s_vars
 	int		wallheight;
 	int		wtoppixel;
 	int		wbpotpixel;
-	int		texX;
-	int		texY;
+	int		texx;
+	int		texy;
 	int		color;
 	int		disfromtop;
 	int		b;
@@ -184,6 +183,7 @@ int				render3d(void *ptr);
 double			hcast(t_data *data, double angle, double xstep, double ystep);
 double			vcast(t_data *data, double angle, double xstep, double ystep);
 int				keyrelease(int ky, void *ptr);
+void			is_door(t_data *data, int m, int l);
 
 int				parse_clrs_txtrs(t_data **data, t_strct **mlx, int fd);
 void			fillkey_value(char *line, char **key, char **value);

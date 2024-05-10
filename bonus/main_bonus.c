@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asnaji <asnaji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mozennou <mozennou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 12:47:17 by mozennou          #+#    #+#             */
-/*   Updated: 2024/05/09 19:38:52 by asnaji           ###   ########.fr       */
+/*   Updated: 2024/05/10 14:08:49 by mozennou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	initanimtext2(t_strct *mlx)
 {
 	int	w;
 	int	h;
-	
+
 	mlx->reload1 = mlx_xpm_file_to_image(mlx->mlx, "./tet/reload0.xpm", &w, &h);
 	if (checkandreturn(512, 512, mlx->reload1) == -1)
 		return (-1);
@@ -59,8 +59,14 @@ int	initanimtext2(t_strct *mlx)
 	return (1);
 }
 
+void f()
+{
+	system("leaks cub3D_bonus");
+}
+
 int	main(int ac, char **av)
 {
+	// atexit(f);
 	t_strct	mlx;
 	t_data	data;
 

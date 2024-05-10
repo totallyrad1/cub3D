@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mozennou <mozennou@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/04/02 15:56:34 by mozennou          #+#    #+#             */
+/*   Updated: 2024/05/02 15:49:13 by mozennou         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "get_next_line.h"
 
 char	*ft_read(char *buffer, int fd, char *hold)
@@ -37,8 +49,6 @@ char	*ft_getline(char *hold)
 		return (NULL);
 	while (hold[i] && hold[i] != '\n')
 		i++;
-	// if (hold[i] == '\n')
-		// i++;
 	res = ft_substr(hold, 0, i);
 	return (res);
 }

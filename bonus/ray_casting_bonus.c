@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_casting_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asnaji <asnaji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mozennou <mozennou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 12:33:28 by mozennou          #+#    #+#             */
-/*   Updated: 2024/05/08 21:20:45 by asnaji           ###   ########.fr       */
+/*   Updated: 2024/05/10 13:56:43 by mozennou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	hinter(t_data *data, double *xinter, double *yinter, double angle)
 void	hstep(t_data *data, double *xstep, double *ystep, double angle)
 {
 	data->hhitx = INT_MAX;
+	data->hdoor = 0;
 	(*ystep) = TILE_SIZE;
 	if (data->up)
 		(*ystep) *= -1;
@@ -60,26 +61,22 @@ int	is_wall(t_data *data, double xx, double yy)
 	return (0);
 }
 
-double	hcast(t_data *data, double angle, double xstep, double ystep)
+double	hcast(t_data *dt, double angle, double xstep, double ystep)
 {
 	double	xinter;
 	double	yinter;
 	int		m;
 
-	direction(angle, &data->up, &data->right);
-	hinter(data, &xinter, &yinter, angle);
-	hstep(data, &xstep, &ystep, angle);
-	while (xinter > 0 && xinter < data->i && yinter > 0 && yinter < data->j)
+	direction(angle, &dt->up, &dt->right);
+	hinter(dt, &xinter, &yinter, angle);
+	hstep(dt, &xstep, &ystep, angle);
+	while (xinter > 0 && xinter < dt->i && yinter > 0 && yinter < dt->j)
 	{
-		m = is_wall(data, yinter, xinter);
+		m = is_wall(dt, yinter, xinter);
 		if (m)
 		{
-			data->hhitx = xinter;
-			data->hhity = yinter + data->up;
-			if (m == 2)
-				data->hdoor = 1;
-			else
-				data->hdoor = 0;
+			dt->hhitx = xinter;
+			dt->hhity = yinter + dt->up;
 			break ;
 		}
 		else
@@ -88,31 +85,27 @@ double	hcast(t_data *data, double angle, double xstep, double ystep)
 			yinter += ystep;
 		}
 	}
-	if (data->hhitx == INT_MAX)
+	if (dt->hhitx == INT_MAX)
 		return (INT_MAX);
-	return (dis(data->x, data->y, data->hhitx, data->hhity));
+	return (is_door(dt, m, 0), dis(dt->x, dt->y, dt->hhitx, dt->hhity));
 }
 
-double	vcast(t_data *data, double angle, double xstep, double ystep)
+double	vcast(t_data *dt, double angle, double xstep, double ystep)
 {
 	double	xinter;
 	double	yinter;
 	int		m;
 
-	direction(angle, &data->up, &data->right);
-	vinter(data, &xinter, &yinter, angle);
-	vstep(data, &xstep, &ystep, angle);
-	while (xinter > 0 && xinter < data->i && yinter > 0 && yinter < data->j)
+	direction(angle, &dt->up, &dt->right);
+	vinter(dt, &xinter, &yinter, angle);
+	vstep(dt, &xstep, &ystep, angle);
+	while (xinter > 0 && xinter < dt->i && yinter > 0 && yinter < dt->j)
 	{
-		m = is_wall(data, yinter, xinter);
+		m = is_wall(dt, yinter, xinter);
 		if (m)
 		{
-			data->vhitx = xinter + !data->right;
-			data->vhity = yinter;
-			if (m == 2)
-				data->vdoor = 1;
-			else
-				data->vdoor = 0;
+			dt->vhitx = xinter + !dt->right;
+			dt->vhity = yinter;
 			break ;
 		}
 		else
@@ -121,7 +114,7 @@ double	vcast(t_data *data, double angle, double xstep, double ystep)
 			yinter += ystep;
 		}
 	}
-	if (data->vhitx == INT_MAX)
+	if (dt->vhitx == INT_MAX)
 		return (INT_MAX);
-	return (dis(data->x, data->y, data->vhitx, data->vhity));
+	return (is_door(dt, m, 1), dis(dt->x, dt->y, dt->vhitx, dt->vhity));
 }

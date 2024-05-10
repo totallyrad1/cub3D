@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   mlx.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mozennou <mozennou@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/04/02 15:46:59 by mozennou          #+#    #+#             */
+/*   Updated: 2024/05/10 14:29:34 by mozennou         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "header.h"
 
 void	init_graphics(t_strct *mlx)
@@ -14,6 +26,7 @@ void	init_graphics(t_strct *mlx)
 	mlx->bf = mlx_get_data_addr(mlx->img, &mlx->pxl_b, &mlx->ln_b, &mlx->en);
 	if (!mlx->bf)
 		exit(1);
+	mlx->texid = 0;
 }
 
 void	free_map(char **map)
@@ -21,19 +34,9 @@ void	free_map(char **map)
 	int	i;
 
 	i = 0;
-	while(map[i])
+	while (map[i])
 		free(map[i++]);
 	free(map);
-}
-
-int	destroy(t_strct *mlx)
-{
-	mlx_destroy_image(mlx->mlx, mlx->img);
-	mlx_destroy_window(mlx->mlx, mlx->win);
-	free(mlx->mlx);
-	free_map(mlx->data->mp);
-	exit(0);
-	return (0);
 }
 
 int	keyclick(int ky, void *ptr)
@@ -62,7 +65,7 @@ int	keyclick(int ky, void *ptr)
 
 int	keyrelease(int ky, void *ptr)
 {
-	t_data *data;
+	t_data	*data;
 
 	data = ptr;
 	if (ky == UP_KEY || ky == 126 || ky == DOWN_KEY || ky == 125)
@@ -72,19 +75,4 @@ int	keyrelease(int ky, void *ptr)
 	else if (ky == RRIGHT_KEY || ky == RLEFT_KEY)
 		data->turn = 0;
 	return (0);
-}
-
-void	init_events(t_strct *mlx)
-{
-	mlx_hook(mlx->win, ON_KEYRELEASE, 0, keyrelease, mlx->data);
-	mlx_hook(mlx->win, ON_DESTROY, 0, destroy, mlx);
-	mlx_hook(mlx->win, ON_KEYDOWN, 0, keyclick, mlx);
-}
-
-void	pixel_put(t_strct *mlx, int x, int y, int color)
-{
-	char	*dst;
-
-	dst = mlx->bf + (y * mlx->ln_b + x * (mlx->pxl_b / 8));
-	*(unsigned int *) dst = color;
 }
