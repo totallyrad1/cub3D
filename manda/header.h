@@ -84,13 +84,6 @@ typedef struct s_strct
 	void	*reload3;
 	void	*reload4;
 	void	*reload5;
-	void	*kirby1;
-	void	*kirby2;
-	void	*kirby3;
-	void	*kirby4;
-	void	*kirby5;
-	void	*kirby6;
-	void	*kirby7;
 	int		texid1;
 	int		texid;
 	t_data	*data;

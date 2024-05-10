@@ -6,7 +6,7 @@
 /*   By: asnaji <asnaji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 12:47:17 by mozennou          #+#    #+#             */
-/*   Updated: 2024/05/10 15:23:26 by asnaji           ###   ########.fr       */
+/*   Updated: 2024/05/10 15:56:16 by asnaji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int	main(int ac, char **av)
 	init_data1(&mlx, &data);
 	init_graphics(&mlx);
 	if (initanimtex(&mlx) == -1 || initanimtext2(&mlx) == -1)
-		return (1);
+		return (exit_fn(&data), 1);
 	if (parsing(&data, &mlx, av[1]) == -1)
 		return (exit_fn(&data), 1);
 	if (checkifmapvalid(&data))
