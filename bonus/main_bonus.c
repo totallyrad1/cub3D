@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mozennou <mozennou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: asnaji <asnaji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 12:47:17 by mozennou          #+#    #+#             */
-/*   Updated: 2024/05/10 14:08:49 by mozennou         ###   ########.fr       */
+/*   Updated: 2024/05/10 15:23:26 by asnaji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,14 +59,8 @@ int	initanimtext2(t_strct *mlx)
 	return (1);
 }
 
-void f()
-{
-	system("leaks cub3D_bonus");
-}
-
 int	main(int ac, char **av)
 {
-	// atexit(f);
 	t_strct	mlx;
 	t_data	data;
 

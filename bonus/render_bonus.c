@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mozennou <mozennou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: asnaji <asnaji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 16:56:04 by mozennou          #+#    #+#             */
-/*   Updated: 2024/05/10 14:25:30 by mozennou         ###   ########.fr       */
+/*   Updated: 2024/05/10 15:21:54 by asnaji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,6 @@ void	setvalues(t_vars *vars, t_ray *rays, t_strct *mlx, int i)
 			&vars->b, &vars->l, &vars->x);
 	vars->projwallheight = (TILE_SIZE / rays[i].dis) * DISPROJ;
 	vars->wallheight = (int)vars->projwallheight;
-	vars->wtoppixel = (HEIGHT / 2) - (vars->wallheight / 2);
-	if (vars->wtoppixel < 0)
-		vars->wtoppixel = 0;
-	vars->wbpotpixel = (HEIGHT / 2) + (vars->wallheight / 2);
-	if (vars->wbpotpixel > HEIGHT)
-		vars->wbpotpixel = HEIGHT;
 	if (rays[i].ver)
 		vars->texx = (int)rays[i].hity % TILE_SIZE;
 	else

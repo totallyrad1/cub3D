@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   header_bonus.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mozennou <mozennou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: asnaji <asnaji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 12:45:39 by mozennou          #+#    #+#             */
-/*   Updated: 2024/05/10 14:30:27 by mozennou         ###   ########.fr       */
+/*   Updated: 2024/05/10 15:21:59 by asnaji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,8 +107,6 @@ typedef struct s_vars
 	char	*tex;
 	float	projwallheight;
 	int		wallheight;
-	int		wtoppixel;
-	int		wbpotpixel;
 	int		texx;
 	int		texy;
 	int		color;
