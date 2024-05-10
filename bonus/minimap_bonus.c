@@ -6,7 +6,7 @@
 /*   By: mozennou <mozennou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/30 20:05:12 by mozennou          #+#    #+#             */
-/*   Updated: 2024/05/02 17:58:54 by mozennou         ###   ########.fr       */
+/*   Updated: 2024/05/10 15:38:26 by mozennou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,11 +65,11 @@ void	mini_map_func(int i, int j, t_data *d, t_strct *mlx)
 	if (((i - WIDTH / 10) * (i - WIDTH / 10)
 			+ (j - HEIGHT / 10) * (j - HEIGHT / 10)) < 8500)
 	{
-		if (is_wall(d, (d->y + j * 16 - 192 * 8),
-				(d->x + i * 16 - 256 * 8)) == 1)
+		if (is_wall(d, (d->y + j * 16 - 1536),
+				(d->x + i * 16 - 2048)) == 1)
 			pixel_put(mlx, i, j, 0x5F6F52);
-		else if (is_wall(d, (d->y + j * 16 - 192 * 8),
-				(d->x + i * 16 - 256 * 8)) == 2)
+		else if (is_wall(d, (d->y + j * 16 - 1536),
+				(d->x + i * 16 - 2048)) == 2)
 			pixel_put(mlx, i, j, 0x124076);
 		else
 			pixel_put(mlx, i, j, 0xA9B388);
