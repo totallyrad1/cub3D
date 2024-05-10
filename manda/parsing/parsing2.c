@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing2.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mozennou <mozennou@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/04/02 15:47:55 by mozennou          #+#    #+#             */
+/*   Updated: 2024/05/10 14:19:47 by mozennou         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../header.h"
 
 int	fill_forkey(t_data **data, char *key, char *value, t_strct **mlx)
@@ -23,7 +35,7 @@ int	fillandcheckmap(t_data **data, char *filename, int longestline)
 	char	*line;
 	int		i;
 
-	i = 0;	
+	i = 0;
 	fd = open(filename, O_RDONLY);
 	if (fd == -1)
 		return (wrerror("error opening file\n"), free((*data)->mp), -1);
@@ -31,7 +43,7 @@ int	fillandcheckmap(t_data **data, char *filename, int longestline)
 		free(get_next_line(fd));
 	i = 0;
 	line = get_next_line(fd);
-	while( line)
+	while (line)
 	{
 		(*data)->mp[i] = linemodified(line, longestline);
 		line = get_next_line(fd);
@@ -50,7 +62,7 @@ int	get_map(t_data **data, char *filename, int fd)
 
 	arr_size = 0;
 	line = get_next_line(fd);
-	if(line == NULL)
+	if (line == NULL)
 		return (-1);
 	longestline = 0;
 	while (line)
@@ -69,34 +81,43 @@ int	get_map(t_data **data, char *filename, int fd)
 	return (fillandcheckmap(data, filename, longestline));
 }
 
-int checknum(char *str)
+int	skipspace_andcommac(int *i, int *ccount, char *str)
 {
-	int ncount;
-	int ccount;
-	int i;
+	while (str[*i] && ft_isspace(str[*i]))
+		(*i)++;
+	if (str[*i] && str[*i] == ',')
+	{
+		(*i)++;
+		(*ccount)++;
+	}
+	else if (str[*i])
+		return (0);
+	return (1);
+}
+
+int	checkvalidnumbers(char *str)
+{
+	int	ncount;
+	int	ccount;
+	int	i;
 
 	i = 0;
 	ncount = 0;
 	ccount = 0;
-	while(str && str[i])
+	while (str && str[i])
 	{
-		if(str[i] >= '0' && str[i] <= '9')
+		if (str[i] >= '0' && str[i] <= '9')
 			ncount++;
 		else
-			return(0);
-		while(str[i] >= '0' && str[i] <= '9')
+			return (0);
+		while (str[i] >= '0' && str[i] <= '9')
 			i++;
-		if(str[i] && str[i] == ',')
-		{
-			ccount++;
-			i++;
-		}
-		else if (str[i])
-			return(0);
-		while(str[i] && ft_isspace(str[i]))
+		if (skipspace_andcommac(&i, &ccount, str) == 0)
+			return (0);
+		while (str[i] && ft_isspace(str[i]))
 			i++;
 	}
 	if (ncount != 3 || ccount != 2)
-		return(0);
+		return (0);
 	return (1);
 }

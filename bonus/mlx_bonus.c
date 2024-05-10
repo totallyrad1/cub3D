@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_bonus.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asnaji <asnaji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mozennou <mozennou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 15:46:59 by mozennou          #+#    #+#             */
-/*   Updated: 2024/05/09 17:39:45 by asnaji           ###   ########.fr       */
+/*   Updated: 2024/05/10 13:28:42 by mozennou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	keyclick_func(t_data *data, int ky)
 		{
 			mlx_mouse_hide();
 			mlx_mouse_move(data->mlx->win,
-				(data->angle / ((M_PI / 180) / 1.8)) + WIDTH / 2, HEIGHT / 2);
+				(data->angle / 0.009696273622) + WIDTH / 2, HEIGHT / 2);
 			data->hide = 0;
 		}
 	}

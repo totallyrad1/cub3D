@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing1.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mozennou <mozennou@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/04/02 15:47:49 by mozennou          #+#    #+#             */
+/*   Updated: 2024/05/10 14:19:45 by mozennou         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../header.h"
 
 int	check_that(t_data *data)
@@ -34,6 +46,15 @@ void	fillkey_value(char *line, char **key, char **value)
 		free(line);
 }
 
+int	check_kv(char *key, char *value)
+{
+	if (!key)
+		return (wrerror("invalid8 keyword\n"), -1);
+	if (!value)
+		return (wrerror("invalid8 value\n"), free(key), -1);
+	return (1);
+}
+
 int	parse_clrs_txtrs(t_data **data, t_strct **mlx, int fd)
 {
 	char	*line;
@@ -46,10 +67,8 @@ int	parse_clrs_txtrs(t_data **data, t_strct **mlx, int fd)
 		if (line && line[0])
 		{
 			fillkey_value(line, &key, &value);
-			if (!key)
-				return (wrerror("invalid8 keyword\n"), -1);
-			if (!value)
-				return (wrerror("invalid8 value\n"), free(key), -1);
+			if (check_kv(key, value) == -1)
+				return (-1);
 			if (fill_forkey(data, key, value, mlx) == -1)
 				return (wrerror("Error777\n"), free(key), free(value), -1);
 			free(key);
@@ -62,31 +81,5 @@ int	parse_clrs_txtrs(t_data **data, t_strct **mlx, int fd)
 			return (1);
 		line = get_next_line(fd);
 	}
-	return (1);
-}
-
-int	fn_open(char *filename)
-{
-	int	fd;
-
-	fd = open(filename, O_RDONLY);
-	if (fd == -1)
-		wrerror("Error :2 opening file\n");
-	return (fd);
-}
-
-int	parsing(t_data *data, t_strct *mlx, char *filename)
-{
-	int	fd;
-
-	fd = fn_open(filename);
-	if (fd == -1)
-		return (-1);
-	if (parse_clrs_txtrs(&data, &mlx, fd) == -1)
-		return (close(fd), -1);
-	if (check_that(data) == 0)
-		return (close(fd), wrerror("Error5\n"), -1);
-	if (get_map(&data, filename, fd) == -1)
-		return (close(fd), wrerror("Error7\n"), -1);
 	return (1);
 }
